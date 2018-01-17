@@ -97,6 +97,32 @@ devMiddleware.waitUntilValid(() => {
   })
 })
 
+/*
+  文件
+*/
+var fs = require('fs');
+var apiRoutes = express.Router()
+
+// 请求具体的某一篇文章
+apiRoutes.get('/articles/1', function (req, res) {
+  // 文件路径
+  var mdPath = path.join(__dirname, '../src/articles/test.md');
+  fs.readFile(mdPath, {
+    encoding: 'utf-8'
+  }, function (err, data) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    var mdStr = data;
+    // console.log('mdStr = ' + mdStr);
+    res.json({
+      errorCode: 0,
+      data: mdStr
+    });
+  });
+})
+app.use('/api',apiRoutes)
 module.exports = {
   ready: readyPromise,
   close: () => {
