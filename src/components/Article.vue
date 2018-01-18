@@ -2,7 +2,6 @@
   <div id="article">
     <div id="article_content" v-html="compiledMarkdown"></div>
     <div id="article_list">
-      <p>目录</p>
       <tree-list></tree-list>
     </div>
   </div>
@@ -37,7 +36,7 @@ export default {
   },
   data () {
     return {
-      files: [{file: ''}],
+      files: [{file: ''}]
     }
   },
   components: {
