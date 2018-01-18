@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="" v-html="compiledHtml">
+    <div class="compiledHtml" v-html="compiledHtml">
 
     </div>
 
@@ -11,10 +11,14 @@
 import Vue from 'vue'
 import Resource from 'vue-resource'
 import marked from 'marked'
+import highlightjs from 'highlightjs'
 
 Vue.use(Resource)
 marked.setOptions({
   renderer: new marked.Renderer(),
+  highlight: function (code, lang, callback) {
+    return highlightjs.highlightAuto(code).value   // 这里highlightjs会自动给代码增加类
+  },
   gfm: true,
   tables: true,
   breaks: false,
@@ -39,8 +43,8 @@ export default {
       console.log(response)
       // 拿到数据
       let mdData = response.body.data  // md格式数据
-      mdData = mdData.replace(/#/g, '# ')  // 因为简书里的#后接文字是可以被识别的，但是marked必须# 后接文字才可以被识别
-      let htmlData = marked(mdData, {sanitize: true})    // html格式数据
+      //  mdData = mdData.replace(/#/g, '# ')  // 因为简书里的#后接文字是可以被识别的，但是marked必须# 后接文字才可以被识别
+      let htmlData = marked(mdData)    // html格式数据
       this.$set(this.files, 0, {file: htmlData})
 
       //  this.$set('file', htmlData)
@@ -51,7 +55,7 @@ export default {
   },
   computed: {
     compiledHtml: function () {
-      console.log(this.files)
+      console.log(this.files[0].file)
       return this.files[0].file
     }
   }
@@ -59,14 +63,4 @@ export default {
 </script>
 
 <style>
-component-left:{
-  border: 1px solid;
-  height: 850px;
-  width: 30%;
-}
-component-right:{
-  border: 1px solid;
-  height: 850px;
-  width: 70%;
-}
 </style>
