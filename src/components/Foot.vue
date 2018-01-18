@@ -23,5 +23,7 @@
   background-color: black;
   position: fixed;
   bottom: 0px;
+  display: block;
+  text-align: center;
 }
 </style>
