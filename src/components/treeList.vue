@@ -1,9 +1,11 @@
 <template>
   <div
-    class="item"
-    @click="toggle">
-    {{name}}
-    <span>[{{open ? '-' : '+'}}]</span>
+    class="item">
+    <p
+      @click="toggle">
+      {{name}}
+      <span>[{{open ? '-' : '+'}}]</span>
+    </p>
     <ul v-show="open" v-if="hisChildren">
       <li
         @click="toggleArticle"

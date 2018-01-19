@@ -5,7 +5,10 @@
       <ul v-for="item in menu">
         <tree-list :articles="item.articles" :name="item.name"></tree-list>
       </ul>
+      <button type="button" name="button" @click="editorShow = !editorShow">新建文章</button>
     </div>
+    <editor v-show="editorShow" @close="editorShow = false">
+    </editor>
   </div>
 </template>
 
@@ -15,6 +18,7 @@ import Resource from 'vue-resource'
 import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
+import editor from './editor'
 //  import _ from 'lodash'
 
 Vue.use(Resource)
@@ -63,11 +67,13 @@ export default {
   data () {
     return {
       files: [{file: ''}],
-      menu: menuList
+      menu: menuList,
+      editorShow: false
     }
   },
   components: {
-    treeList
+    treeList,
+    editor
   },
   methods: {
   },
