@@ -2,7 +2,7 @@
   <div id="article">
     <div id="article_content" v-html="compiledMarkdown"></div>
     <div id="article_list">
-      <ul v-for="item in menu">
+      <ul class="itemName" v-for="item in menu">
         <tree-list :articles="item.articles" :name="item.name"></tree-list>
       </ul>
       <button type="button" name="button" @click="editorShow = !editorShow">新建文章</button>
@@ -125,10 +125,19 @@ div {
   display: inline-block;
 }
 #article_list {
-  width: 18%;
+  float: right;
+  width: 19%;
   height: 100%;
   border-style: solid;
   display: inline-block;
+  padding: 0px;
+}
+#article_list .itemName {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 code {
   color: #f66;
