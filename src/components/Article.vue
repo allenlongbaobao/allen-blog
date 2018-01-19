@@ -2,7 +2,9 @@
   <div id="article">
     <div id="article_content" v-html="compiledMarkdown"></div>
     <div id="article_list">
-      <tree-list></tree-list>
+      <ul v-for="item in menu">
+        <tree-list :articles="item.articles" :name="item.name"></tree-list>
+      </ul>
     </div>
   </div>
 </template>
@@ -30,13 +32,38 @@ marked.setOptions({
   smartypants: false
 })
 
-export default {
-  props: {
-    model: Object
+let menuList = [
+  {
+    name: '数据结构',
+    link: '#',
+    articles: [
+      {
+        name: '数据结构第一篇文章',
+        link: '#'
+      },
+      {
+        name: '数据结构第二篇文章',
+        link: '#'
+      }
+    ]
   },
+  {
+    name: '算法',
+    link: '#',
+    articles: [
+      {
+        name: '算法第一篇文章',
+        link: '#'
+      }
+    ]
+  }
+]
+
+export default {
   data () {
     return {
-      files: [{file: ''}]
+      files: [{file: ''}],
+      menu: menuList
     }
   },
   components: {
