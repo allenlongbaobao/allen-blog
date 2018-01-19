@@ -7,7 +7,7 @@
       </ul>
       <button type="button" name="button" @click="editorShow = !editorShow">新建文章</button>
     </div>
-    <editor v-show="editorShow" @close="editorShow = false">
+    <editor v-show="editorShow" @save="save" @publish="publish" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
 </template>
@@ -76,6 +76,15 @@ export default {
     editor
   },
   methods: {
+    save: function () {
+      console.log('it will save')
+    },
+    publish: function () {
+      console.log('it will publish')
+    },
+    exit: function () {
+      this.editorShow = false
+    }
   },
   created () {
     this.$http.get('/api/articles/1').then(response => {

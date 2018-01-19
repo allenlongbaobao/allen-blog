@@ -5,6 +5,9 @@
         <div class="modal-container">
           <div class="modal-header">
             this is an editor
+            <button class="modal-default-button" @click="$emit('save')">保存至草稿箱</button>
+            <button name="button" @click="$emit('publish')">发布</button>
+            <button type="button" name="button" @click="exitWithoutSave">退出</button>
           </div>
           <div class="modal-body editor">
             <textarea :value="input" @input="update"></textarea>
@@ -12,9 +15,6 @@
           </div>
 
           <div class="modal-footer">
-            <button class="modal-default-button" @click="$emit('close')">
-              OK
-            </button>
           </div>
         </div>
       </div>
@@ -40,7 +40,14 @@ export default {
   methods: {
     update: _.debounce(function (e) {
       this.input = e.target.value
-    }, 300)
+    }, 300),
+    exitWithoutSave: function () {
+      var exitornot = confirm('您确定退出编辑，不保存当前编辑内容吗？')
+      if (exitornot) {
+        this.input = ''
+        this.$emit('exit')
+      }
+    }
   }
 }
 </script>
@@ -61,16 +68,17 @@ export default {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  margin: 0px auto;
 }
 
 .modal-container {
-  width: 80%;
+  width: 100%;
   height: 80%;
   vertical-align: middle;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
