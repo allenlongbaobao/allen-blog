@@ -7,6 +7,7 @@
             this is an editor
             <button class="modal-default-button" @click="$emit('save')">保存至草稿箱</button>
             <button name="button" @click="$emit('publish')">发布</button>
+            <button name="button" @click="$emit('saveAs')">另存为</button>
             <button type="button" name="button" @click="exitWithoutSave">退出</button>
           </div>
           <div class="modal-body editor">

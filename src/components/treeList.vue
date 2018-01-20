@@ -8,7 +8,7 @@
     </p>
     <ul v-show="open" v-if="hisChildren">
       <li
-        @click="toggleArticle"
+        @click="toggleArticle(article.link)"
         v-for="article in articles">
         {{article.name}}
       </li>
@@ -33,8 +33,8 @@ export default {
       this.open = !this.open
       console.log('open:' + this.open)
     },
-    toggleArticle: function () {
-      console.log('openArticle:')
+    toggleArticle: function (link) {
+      this.$emit('toggleArticle', link)
     },
     hisChildren: function () {
       return this.model.children && this.model.children.length > 0

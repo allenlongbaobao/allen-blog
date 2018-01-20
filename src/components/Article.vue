@@ -3,11 +3,11 @@
     <div id="article_content" v-html="compiledMarkdown"></div>
     <div id="article_list">
       <ul class="itemName" v-for="item in menu">
-        <tree-list :articles="item.articles" :name="item.name"></tree-list>
+        <tree-list :articles="item.articles" :name="item.name" @toggleArticle="toggleArticle"></tree-list>
       </ul>
       <button type="button" name="button" @click="editorShow = !editorShow">新建文章</button>
     </div>
-    <editor v-show="editorShow" @save="save" @publish="publish" @exit="exit" @close="editorShow = false">
+    <editor v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
 </template>
@@ -36,7 +36,7 @@ marked.setOptions({
   smartypants: false
 })
 
-let menuList = [
+/*  let menuList = [
   {
     name: '数据结构',
     link: '#',
@@ -62,12 +62,13 @@ let menuList = [
     ]
   }
 ]
-
+*/
 export default {
   data () {
     return {
       files: [{file: ''}],
-      menu: menuList,
+      //  menu: menuList,
+      menu: [],
       editorShow: false
     }
   },
@@ -76,18 +77,39 @@ export default {
     editor
   },
   methods: {
+    toggleArticle: function (link) {
+      this.getArticleAndShow(link)
+    },
     save: function () {
       console.log('it will save')
     },
     publish: function () {
       console.log('it will publish')
     },
+    saveAs: function () {
+      console.log('it will saveas')
+    },
     exit: function () {
       this.editorShow = false
+    },
+    getArticleAndShow: function (link) {
+      this.$http.get('/api/articles/' + link).then(response => {
+        let mdData = response.body.data
+        let htmlData = marked(mdData)
+        this.$set(this.files, 0, {file: htmlData})
+      }, response => {
+        console.log(response)
+      })
     }
   },
   created () {
-    this.$http.get('/api/articles/1').then(response => {
+    this.$http.get('/api/getmenu').then(response => {
+      console.log(response)
+      this.$data.menu = response.body.data
+    }, response => {
+      console.log(response)
+    })
+    this.$http.get('/api/articles/link1').then(response => {
       console.log(response)
       // 拿到数据
       let mdData = response.body.data  // md格式数据

@@ -100,27 +100,62 @@ devMiddleware.waitUntilValid(() => {
 /*
   文件
 */
-var fs = require('fs');
+var fs = require('fs')
 var apiRoutes = express.Router()
 
+let menuList = [
+  {
+    name: '数据结构',
+    link: '#',
+    articles: [
+      {
+        name: '数据结构第一篇文章',
+        link: 'link1'
+      },
+      {
+        name: '数据结构第二篇文章',
+        link: 'link2'
+      }
+    ]
+  },
+  {
+    name: '算法',
+    link: '#',
+    articles: [
+      {
+        name: '算法第一篇文章',
+        link: '#'
+      }
+    ]
+  }
+]
+
+// 请求目录数据
+apiRoutes.get('/getmenu', function (req, res) {
+  res.json({
+    errorCode: 0,
+    data: menuList
+  })
+})
 // 请求具体的某一篇文章
-apiRoutes.get('/articles/1', function (req, res) {
+apiRoutes.get('/articles/:id', function (req, res) {
   // 文件路径
-  var mdPath = path.join(__dirname, '../src/articles/test.md');
+  console.log(req.params.id)
+  var mdPath = path.join(__dirname, '../src/articles/' + req.params.id + '.md');
   fs.readFile(mdPath, {
     encoding: 'utf-8'
   }, function (err, data) {
     if (err) {
-      console.log(err);
-      return;
+      console.log(err)
+      return
     }
-    var mdStr = data;
+    var mdStr = data
     // console.log('mdStr = ' + mdStr);
     res.json({
       errorCode: 0,
       data: mdStr
-    });
-  });
+    })
+  })
 })
 app.use('/api',apiRoutes)
 module.exports = {
