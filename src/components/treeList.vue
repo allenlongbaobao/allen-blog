@@ -10,7 +10,7 @@
       <li
         @click="toggleArticle(article.link)"
         v-for="article in articles">
-        {{article.name}}
+        <a href="#">{{article.name}}</a>
       </li>
     </ul>
   </div>

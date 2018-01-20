@@ -106,17 +106,8 @@ export default {
     this.$http.get('/api/getmenu').then(response => {
       console.log(response)
       this.$data.menu = response.body.data
+      this.getArticleAndShow(this.$data.menu[0].articles[0].link)
     }, response => {
-      console.log(response)
-    })
-    this.$http.get('/api/articles/link1').then(response => {
-      console.log(response)
-      // 拿到数据
-      let mdData = response.body.data  // md格式数据
-      //  mdData = mdData.replace(/#/g, '# ')  // 因为简书里的#后接文字是可以被识别的，但是marked必须# 后接文字才可以被识别
-      let htmlData = marked(mdData, {sanitize: true})    // html格式数据
-      this.$set(this.files, 0, {file: htmlData})
-    }, response => {  // 请求失败
       console.log(response)
     })
   },
