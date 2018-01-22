@@ -5,6 +5,7 @@ import Head from '@/components/Head'
 import Body from '@/components/Body'
 import Foot from '@/components/Foot'
 import Article from '@/components/Article'
+import Manage from '@/components/Manage'
 
 Vue.use(Router)
 
@@ -34,6 +35,15 @@ export default new Router({
       components: {
         Head: Head,
         Body: Mask,
+        Foot: Foot
+      }
+    },
+    {
+      path: '/manage',
+      name: 'manage',
+      components: {
+        Head: Head,
+        Body: Manage,
         Foot: Foot
       }
     }

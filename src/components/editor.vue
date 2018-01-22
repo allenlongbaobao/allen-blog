@@ -4,17 +4,25 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
-            this is an editor
-            <button class="modal-default-button" @click="$emit('save')">保存至草稿箱</button>
-            <button name="button" @click="$emit('publish')">发布</button>
-            <button name="button" @click="$emit('saveAs')">另存为</button>
-            <button type="button" name="button" @click="exitWithoutSave">退出</button>
+            <span>标题：</span>
+            <el-input id="titleInput" :value="title" type="text" name="title" placeholder="请输入标题"></el-input>
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            <el-button class="modal-default-button" @click="$emit('save')">保存至草稿箱</el-button>
+            <el-button name="button" @click="publish">发布</el-button>
+            <el-button name="button" @click="$emit('saveAs')">另存为</el-button>
+            <el-button type="button" name="button" @click="exitWithoutSave">退出</el-button>
           </div>
           <div class="modal-body editor">
             <textarea :value="input" @input="update"></textarea>
             <div class="output" v-html="compiledMarkdown"></div>
           </div>
-
           <div class="modal-footer">
           </div>
         </div>
@@ -30,7 +38,16 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      input: '# test'
+      input: '# test',
+      title: '默认标题',
+      value: '',
+      options: [{
+        value: 'id',
+        label: '数据结构'
+      }, {
+        value: 'id',
+        label: '算法'
+      }]
     }
   },
   computed: {
@@ -42,6 +59,15 @@ export default {
     update: _.debounce(function (e) {
       this.input = e.target.value
     }, 300),
+    publish: function () {
+      console.log(this.title)
+      let data = {
+        noteContent: this.input,
+        publish: true,
+        noteName: this.title
+      }
+      this.$emit('publish', data)
+    },
     exitWithoutSave: function () {
       var exitornot = confirm('您确定退出编辑，不保存当前编辑内容吗？')
       if (exitornot) {
@@ -73,7 +99,7 @@ export default {
 }
 
 .modal-container {
-  width: 100%;
+  width: 90%;
   height: 80%;
   vertical-align: middle;
   margin: 0px auto;
@@ -83,6 +109,10 @@ export default {
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header {
+  width: 100%;
 }
 
 .modal-header h3 {
@@ -123,6 +153,7 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 #editor {
   margin: 0;
   height: 100%;
@@ -130,7 +161,16 @@ export default {
   color: #333;
 }
 
+div.el-input{
+  width: 30%;
+}
+
+div.el-select{
+  width: 20%;
+}
+
 .output {
+  float: right;
   height: 100%;
   width: 49%;
   overflow: scroll;

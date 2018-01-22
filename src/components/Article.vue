@@ -5,10 +5,7 @@
       <ul class="itemName" v-for="item in menu">
         <tree-list :articles="item.articles" :name="item.name" @toggleArticle="toggleArticle"></tree-list>
       </ul>
-      <button type="button" name="button" @click="editorShow = !editorShow">新建文章</button>
     </div>
-    <editor v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
-    </editor>
   </div>
 </template>
 
@@ -68,8 +65,7 @@ export default {
     return {
       files: [{file: ''}],
       //  menu: menuList,
-      menu: [],
-      editorShow: false
+      menu: []
     }
   },
   components: {
@@ -79,18 +75,6 @@ export default {
   methods: {
     toggleArticle: function (link) {
       this.getArticleAndShow(link)
-    },
-    save: function () {
-      console.log('it will save')
-    },
-    publish: function () {
-      console.log('it will publish')
-    },
-    saveAs: function () {
-      console.log('it will saveas')
-    },
-    exit: function () {
-      this.editorShow = false
     },
     getArticleAndShow: function (link) {
       this.$http.get('/api/articles/' + link).then(response => {

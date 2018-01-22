@@ -30,6 +30,10 @@ export default {
         {
           link: '/lab',
           content: '实验室'
+        },
+        {
+          link: '/manage',
+          content: '管理'
         }
       ]
     }
