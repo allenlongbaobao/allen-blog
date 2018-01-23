@@ -29,8 +29,9 @@ export default {
     }
   },
   created () {
-    this.$http.get('/api/getNoteList').then(response => {
-      Window.localstorage.setItem('noteList', response.body.data)
+    this.$http.get('/api/getArticleList').then(response => {
+      console.log('getarticlelist', response.body.data)
+      window.localStorage.setItem('articleList', JSON.stringify(response.body.data))
     }, response => {
     })
   },

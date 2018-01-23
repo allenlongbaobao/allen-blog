@@ -6,8 +6,8 @@
           <div class="modal-header">
             <span>标题：</span>
             <el-input class="titleInput" :value="title" type="text" name="title" placeholder="请输入标题"></el-input>
-            <el-select size="large" v-model="value" placeholder="请选择">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            <el-select size="large" v-model="selectValue" placeholder="请选择">
+              <el-option v-for="item in options" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
             </el-select>
             <el-button class="modal-default-button" @click="$emit('save')">保存至草稿箱</el-button>
@@ -36,7 +36,7 @@ export default {
     return {
       input: '# test',
       title: '',
-      value: '',
+      selectValue: '',
       options: []
     }
   },
@@ -46,7 +46,7 @@ export default {
     }
   },
   created () {
-    this.options = Window.localstorage.getItem('noteList')
+    this.options = JSON.parse(window.localStorage.getItem('articleList'))
   },
   methods: {
     update: _.debounce(function (e) {
@@ -55,9 +55,12 @@ export default {
     publish: function () {
       console.log(this.title)
       let data = {
-        noteContent: this.input,
+        articleContent: this.input,
         publish: true,
-        noteName: this.title
+        articleName: this.title,
+        articleList: {
+
+        }
       }
       this.$emit('publish', data)
     },

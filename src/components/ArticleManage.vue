@@ -42,12 +42,12 @@ export default {
     },
     publish: function (data) {
       let article = {
-        noteName: data.noteName,
-        noteLink: 'link',
-        noteContent: data.noteContent,
+        articleName: data.articleName,
+        articleContent: data.articleContent,
         publish: data.publish,
-        noteList: {
-          name: '数据结构'
+        articleList: {
+          Lid: 'sdfasdf',
+          name: data.articleList.name
         }
       }
       this.$http.post('/api/addArticle', article).then(response => {
