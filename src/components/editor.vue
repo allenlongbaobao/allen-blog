@@ -37,10 +37,7 @@ export default {
       input: '# test',
       title: '',
       value: '',
-      options: [{
-        value: '',
-        label: ''
-      }]
+      options: []
     }
   },
   computed: {
@@ -49,7 +46,7 @@ export default {
     }
   },
   created () {
-
+    this.options = Window.localstorage.getItem('noteList')
   },
   methods: {
     update: _.debounce(function (e) {

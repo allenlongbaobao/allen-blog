@@ -6,6 +6,8 @@ import Body from '@/components/Body'
 import Foot from '@/components/Foot'
 import Article from '@/components/Article'
 import Manage from '@/components/Manage'
+import ArticleManage from '@/components/ArticleManage'
+import ArticleListManage from '@/components/ArticleListManage'
 
 Vue.use(Router)
 
@@ -45,7 +47,14 @@ export default new Router({
         Head: Head,
         Body: Manage,
         Foot: Foot
-      }
+      },
+      children: [{
+        path: 'articleManage',
+        component: ArticleManage
+      }, {
+        path: 'articleListManage',
+        component: ArticleListManage
+      }]
     }
   ]
 })

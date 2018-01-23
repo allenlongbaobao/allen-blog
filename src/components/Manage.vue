@@ -2,54 +2,37 @@
   <div>
     <el-container>
       <el-aside>
-        <el-menu>
+        <el-menu default-active="1-1" :router=true>
           <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>导航一</template>
+            <template slot="title"><i class="el-icon-message"></i>列表</template>
             <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
+              <el-menu-item index="1-1" route="/manage/articleManage">文章</el-menu-item>
+              <el-menu-item index="1-2" route="/manage/articleListManage">文章集</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>
-        <el-table :data="tableData" @click="showButton">
-          <el-table-column prop="name" label="文章名称" width="300">
-          </el-table-column>
-          <el-table-column prop="date" label="发布时间" width="200">
-          </el-table-column>
-          <el-table-column prop="menu" label="目录" width="150">
-          </el-table-column>
-          <el-table-column
-            v-show="mouseOn"
-            label="操作"
-            width="250">
-            <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-              <el-button type="text" size="small">编辑</el-button>
-              <el-button type="text" size="small">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <el-button class="addNew" type="primary" size="medium" @click="editorShow = !editorShow">新增</el-button>
+        <router-view ></router-view>
       </el-main>
-      <editor v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
-      </editor>
+
     </el-container>
   </div>
 </template>
 
 <script>
-import editor from './editor'
-
 export default {
   data () {
     return {
-      mouseOn: false,
       editorShow: false,
       tableData: null
     }
+  },
+  created () {
+    this.$http.get('/api/getNoteList').then(response => {
+      Window.localstorage.setItem('noteList', response.body.data)
+    }, response => {
+    })
   },
   methods: {
     showButton: function (e) {
@@ -83,7 +66,6 @@ export default {
     }
   },
   components: {
-    editor
   }
 }
 </script>
