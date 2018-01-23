@@ -5,13 +5,9 @@
         <div class="modal-container">
           <div class="modal-header">
             <span>标题：</span>
-            <el-input id="titleInput" :value="title" type="text" name="title" placeholder="请输入标题"></el-input>
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+            <el-input class="titleInput" :value="title" type="text" name="title" placeholder="请输入标题"></el-input>
+            <el-select size="large" v-model="value" placeholder="请选择">
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
             <el-button class="modal-default-button" @click="$emit('save')">保存至草稿箱</el-button>
@@ -39,14 +35,11 @@ export default {
   data () {
     return {
       input: '# test',
-      title: '默认标题',
+      title: '',
       value: '',
       options: [{
-        value: 'id',
-        label: '数据结构'
-      }, {
-        value: 'id',
-        label: '算法'
+        value: '',
+        label: ''
       }]
     }
   },
@@ -54,6 +47,9 @@ export default {
     compiledMarkdown: function () {
       return marked(this.input, { sanitize: true })
     }
+  },
+  created () {
+
   },
   methods: {
     update: _.debounce(function (e) {
@@ -82,7 +78,7 @@ export default {
 <style>
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -161,12 +157,17 @@ export default {
   color: #333;
 }
 
-div.el-input{
+div.titleInput {
   width: 30%;
 }
 
-div.el-select{
+div.el-select {
   width: 20%;
+}
+
+div.el-option {
+  width: 100%;
+  padding: 0px;
 }
 
 .output {
