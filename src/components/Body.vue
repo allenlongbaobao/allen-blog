@@ -15,4 +15,7 @@
 </script>
 
 <style>
+.body {
+  height: 100%;
+}
 </style>

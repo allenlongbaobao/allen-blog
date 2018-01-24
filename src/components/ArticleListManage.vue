@@ -34,7 +34,6 @@
 export default {
   data () {
     return {
-      message: 'this is articlelistmanage page',
       tableData: [{
       }],
       dialogFormVisible: false,
@@ -67,6 +66,7 @@ export default {
       this.dialogFormVisible = false
       this.$http.post('/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
         this.tableData.push(response.data.data)
+        this.$emit('update')
       }, response => {
       })
     }

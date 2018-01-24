@@ -1,7 +1,8 @@
 <template>
-  <div class="foot">
-    <p>{{msg}}</p>
-
+  <div class="foot-container">
+    <div class="foot">
+      <p>{{msg}}</p>
+    </div>
   </div>
 </template>
 
@@ -17,12 +18,15 @@
 </script>
 
 <style>
+.foot-container {
+  height: 55px;
+}
 .foot {
   width: 100%;
-  height: 50px;
+  height: 55px;
   background-color: black;
-  position: fixed;
   bottom: 0px;
+  position: fixed;
   display: block;
   text-align: center;
 }

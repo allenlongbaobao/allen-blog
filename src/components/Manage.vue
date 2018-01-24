@@ -13,7 +13,7 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <router-view ></router-view>
+        <router-view @update="update"></router-view>
       </el-main>
 
     </el-container>
@@ -25,15 +25,12 @@ export default {
   data () {
     return {
       editorShow: false,
-      tableData: null,
       artileList: []
     }
   },
   created () {
     this.$http.get('/api/getArticleList').then(response => {
-      console.log('getarticlelist', response.body.data)
       this.articleList = response.body.data
-      window.localStorage.setItem('articleList', JSON.stringify(response.body.data))
     }, response => {
     })
   },
@@ -41,6 +38,9 @@ export default {
     console.log('update')
   },
   methods: {
+    update: function () {
+      console.log('get it! i will update')
+    }
   },
   components: {
   }
