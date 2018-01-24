@@ -49,6 +49,9 @@ export default new Router({
         Foot: Foot
       },
       children: [{
+        path: '/',
+        component: ArticleManage
+      }, {
         path: 'articleManage',
         component: ArticleManage
       }, {

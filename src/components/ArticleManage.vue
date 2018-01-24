@@ -8,7 +8,6 @@
       <el-table-column prop="menu" label="目录" width="150">
       </el-table-column>
       <el-table-column
-        v-show="mouseOn"
         label="操作"
         width="250">
         <template slot-scope="scope">
@@ -30,7 +29,8 @@ import editor from './editor'
 export default {
   data () {
     return {
-      editorShow: false
+      editorShow: false,
+      tableData: []
     }
   },
   methods: {
@@ -40,22 +40,13 @@ export default {
     save: function () {
       console.log('it will save')
     },
-    publish: function (data) {
-      let article = {
-        articleName: data.articleName,
-        articleContent: data.articleContent,
-        publish: data.publish,
-        articleList: {
-          Lid: 'sdfasdf',
-          name: data.articleList.name
-        }
-      }
+    publish: function (article) {
+      console.log('addArticle:' + article)
       this.$http.post('/api/addArticle', article).then(response => {
         console.log(response)
       }, response => {
         console.log(response)
       })
-      console.log('it will publish')
     },
     saveAs: function () {
       console.log('it will saveas')

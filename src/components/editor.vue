@@ -5,7 +5,7 @@
         <div class="modal-container">
           <div class="modal-header">
             <span>标题：</span>
-            <el-input class="titleInput" :value="title" type="text" name="title" placeholder="请输入标题"></el-input>
+            <el-input class="titleInput" v-model.trim="title" type="text" name="title" placeholder="请输入标题"></el-input>
             <el-select size="large" v-model="selectValue" placeholder="请选择">
               <el-option v-for="item in options" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       input: '# test',
-      title: '',
+      title: '测试标题',
       selectValue: '',
       options: []
     }
@@ -53,13 +53,16 @@ export default {
       this.input = e.target.value
     }, 300),
     publish: function () {
-      console.log(this.title)
+      let selectedOption = _.find(this.options, (item) => {
+        return item._id === this.selectValue
+      })
       let data = {
         articleContent: this.input,
         publish: true,
         articleName: this.title,
         articleList: {
-
+          Lid: selectedOption._id,
+          name: selectedOption.name
         }
       }
       this.$emit('publish', data)

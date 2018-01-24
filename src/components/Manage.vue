@@ -36,35 +36,6 @@ export default {
     })
   },
   methods: {
-    showButton: function (e) {
-
-    },
-    save: function () {
-      console.log('it will save')
-    },
-    publish: function (data) {
-      let article = {
-        noteName: data.noteName,
-        noteLink: 'link',
-        noteContent: data.noteContent,
-        publish: data.publish,
-        noteList: {
-          name: '数据结构'
-        }
-      }
-      this.$http.post('/api/addArticle', article).then(response => {
-        console.log(response)
-      }, response => {
-        console.log(response)
-      })
-      console.log('it will publish')
-    },
-    saveAs: function () {
-      console.log('it will saveas')
-    },
-    exit: function () {
-      this.editorShow = false
-    }
   },
   components: {
   }
