@@ -86,7 +86,6 @@ div {
   display: inline-block;
   vertical-align:top;
   box-sizing: border-box;
-  padding: 0 20px;
 }
 #article_content {
   width: 80%;

@@ -1,15 +1,15 @@
 <template>
   <div>
     <el-table v-model="tableData" :data="tableData">
-      <el-table-column prop="articleName" label="文章名称" width="300">
+      <el-table-column prop="articleName" label="文章名称" width="220">
       </el-table-column>
-      <el-table-column prop="date" label="发布时间" width="200">
+      <el-table-column prop="date" label="发布时间" width="180">
       </el-table-column>
       <el-table-column prop="articleList.name" label="目录" width="150">
       </el-table-column>
       <el-table-column
         label="操作"
-        width="250">
+        width="200">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="editArticle" type="text" size="small">编辑</el-button>
