@@ -23,7 +23,7 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="addNewArticle">确 定</el-button>
+      <el-button type="primary" @click="addNewArticleList">确 定</el-button>
     </div>
   </el-dialog>
 
@@ -31,11 +31,11 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   data () {
     return {
-      tableData: [{
-      }],
+      tableData: [],
       dialogFormVisible: false,
       form: {
         name: '测试'
@@ -61,13 +61,21 @@ export default {
         })
       }
     },
-    addNewArticle: function () {
-      this.dialogFormVisible = false
-      this.$http.post('/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
-        this.tableData.push(response.data.data)
-        this.$emit('update')
-      }, response => {
+    addNewArticleList: function () {
+      let ifExitedName = _.find(this.tableData, (n) => {
+        this.form.name = this.form.name.trim()
+        return n.name === this.form.name
       })
+
+      if (!ifExitedName && this.form.name !== '') {
+        this.dialogFormVisible = false
+        this.$http.post('/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
+          this.tableData.push(response.data.data)
+        }, response => {
+        })
+      } else {
+        alert('该文章集已经存在, 或者不符合要求')
+      }
     }
   }
 }
