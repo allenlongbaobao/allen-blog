@@ -9,7 +9,7 @@
     <el-button class="addNew" type="primary" size="medium" @click="dialogFormVisible=true">新增</el-button>
     <el-dialog title="新增文章集" :visible.sync="dialogFormVisible">
     <el-form :model="form">
-      <el-form-item label="文章集名称" :label-width="formLabelWidth">
+      <el-form-item label="文章集名称">
         <el-input v-model="form.name" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
@@ -38,9 +38,7 @@ export default {
   },
   created () {
     this.$http.get('/api/getArticleList').then(response => {
-      console.log(response.data)
       this.tableData = response.data.data
-      console.log(this.tableData)
     }).catch(err => {
       console.log(err)
     })
@@ -49,9 +47,11 @@ export default {
     addNewArticle: function () {
       this.dialogFormVisible = false
       this.$http.post('/api/addArticleList', {name: this.form.name}).then(response => {
-        console.log('增加成功：' + response.data)
         this.tableData.push(response.data.data)
-        console.log(this.tableData)
+        let oldData = window.localStorage.getItem('articleList')
+        let newData = JSON.parse(response.body.data)
+        newData = JSON.parse(oldData).push(newData)
+        window.localStorage.setItem('articleList', JSON.stringify(newData))
       }, response => {
       })
     }

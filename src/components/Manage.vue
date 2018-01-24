@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-aside>
-        <el-menu default-active="1-1" :router=true>
+        <el-menu :router=true>
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-message"></i>列表</template>
             <el-menu-item-group>
@@ -25,15 +25,20 @@ export default {
   data () {
     return {
       editorShow: false,
-      tableData: null
+      tableData: null,
+      artileList: []
     }
   },
   created () {
     this.$http.get('/api/getArticleList').then(response => {
       console.log('getarticlelist', response.body.data)
+      this.articleList = response.body.data
       window.localStorage.setItem('articleList', JSON.stringify(response.body.data))
     }, response => {
     })
+  },
+  update () {
+    console.log('update')
   },
   methods: {
   },

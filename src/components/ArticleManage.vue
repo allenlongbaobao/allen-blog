@@ -1,19 +1,19 @@
 <template>
   <div>
-    <el-table :data="tableData" @click="showButton">
-      <el-table-column prop="name" label="文章名称" width="300">
+    <el-table v-model="tableData" :data="tableData">
+      <el-table-column prop="articleName" label="文章名称" width="300">
       </el-table-column>
       <el-table-column prop="date" label="发布时间" width="200">
       </el-table-column>
-      <el-table-column prop="menu" label="目录" width="150">
+      <el-table-column prop="articleList.name" label="目录" width="150">
       </el-table-column>
       <el-table-column
         label="操作"
         width="250">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button @click="editArticle" type="text" size="small">编辑</el-button>
+          <el-button @click="removeArticle(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -25,6 +25,7 @@
 
 <script>
 import editor from './editor'
+//  import _ from 'lodash'
 
 export default {
   data () {
@@ -33,20 +34,37 @@ export default {
       tableData: []
     }
   },
+  created () {
+    this.getAllArticle()
+  },
   methods: {
-    showButton: function (e) {
+    getAllArticle: function () {
+      this.$http.get('/api/getAllArticle').then(response => {
+        this.tableData = response.data.data
+        console.log('get all article')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    editArticle: function () {
 
+    },
+    removeArticle: function (e) {
+      this.$http.post('/api/removeArticle', {_id: e._id}).then(response => {
+      }).catch(err => {
+        console.log(err)
+      }).then(this.getAllArticle)
     },
     save: function () {
       console.log('it will save')
     },
     publish: function (article) {
-      console.log('addArticle:' + article)
       this.$http.post('/api/addArticle', article).then(response => {
         console.log(response)
+        this.editorShow = false
       }, response => {
         console.log(response)
-      })
+      }).then(this.getAllArticle)
     },
     saveAs: function () {
       console.log('it will saveas')
