@@ -5,6 +5,14 @@
       </el-table-column>
       <el-table-column prop="num" label="文章数量" width="200">
       </el-table-column>
+      <el-table-column
+        label="操作"
+        width="250">
+        <template slot-scope="scope">
+          <el-button @click="renameArticleList(scope.row)" type="primary" size="small">重命名</el-button>
+          <el-button @click="removeArticleList(scope.row)"  type="danger" size="small">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-button class="addNew" type="primary" size="medium" @click="dialogFormVisible=true">新增</el-button>
     <el-dialog title="新增文章集" :visible.sync="dialogFormVisible">
@@ -28,7 +36,6 @@ export default {
     return {
       message: 'this is articlelistmanage page',
       tableData: [{
-        name: 'aa'
       }],
       dialogFormVisible: false,
       form: {
@@ -44,14 +51,18 @@ export default {
     })
   },
   methods: {
+    renameArticleList: function (e) {
+
+    },
+    removeArticleList: function (e) {
+      this.$http.post('/api/removeArticleList', {_id: e._id}).then(response => {
+        this.tableData.pop(response.data.data)
+      })
+    },
     addNewArticle: function () {
       this.dialogFormVisible = false
-      this.$http.post('/api/addArticleList', {name: this.form.name}).then(response => {
+      this.$http.post('/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
         this.tableData.push(response.data.data)
-        let oldData = window.localStorage.getItem('articleList')
-        let newData = JSON.parse(response.body.data)
-        newData = JSON.parse(oldData).push(newData)
-        window.localStorage.setItem('articleList', JSON.stringify(newData))
       }, response => {
       })
     }

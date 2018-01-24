@@ -41,7 +41,7 @@ export default {
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
         this.tableData = response.data.data
-        console.log('get all article')
+        console.log(this.tableData)
       }).catch(err => {
         console.log(err)
       })
