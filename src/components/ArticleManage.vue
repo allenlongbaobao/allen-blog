@@ -17,7 +17,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-button class="addNew" type="primary" size="medium" @click="editorShow = !editorShow">新增</el-button>
+    <el-button class="addNew" type="primary" size="medium" @click="addButton">新增</el-button>
     <editor v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
@@ -38,6 +38,10 @@ export default {
     this.getAllArticle()
   },
   methods: {
+    addButton: function () {
+      this.editorShow = true
+      this.getAllArticle()
+    },
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
         this.tableData = response.data.data

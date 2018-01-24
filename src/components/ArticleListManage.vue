@@ -55,9 +55,13 @@ export default {
 
     },
     removeArticleList: function (e) {
-      this.$http.post('/api/removeArticleList', {_id: e._id}).then(response => {
-        this.tableData.pop(response.data.data)
-      })
+      if (e.articleNum > 0) {
+        alert('该文章集内还有文章')
+      } else {
+        this.$http.post('/api/removeArticleList', {_id: e._id}).then(response => {
+          this.tableData.pop(response.data.data)
+        })
+      }
     },
     addNewArticle: function () {
       this.dialogFormVisible = false
