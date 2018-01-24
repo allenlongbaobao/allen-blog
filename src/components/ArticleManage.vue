@@ -18,7 +18,7 @@
       </el-table-column>
     </el-table>
     <el-button class="addNew" type="primary" size="medium" @click="addButton">新增</el-button>
-    <editor v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
+    <editor :articleList="articleList" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
 </template>
@@ -31,7 +31,8 @@ export default {
   data () {
     return {
       editorShow: false,
-      tableData: []
+      tableData: [],
+      articleList: []
     }
   },
   created () {
@@ -43,7 +44,12 @@ export default {
     },
     addButton: function () {
       this.editorShow = true
-      this.getAllArticle()
+      this.getArticleList()
+    },
+    getArticleList: function () {
+      this.$http.get('/api/getArticleList').then(response => {
+        this.articleList = response.data.data
+      })
     },
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
@@ -67,7 +73,6 @@ export default {
     },
     publish: function (article) {
       this.$http.post('/api/addArticle', article).then(response => {
-        console.log(response)
         this.editorShow = false
       }, response => {
         console.log(response)

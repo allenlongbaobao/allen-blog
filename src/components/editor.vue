@@ -7,7 +7,7 @@
             <span>标题：</span>
             <el-input class="titleInput" v-model.trim="title" type="text" name="title" placeholder="请输入标题"></el-input>
             <el-select size="large" v-model="selectValue" placeholder="请选择">
-              <el-option v-for="item in options" :key="item._id" :label="item.name" :value="item._id">
+              <el-option v-for="item in articleList" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
             </el-select>
             <el-button class="modal-default-button" @click="$emit('save')">保存至草稿箱</el-button>
@@ -40,6 +40,9 @@ export default {
       options: []
     }
   },
+  props: {
+    articleList: Array
+  },
   computed: {
     compiledMarkdown: function () {
       return marked(this.input, { sanitize: true })
@@ -53,7 +56,8 @@ export default {
       this.input = e.target.value
     }, 300),
     publish: function () {
-      let selectedOption = _.find(this.options, (item) => {
+      console.log(this.articleList)
+      let selectedOption = _.find(this.articleList, (item) => {
         return item._id === this.selectValue
       })
       let data = {
@@ -95,6 +99,8 @@ export default {
   display: table-cell;
   vertical-align: middle;
   margin: 0px auto;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .modal-container {

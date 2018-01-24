@@ -3,7 +3,7 @@
     <el-table :data="tableData" @click="">
       <el-table-column prop="name" label="文章集名称" width="300">
       </el-table-column>
-      <el-table-column prop="num" label="文章数量" width="200">
+      <el-table-column prop="articleNum" label="文章数量" width="200">
       </el-table-column>
       <el-table-column
         label="操作"
@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     renameArticleList: function (e) {
-
     },
     removeArticleList: function (e) {
       if (e.articleNum > 0) {
