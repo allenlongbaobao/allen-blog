@@ -9,6 +9,7 @@ import Manage from '@/components/Manage'
 import ArticleManage from '@/components/ArticleManage'
 import ArticleListManage from '@/components/ArticleListManage'
 import DraftManage from '@/components/DraftManage'
+import ShowCompleteArticle from '@/components/ShowCompleteArticle'
 
 Vue.use(Router)
 
@@ -29,6 +30,15 @@ export default new Router({
       components: {
         Head: Head,
         Body: Article,
+        Foot: Foot
+      }
+    },
+    {
+      path: '/showCompleteArticle/:id',
+      name: 'showCompleteArticle',
+      components: {
+        Head: Head,
+        Body: ShowCompleteArticle,
         Foot: Foot
       }
     },

@@ -6,7 +6,7 @@
     <el-container>
       <el-main id="article_content">
         <ul v-for="item in articles">
-          <article-item :articleInfo="item"></article-item>
+          <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
         </ul>
       </el-main>
 
@@ -26,7 +26,7 @@ import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
 import articleItem from './articleItem'
-//  import _ from 'lodash'
+import _ from 'lodash'
 
 Vue.use(Resource)
 marked.setOptions({
@@ -58,8 +58,9 @@ export default {
   methods: {
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
-        this.articles = response.data.data
-        console.log(this.articles)
+        this.articles = _.remove(response.data.data, n => {
+          return n.publish === true
+        })
       }).catch(err => {
         console.log('getAllArticle err:', err)
       })
@@ -75,6 +76,8 @@ export default {
       }, response => {
         console.log(response)
       })
+    },
+    openCompleteArticle: function (article) {
     }
   },
   created () {

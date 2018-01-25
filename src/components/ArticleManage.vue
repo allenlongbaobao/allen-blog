@@ -11,7 +11,7 @@
         label="操作"
         width="">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+          <router-link :to="{name:'showCompleteArticle', params:{id: scope.row._id}}"><el-button type="text" size="small">查看</el-button></router-link>
           <el-button @click="editArticle(scope.row)" type="text" size="small">编辑</el-button>
           <el-button @click="removeArticle(scope.row)" type="text" size="small">删除</el-button>
         </template>
