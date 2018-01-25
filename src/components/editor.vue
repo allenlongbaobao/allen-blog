@@ -38,6 +38,7 @@ export default {
     }
   },
   props: {
+    articleId: String,
     articleList: Array,
     articleContent: String,
     articleName: String,
@@ -60,6 +61,7 @@ export default {
         return item._id === this.value
       })
       let data = {
+        _id: this.articleId.length > 0 ? this.articleId : null,
         articleContent: this.articleContent,
         publish: true,
         articleName: this.articleName,

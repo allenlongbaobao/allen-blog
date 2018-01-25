@@ -18,7 +18,7 @@
       </el-table-column>
     </el-table>
     <el-button class="addNew" type="primary" size="medium" @click="addButton">新增</el-button>
-    <editor :articleName="articleName" :selectValue="selectValue" :articleList="articleList" :articleContent="articleContent" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
+    <editor :articleId="articleId" :articleName="articleName" :selectValue="selectValue" :articleList="articleList" :articleContent="articleContent" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
 </template>
@@ -32,20 +32,33 @@ export default {
     return {
       editorShow: false,
       tableData: [],
-      articleList: [{Lid: '12', name: 'fuck'}],
+      articleList: [],
       articleContent: '',
       articleName: '',
-      selectValue: ''
+      selectValue: '',
+      articleId: ''
     }
   },
   created () {
     this.getAllArticle()
+    this.getArticleList()
   },
   methods: {
+    /*
+      清除props中的数据
+    */
+    clearProps: function () {
+      this.articleContent = ''
+      this.articleName = ''
+      this.selectValue = ''
+      this.articleId = ''
+    },
+
     /*
       增加文章
       */
     addButton: function () {
+      this.clearProps()
       this.articleContent = '# new article'
       this.editorShow = true
       this.getArticleList()
@@ -77,6 +90,7 @@ export default {
       this.articleContent = e.articleContent
       this.articleName = e.articleName
       this.selectValue = e.articleList.Lid
+      this.articleId = e._id
       this.editorShow = true
     },
     removeArticle: function (e) {
