@@ -75,7 +75,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #article {
   margin: 0;
   font-family: 'Helvetica Neue', Arial, sans-serif;
