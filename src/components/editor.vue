@@ -5,8 +5,8 @@
         <div class="modal-container">
           <div class="modal-header">
             <span>标题：</span>
-            <el-input class="titleInput" v-model.trim="title" type="text" name="title" placeholder="请输入标题"></el-input>
-            <el-select size="large" v-model="selectValue" placeholder="请选择">
+            <el-input class="titleInput" v-model.trim="articleName" type="text" name="title" placeholder="请输入标题"></el-input>
+            <el-select size="large" v-model="value" placeholder="请选择">
               <el-option v-for="item in articleList" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
             </el-select>
@@ -16,7 +16,7 @@
             <el-button type="button" name="button" @click="exitWithoutSave">退出</el-button>
           </div>
           <div class="modal-body editor">
-            <textarea :value="input" @input="update"></textarea>
+            <textarea :value="articleContent" @input="update"></textarea>
             <div class="output" v-html="compiledMarkdown"></div>
           </div>
           <div class="modal-footer">
@@ -34,36 +34,35 @@ import _ from 'lodash'
 export default {
   data () {
     return {
-      input: '# test',
-      title: '测试标题',
-      selectValue: '',
-      options: []
+      value: ''
     }
   },
   props: {
-    articleList: Array
+    articleList: Array,
+    articleContent: String,
+    articleName: String,
+    selectValue: String
   },
   computed: {
     compiledMarkdown: function () {
-      return marked(this.input, { sanitize: true })
+      return marked(this.articleContent, { sanitize: true })
     }
   },
   created () {
-    this.options = JSON.parse(window.localStorage.getItem('articleList'))
   },
   methods: {
     update: _.debounce(function (e) {
-      this.input = e.target.value
+      this.articleContent = e.target.value
     }, 300),
     publish: function () {
-      console.log(this.articleList)
-      let selectedOption = _.find(this.articleList, (item) => {
-        return item._id === this.selectValue
+      let selectedOption = _.find(this.$props.articleList, (item) => {
+        console.log(item)
+        return item._id === this.value
       })
       let data = {
-        articleContent: this.input,
+        articleContent: this.articleContent,
         publish: true,
-        articleName: this.title,
+        articleName: this.articleName,
         articleList: {
           Lid: selectedOption._id,
           name: selectedOption.name
@@ -74,7 +73,6 @@ export default {
     exitWithoutSave: function () {
       var exitornot = confirm('您确定退出编辑，不保存当前编辑内容吗？')
       if (exitornot) {
-        this.input = ''
         this.$emit('exit')
       }
     }

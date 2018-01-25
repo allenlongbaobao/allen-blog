@@ -91,10 +91,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-body{
-  padding: 0;
-  margin: 0;
-}
 #canvas {
   border: 1px 1px solid;
 }

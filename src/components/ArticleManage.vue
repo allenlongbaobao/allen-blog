@@ -12,13 +12,13 @@
         width="">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button @click="editArticle" type="text" size="small">编辑</el-button>
+          <el-button @click="editArticle(scope.row)" type="text" size="small">编辑</el-button>
           <el-button @click="removeArticle(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-button class="addNew" type="primary" size="medium" @click="addButton">新增</el-button>
-    <editor :articleList="articleList" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
+    <editor :articleName="articleName" :selectValue="selectValue" :articleList="articleList" :articleContent="articleContent" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
 </template>
@@ -32,25 +32,35 @@ export default {
     return {
       editorShow: false,
       tableData: [],
-      articleList: []
+      articleList: [{Lid: '12', name: 'fuck'}],
+      articleContent: '',
+      articleName: '',
+      selectValue: ''
     }
   },
   created () {
     this.getAllArticle()
   },
   methods: {
-    update: function () {
-      console.log('article manage get it ')
-    },
+    /*
+      增加文章
+      */
     addButton: function () {
+      this.articleContent = '# new article'
       this.editorShow = true
       this.getArticleList()
     },
+    /*
+      从服务器获取文章集列表
+    */
     getArticleList: function () {
       this.$http.get('/api/getArticleList').then(response => {
         this.articleList = response.data.data
       })
     },
+    /*
+      获取所有文章信息
+    */
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
         this.tableData = response.data.data
@@ -59,8 +69,15 @@ export default {
         console.log(err)
       })
     },
-    editArticle: function () {
-
+    /*
+      编辑文章,
+      将该文章的articleName,articleList,articleContent传入子组件 <editor>中
+    */
+    editArticle: function (e) {
+      this.articleContent = e.articleContent
+      this.articleName = e.articleName
+      this.selectValue = e.articleList.Lid
+      this.editorShow = true
     },
     removeArticle: function (e) {
       this.$http.post('/api/removeArticle', {_id: e._id}).then(response => {

@@ -13,7 +13,7 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <router-view @update="update"></router-view>
+        <router-view></router-view>
       </el-main>
 
     </el-container>
