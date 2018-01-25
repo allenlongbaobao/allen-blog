@@ -3,7 +3,7 @@
     <el-table v-model="tableData" :data="tableData">
       <el-table-column prop="articleName" label="文章名称" width="200">
       </el-table-column>
-      <el-table-column prop="date" label="发布时间" width="180">
+      <el-table-column prop="publishAt" label="发布时间" width="180">
       </el-table-column>
       <el-table-column prop="articleList.name" label="目录" width="230">
       </el-table-column>

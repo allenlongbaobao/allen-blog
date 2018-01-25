@@ -18,7 +18,7 @@
     <el-dialog title="新增文章集" :visible.sync="dialogFormVisible">
     <el-form :model="form">
       <el-form-item label="文章集名称">
-        <el-input v-model="form.name" auto-complete="off"></el-input>
+        <el-input v-model.trim="form.name" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -63,7 +63,6 @@ export default {
     },
     addNewArticleList: function () {
       let ifExitedName = _.find(this.tableData, (n) => {
-        this.form.name = this.form.name.trim()
         return n.name === this.form.name
       })
 
