@@ -3,17 +3,19 @@
     <!--
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
+    <div class="list-container">
+      <el-button class="list default" @click="getAllArticle">全部</el-button>
+      <ul v-for="item in articleList">
+        <el-button class="list" @click="showArticleInList(item._id)">{{item.name}}</el-button>
+      </ul>
+    </div>
     <el-container>
       <el-main id="article_content">
         <ul v-for="item in articles">
           <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
         </ul>
       </el-main>
-
-      <el-aside id="article_list">
-        <ul class="itemName" v-for="item in menu">
-          <tree-list :articles="item.articles" :name="item.name" @toggleArticle="toggleArticle"></tree-list>
-        </ul>
+      <el-aside>
       </el-aside>
     </el-container>
   </div>
@@ -48,7 +50,8 @@ export default {
     return {
       files: '',
       menu: [],
-      articles: []
+      articles: [],
+      articleList: []
     }
   },
   components: {
@@ -56,6 +59,11 @@ export default {
     articleItem
   },
   methods: {
+    getArticleList: function () {
+      this.$http.get('/api/getArticleList').then(response => {
+        this.articleList = response.data.data
+      })
+    },
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
         this.articles = _.remove(response.data.data, n => {
@@ -63,6 +71,12 @@ export default {
         })
       }).catch(err => {
         console.log('getAllArticle err:', err)
+      })
+    },
+    showArticleInList: function (id) {
+      this.$http.post('/api/getArticleInOneListById', {id: id}).then(response => {
+        this.articles = response.data.data
+        console.log(this.articles)
       })
     },
     toggleArticle: function (link) {
@@ -82,12 +96,7 @@ export default {
   },
   created () {
     this.getAllArticle()
-    this.$http.get('/api/getmenu').then(response => {
-      this.$data.menu = response.body.data
-      this.getArticleAndShow(this.$data.menu[0].articles[0].link)
-    }, response => {
-      console.log(response)
-    })
+    this.getArticleList()
   },
   computed: {
     compiledMarkdown: function () {
@@ -104,13 +113,29 @@ export default {
   color: #333;
 }
 
-
 #article_list .itemName {
   margin: 0px;
   padding: 0px;
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.list-container {
+  height: 50px;
+  padding-left: 20px;
+}
+
+.list {
+  float: left;
+  position: relative;
+  border-radius: 30px;
+  margin-left: 5px;
+}
+
+.list:hover, .list:focus {
+  color: white;
+  background-color: black;
 }
 code {
   color: #f66;
