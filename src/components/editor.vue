@@ -6,7 +6,7 @@
           <div class="modal-header">
             <span>标题：</span>
             <el-input class="titleInput" v-model.trim="articleName" type="text" name="title" placeholder="请输入标题"></el-input>
-            <el-select size="large" v-model="value" placeholder="请选择">
+            <el-select size="large" v-model="selectValue" placeholder="请选择">
               <el-option v-for="item in articleList" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
             </el-select>
@@ -58,7 +58,7 @@ export default {
     publish: function () {
       let selectedOption = _.find(this.$props.articleList, (item) => {
         console.log(item)
-        return item._id === this.value
+        return item._id === this.selectValue
       })
       let data = {
         _id: this.articleId.length > 0 ? this.articleId : null,
