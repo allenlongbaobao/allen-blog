@@ -1,11 +1,21 @@
 <template>
-  <div id="article">
+  <div id="artcicle">
+    <!--
     <div id="article_content" v-html="compiledMarkdown"></div>
-    <div id="article_list">
-      <ul class="itemName" v-for="item in menu">
-        <tree-list :articles="item.articles" :name="item.name" @toggleArticle="toggleArticle"></tree-list>
-      </ul>
-    </div>
+    -->
+    <el-container>
+      <el-main id="article_content">
+        <ul v-for="item in articles">
+          <article-item :articleInfo="item"></article-item>
+        </ul>
+      </el-main>
+
+      <el-aside id="article_list">
+        <ul class="itemName" v-for="item in menu">
+          <tree-list :articles="item.articles" :name="item.name" @toggleArticle="toggleArticle"></tree-list>
+        </ul>
+      </el-aside>
+    </el-container>
   </div>
 </template>
 
@@ -15,7 +25,7 @@ import Resource from 'vue-resource'
 import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
-import editor from './editor'
+import articleItem from './articleItem'
 //  import _ from 'lodash'
 
 Vue.use(Resource)
@@ -36,15 +46,24 @@ marked.setOptions({
 export default {
   data () {
     return {
-      files: [{file: ''}],
-      menu: []
+      files: '',
+      menu: [],
+      articles: []
     }
   },
   components: {
     treeList,
-    editor
+    articleItem
   },
   methods: {
+    getAllArticle: function () {
+      this.$http.get('/api/getAllArticle').then(response => {
+        this.articles = response.data.data
+        console.log(this.articles)
+      }).catch(err => {
+        console.log('getAllArticle err:', err)
+      })
+    },
     toggleArticle: function (link) {
       this.getArticleAndShow(link)
     },
@@ -52,15 +71,15 @@ export default {
       this.$http.get('/api/articles/' + link).then(response => {
         let mdData = response.body.data
         let htmlData = marked(mdData)
-        this.$set(this.files, 0, {file: htmlData})
+        this.files = htmlData
       }, response => {
         console.log(response)
       })
     }
   },
   created () {
+    this.getAllArticle()
     this.$http.get('/api/getmenu').then(response => {
-      console.log(response)
       this.$data.menu = response.body.data
       this.getArticleAndShow(this.$data.menu[0].articles[0].link)
     }, response => {
@@ -69,7 +88,7 @@ export default {
   },
   computed: {
     compiledMarkdown: function () {
-      return this.files[0].file
+      return this.files
     }
   }
 }
@@ -82,24 +101,7 @@ export default {
   color: #333;
 }
 
-div {
-  display: inline-block;
-  vertical-align:top;
-  box-sizing: border-box;
-}
-#article_content {
-  width: 80%;
-  border-style: solid;
-  display: inline-block;
-}
-#article_list {
-  float: right;
-  width: 19%;
-  height: 100%;
-  border-style: solid;
-  display: inline-block;
-  padding: 0px;
-}
+
 #article_list .itemName {
   margin: 0px;
   padding: 0px;
