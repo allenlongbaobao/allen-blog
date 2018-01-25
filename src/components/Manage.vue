@@ -8,6 +8,7 @@
             <el-menu-item-group>
               <el-menu-item index="1-1" route="/manage/articleManage">文章</el-menu-item>
               <el-menu-item index="1-2" route="/manage/articleListManage">文章集</el-menu-item>
+              <el-menu-item index="1-3" route="/manage/draftManage">草稿箱</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
         </el-menu>

@@ -10,7 +10,7 @@
               <el-option v-for="item in articleList" :key="item._id" :label="item.name" :value="item._id">
               </el-option>
             </el-select>
-            <el-button class="modal-default-button" @click="$emit('save')">保存至草稿箱</el-button>
+            <el-button class="modal-default-button" @click="saveAsDraft">保存至草稿箱</el-button>
             <el-button name="button" @click="publish">发布</el-button>
             <el-button name="button" @click="$emit('saveAs')">另存为</el-button>
             <el-button type="button" name="button" @click="exitWithoutSave">退出</el-button>
@@ -57,13 +57,28 @@ export default {
     }, 300),
     publish: function () {
       let selectedOption = _.find(this.$props.articleList, (item) => {
-        console.log(item)
         return item._id === this.selectValue
       })
       let data = {
         _id: this.articleId.length > 0 ? this.articleId : null,
         articleContent: this.articleContent,
         publish: true,
+        articleName: this.articleName,
+        articleList: {
+          Lid: selectedOption._id,
+          name: selectedOption.name
+        }
+      }
+      this.$emit('publish', data)
+    },
+    saveAsDraft: function () {
+      let selectedOption = _.find(this.$props.articleList, (item) => {
+        return item._id === this.selectValue
+      })
+      let data = {
+        _id: this.articleId.length > 0 ? this.articleId : null,
+        articleContent: this.articleContent,
+        publish: false,
         articleName: this.articleName,
         articleList: {
           Lid: selectedOption._id,

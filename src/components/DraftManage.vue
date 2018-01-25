@@ -76,11 +76,8 @@ export default {
     */
     getAllArticle: function () {
       this.$http.get('/api/getAllArticle').then(response => {
-        /*
-          注意_.remove的使用方式，这里的tableData 刚好是publish为true的对象
-        */
         this.tableData = _.remove(response.data.data, n => {
-          return n.publish === true
+          return n.publish === false
         })
         console.log(this.tableData)
       }).catch(err => {

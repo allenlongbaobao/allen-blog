@@ -8,6 +8,7 @@ import Article from '@/components/Article'
 import Manage from '@/components/Manage'
 import ArticleManage from '@/components/ArticleManage'
 import ArticleListManage from '@/components/ArticleListManage'
+import DraftManage from '@/components/DraftManage'
 
 Vue.use(Router)
 
@@ -57,6 +58,9 @@ export default new Router({
       }, {
         path: 'articleListManage',
         component: ArticleListManage
+      }, {
+        path: 'draftManage',
+        component: DraftManage
       }]
     }
   ]
