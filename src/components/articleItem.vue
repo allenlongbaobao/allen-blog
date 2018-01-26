@@ -1,7 +1,7 @@
 <template>
   <div class="item">
     <h1>{{articleInfo.articleName}}</h1>
-    <div class="" v-html="compiledMarkdown"></div>
+    <mark-html class="partContent" :mhtml="compiledMarkdown"></mark-html>
     <router-link :to="{name: 'showCompleteArticle', params:{id: articleInfo._id}}"><el-button type="danger" @click="openCompleteArticle">查看原文</el-button></router-link>
     <hr style="border:1px dashed #036" />
   </div>
@@ -9,6 +9,7 @@
 
 <script>
 import Marked from 'marked'
+import markHtml from './MarkHtml'
 
 export default {
   data () {
@@ -17,6 +18,9 @@ export default {
   },
   props: {
     articleInfo: Object
+  },
+  components: {
+    markHtml
   },
   computed: {
     compiledMarkdown: function () {
@@ -34,14 +38,21 @@ export default {
 
 <style scoped>
 .item {
+}
 
+h1{
+  color: red;
 }
-h1, h2 {
-}
+
 hr {
   clear: both;
-
 }
+
+.partContent {
+  height: 200px;
+  overflow: hidden;
+}
+
 .el-button {
   float: right;
 }

@@ -1,12 +1,13 @@
 <template>
-  <div class="">
-    <h1>{{articleName}}</h1>
-    <div class="" v-html="compiledMarkdown"></div>
+  <div class="completeaArticle">
+    <h1 class="articleName">{{articleName}}</h1>
+    <markHtml :mhtml="compiledMarkdown"></markHtml>
   </div>
 </template>
 
 <script>
 import Marked from 'marked'
+import markHtml from './MarkHtml'
 export default {
   data () {
     return {
@@ -19,6 +20,9 @@ export default {
       return Marked(this.article)
     }
   },
+  components: {
+    markHtml
+  },
   created () {
     this.getArticleById(this.$route.params.id)
   },
@@ -27,7 +31,6 @@ export default {
       this.$http.post('/api/getArticleById', {id: id}).then(response => {
         this.article = response.data.data.articleContent
         this.articleName = response.data.data.articleName
-        //  this.compiledMarkdown()
       }).catch(error => {
         console.log(error)
       })
@@ -40,5 +43,11 @@ export default {
 </script>
 
 <style scoped>
-
+.completeaArticle {
+  padding-left: 200px;
+  padding-right: 200px;
+}
+.articleName{
+  color: red;
+}
 </style>

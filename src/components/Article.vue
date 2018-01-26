@@ -74,7 +74,7 @@ export default {
       })
     },
     showArticleInList: function (id) {
-      this.$http.post('/api/getArticleInOneListById', {id: id}).then(response => {
+      this.$http.post('/api/getPublishArticleInOneListById', {id: id}).then(response => {
         this.articles = response.data.data
         console.log(this.articles)
       })

@@ -17,7 +17,7 @@
           </div>
           <div class="modal-body editor">
             <textarea :value="articleContent" @input="update"></textarea>
-            <div class="output" v-html="compiledMarkdown"></div>
+            <mark-html class="output" :mhtml="compiledMarkdown"></mark-html>
           </div>
           <div class="modal-footer">
           </div>
@@ -30,6 +30,23 @@
 <script>
 import marked from 'marked'
 import _ from 'lodash'
+import highlightjs from 'highlightjs'
+import markHtml from './MarkHtml'
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function (code) {
+    console.log(highlightjs.highlightAuto(code).value)   // 这里highlightjs会自动给代码增加类)
+    return highlightjs.highlightAuto(code).value   // 这里highlightjs会自动给代码增加类
+  },
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+})
 
 export default {
   data () {
@@ -44,9 +61,12 @@ export default {
     articleName: String,
     selectValue: String
   },
+  components: {
+    markHtml
+  },
   computed: {
     compiledMarkdown: function () {
-      return marked(this.articleContent, { sanitize: true })
+      return marked(this.articleContent)
     }
   },
   created () {
@@ -102,7 +122,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .modal-mask {
   position: fixed;
   z-index: 1000;
@@ -125,7 +145,7 @@ export default {
 
 .modal-container {
   width: 90%;
-  height: 80%;
+  height: 520px;
   vertical-align: middle;
   margin: 0px auto;
   padding: 20px 30px;
