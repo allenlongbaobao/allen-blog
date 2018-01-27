@@ -9,13 +9,11 @@
         label="操作"
         width="">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="editArticle(scope.row)" type="text" size="small">编辑</el-button>
           <el-button @click="removeArticle(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-button class="addNew" type="primary" size="medium" @click="addButton">新增</el-button>
     <editor :articleId="articleId" :articleName="articleName" :selectValue="selectValue" :articleList="articleList" :articleContent="articleContent" v-show="editorShow" @save="save" @publish="publish" @saveAs="saveAs" @exit="exit" @close="editorShow = false">
     </editor>
   </div>
@@ -96,7 +94,7 @@ export default {
       this.editorShow = true
     },
     removeArticle: function (e) {
-      this.$http.post('/api/removeArticle', {_id: e._id}).then(response => {
+      this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
       }).catch(err => {
         console.log(err)
       }).then(this.getAllArticle)
@@ -105,7 +103,7 @@ export default {
       console.log('it will save')
     },
     publish: function (article) {
-      this.$http.post('/api/addArticle', article).then(response => {
+      this.$http.post(IP + '/api/addOrModifyArticle', article).then(response => {
         this.editorShow = false
       }, response => {
         console.log(response)

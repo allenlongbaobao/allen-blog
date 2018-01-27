@@ -110,7 +110,7 @@ export default {
       console.log('it will save')
     },
     publish: function (article) {
-      this.$http.post(IP + '/api/addArticle', article).then(response => {
+      this.$http.post(IP + '/api/addOrModifyArticle', article).then(response => {
         this.editorShow = false
       }, response => {
         console.log(response)
