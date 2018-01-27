@@ -26,6 +26,9 @@
 <script>
 import editor from './editor'
 import _ from 'lodash'
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
+console.log(IP)
 
 export default {
   data () {
@@ -67,7 +70,7 @@ export default {
       从服务器获取文章集列表
     */
     getArticleList: function () {
-      this.$http.get('/api/getArticleList').then(response => {
+      this.$http.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
       })
     },
@@ -75,7 +78,7 @@ export default {
       获取所有文章信息
     */
     getAllArticle: function () {
-      this.$http.get('/api/getAllArticle').then(response => {
+      this.$http.get(IP + '/api/getAllArticle').then(response => {
         /*
           注意_.remove的使用方式，这里的tableData 刚好是publish为true的对象
         */
@@ -99,7 +102,7 @@ export default {
       this.editorShow = true
     },
     removeArticle: function (e) {
-      this.$http.post('/api/removeArticle', {_id: e._id}).then(response => {
+      this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
       }).catch(err => {
         console.log(err)
       }).then(this.getAllArticle)
@@ -108,7 +111,7 @@ export default {
       console.log('it will save')
     },
     publish: function (article) {
-      this.$http.post('/api/addArticle', article).then(response => {
+      this.$http.post(IP + '/api/addArticle', article).then(response => {
         this.editorShow = false
       }, response => {
         console.log(response)

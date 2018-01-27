@@ -32,6 +32,9 @@
 
 <script>
 import _ from 'lodash'
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
+console.log(IP)
 export default {
   data () {
     return {
@@ -43,7 +46,8 @@ export default {
     }
   },
   created () {
-    this.$http.get('/api/getArticleList').then(response => {
+    console.log(this.$http.options)
+    this.$http.get(IP + '/api/getArticleList').then(response => {
       this.tableData = response.data.data
     }).catch(err => {
       console.log(err)
@@ -56,7 +60,7 @@ export default {
       if (e.articleNum > 0) {
         alert('该文章集内还有文章')
       } else {
-        this.$http.post('/api/removeArticleList', {_id: e._id}).then(response => {
+        this.$http.post(IP + '/api/removeArticleList', {_id: e._id}).then(response => {
           this.tableData.pop(response.data.data)
         })
       }
@@ -68,7 +72,7 @@ export default {
 
       if (!ifExitedName && this.form.name !== '') {
         this.dialogFormVisible = false
-        this.$http.post('/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
+        this.$http.post(IP + '/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
           this.tableData.push(response.data.data)
         }, response => {
         })

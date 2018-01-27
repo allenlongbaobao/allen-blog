@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
 export default {
   data () {
     return {
@@ -30,7 +32,7 @@ export default {
     }
   },
   created () {
-    this.$http.get('/api/getArticleList').then(response => {
+    this.$http.get(IP + '/api/getArticleList').then(response => {
       this.articleList = response.body.data
     }, response => {
     })

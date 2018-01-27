@@ -24,7 +24,8 @@
 <script>
 import editor from './editor'
 import _ from 'lodash'
-
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
 export default {
   data () {
     return {
@@ -65,7 +66,7 @@ export default {
       从服务器获取文章集列表
     */
     getArticleList: function () {
-      this.$http.get('/api/getArticleList').then(response => {
+      this.$http.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
       })
     },
@@ -73,7 +74,7 @@ export default {
       获取所有文章信息
     */
     getAllArticle: function () {
-      this.$http.get('/api/getAllArticle').then(response => {
+      this.$http.get(IP + '/api/getAllArticle').then(response => {
         this.tableData = _.remove(response.data.data, n => {
           return n.publish === false
         })

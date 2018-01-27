@@ -29,6 +29,8 @@ import highlightjs from 'highlightjs'
 import treeList from './treeList'
 import articleItem from './articleItem'
 import _ from 'lodash'
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
 
 Vue.use(Resource)
 marked.setOptions({
@@ -60,12 +62,12 @@ export default {
   },
   methods: {
     getArticleList: function () {
-      this.$http.get('/api/getArticleList').then(response => {
+      this.$http.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
       })
     },
     getAllArticle: function () {
-      this.$http.get('/api/getAllArticle').then(response => {
+      this.$http.get(IP + '/api/getAllArticle').then(response => {
         this.articles = _.remove(response.data.data, n => {
           return n.publish === true
         })
@@ -74,7 +76,7 @@ export default {
       })
     },
     showArticleInList: function (id) {
-      this.$http.post('/api/getPublishArticleInOneListById', {id: id}).then(response => {
+      this.$http.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
         this.articles = response.data.data
         console.log(this.articles)
       })
@@ -83,7 +85,7 @@ export default {
       this.getArticleAndShow(link)
     },
     getArticleAndShow: function (link) {
-      this.$http.get('/api/articles/' + link).then(response => {
+      this.$http.get(IP + '/api/articles/' + link).then(response => {
         let mdData = response.body.data
         let htmlData = marked(mdData)
         this.files = htmlData

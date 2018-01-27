@@ -245,8 +245,4 @@ textarea {
   font-family: 'Monaco', courier, monospace;
   padding: 20px;
 }
-
-code {
-  color: #f66;
-}
 </style>

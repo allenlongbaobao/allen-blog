@@ -8,6 +8,8 @@
 <script>
 import Marked from 'marked'
 import markHtml from './MarkHtml'
+import env from '../../config/dev.env.js'
+let IP = env.SERVER_IP
 export default {
   data () {
     return {
@@ -28,7 +30,7 @@ export default {
   },
   methods: {
     getArticleById: function (id) {
-      this.$http.post('/api/getArticleById', {id: id}).then(response => {
+      this.$http.post(IP + '/api/getArticleById', {id: id}).then(response => {
         this.article = response.data.data.articleContent
         this.articleName = response.data.data.articleName
       }).catch(error => {
