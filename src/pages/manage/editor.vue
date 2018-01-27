@@ -97,20 +97,24 @@ export default {
       }
     },
     saveAsDraft: function () {
-      let selectedOption = _.find(this.$props.articleList, (item) => {
-        return item._id === this.selectValue
-      })
-      let data = {
-        _id: this.articleId.length > 0 ? this.articleId : null,
-        articleContent: this.articleContent,
-        publish: false,
-        articleName: this.articleName,
-        articleList: {
-          Lid: selectedOption._id,
-          name: selectedOption.name
+      if (!this.articleName || !this.selectValue) {
+        alert('请输入完整信息')
+      } else {
+        let selectedOption = _.find(this.$props.articleList, (item) => {
+          return item._id === this.selectValue
+        })
+        let data = {
+          _id: this.articleId.length > 0 ? this.articleId : null,
+          articleContent: this.articleContent,
+          publish: false,
+          articleName: this.articleName,
+          articleList: {
+            Lid: selectedOption._id,
+            name: selectedOption.name
+          }
         }
+        this.$emit('publish', data)
       }
-      this.$emit('publish', data)
     },
     exitWithoutSave: function () {
       var exitornot = confirm('您确定退出编辑，不保存当前编辑内容吗？')
