@@ -3,15 +3,13 @@
     <el-table v-model="tableData" :data="tableData">
       <el-table-column prop="articleName" label="文章名称" width="200">
       </el-table-column>
-      <el-table-column prop="publishAt" label="发布时间" width="180">
-      </el-table-column>
       <el-table-column prop="articleList.name" label="目录" width="230">
       </el-table-column>
       <el-table-column
         label="操作"
         width="">
         <template slot-scope="scope">
-          <router-link :to="{name:'showCompleteArticle', params:{id: scope.row._id}}"><el-button type="text" size="small">查看</el-button></router-link>
+          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="editArticle(scope.row)" type="text" size="small">编辑</el-button>
           <el-button @click="removeArticle(scope.row)" type="text" size="small">删除</el-button>
         </template>
@@ -26,9 +24,8 @@
 <script>
 import editor from './editor'
 import _ from 'lodash'
-import env from '../../config/dev.env.js'
+import env from '../../../config/dev.env.js'
 let IP = env.SERVER_IP
-console.log(IP)
 
 export default {
   data () {
@@ -79,11 +76,8 @@ export default {
     */
     getAllArticle: function () {
       this.$http.get(IP + '/api/getAllArticle').then(response => {
-        /*
-          注意_.remove的使用方式，这里的tableData 刚好是publish为true的对象
-        */
         this.tableData = _.remove(response.data.data, n => {
-          return n.publish === true
+          return n.publish === false
         })
         console.log(this.tableData)
       }).catch(err => {
@@ -102,7 +96,7 @@ export default {
       this.editorShow = true
     },
     removeArticle: function (e) {
-      this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
+      this.$http.post('/api/removeArticle', {_id: e._id}).then(response => {
       }).catch(err => {
         console.log(err)
       }).then(this.getAllArticle)
@@ -111,7 +105,7 @@ export default {
       console.log('it will save')
     },
     publish: function (article) {
-      this.$http.post(IP + '/api/addArticle', article).then(response => {
+      this.$http.post('/api/addArticle', article).then(response => {
         this.editorShow = false
       }, response => {
         console.log(response)

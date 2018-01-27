@@ -31,7 +31,7 @@
 import marked from 'marked'
 import _ from 'lodash'
 import highlightjs from 'highlightjs'
-import markHtml from './MarkHtml'
+import markHtml from '../common/MarkHtml'
 
 marked.setOptions({
   renderer: new marked.Renderer(),

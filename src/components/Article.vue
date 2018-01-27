@@ -27,7 +27,7 @@ import Resource from 'vue-resource'
 import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
-import articleItem from './articleItem'
+import articleItem from '../pages/article/articleItem'
 import _ from 'lodash'
 import env from '../../config/dev.env.js'
 let IP = env.SERVER_IP

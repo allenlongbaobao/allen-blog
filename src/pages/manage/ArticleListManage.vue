@@ -32,7 +32,7 @@
 
 <script>
 import _ from 'lodash'
-import env from '../../config/dev.env.js'
+import env from '../../../config/dev.env.js'
 let IP = env.SERVER_IP
 console.log(IP)
 export default {

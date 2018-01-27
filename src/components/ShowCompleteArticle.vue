@@ -7,7 +7,7 @@
 
 <script>
 import Marked from 'marked'
-import markHtml from './MarkHtml'
+import markHtml from '../pages/common/MarkHtml'
 import env from '../../config/dev.env.js'
 let IP = env.SERVER_IP
 export default {

@@ -9,7 +9,7 @@
 
 <script>
 import Marked from 'marked'
-import markHtml from './MarkHtml'
+import markHtml from '../common/MarkHtml'
 
 export default {
   data () {
