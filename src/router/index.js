@@ -5,6 +5,7 @@ import Head from '@/components/Head'
 import Body from '@/components/Body'
 import Foot from '@/components/Foot'
 import Article from '@/components/Article'
+import Sign from '@/components/Sign'
 import Manage from '@/components/Manage'
 import ShowCompleteArticle from '@/components/ShowCompleteArticle'
 import ArticleManage from '@/pages/manage/ArticleManage'
@@ -52,10 +53,16 @@ export default new Router({
       }
     },
     {
+      path: '/admin',
+      name: 'admin',
+      components: {
+        Body: Sign
+      }
+    },
+    {
       path: '/manage',
       name: 'manage',
       components: {
-        Head: Head,
         Body: Manage,
         Foot: Foot
       },

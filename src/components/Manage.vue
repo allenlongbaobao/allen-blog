@@ -16,31 +16,50 @@
       <el-main>
         <router-view></router-view>
       </el-main>
-
     </el-container>
   </div>
 </template>
 
 <script>
 import env from '../../config/dev.env.js'
+
 let IP = env.SERVER_IP
 export default {
   data () {
     return {
-      editorShow: false,
+      signPageShow: false,
       artileList: []
     }
   },
   created () {
-    this.$http.get(IP + '/api/getArticleList').then(response => {
-      this.articleList = response.body.data
-    }, response => {
-    })
+    console.log(this.$route.params.user)
+    if (this.detectSignState()) {
+      this.getArticleList()
+    } else {
+      this.signPageShow = true
+    }
   },
   update () {
     console.log('update')
   },
   methods: {
+    getArticleList: function () {
+      this.$http.get(IP + '/api/getArticleList').then(response => {
+        this.articleList = response.body.data
+      })
+    },
+    detectSignState: function () {
+      let cookieBlog = document.cookie.replace(/(?:(?:^|.*;\s*)blog\s*=\s*([^;]*).*$)|^.*$/, '$1')
+      if (!cookieBlog) {
+        console.log('cookie.blog不存在')
+        return false
+      } else {
+        return true
+      }
+    },
+    userLogged: function (data) {
+      console.log(data)
+    },
     update: function () {
       console.log('get it! i will update')
     }

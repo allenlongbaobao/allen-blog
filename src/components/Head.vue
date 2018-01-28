@@ -32,8 +32,8 @@ export default {
           content: '实验室'
         },
         {
-          link: '/manage',
-          content: '管理'
+          link: '/admin',
+          content: '登录/注册'
         }
       ]
     }
