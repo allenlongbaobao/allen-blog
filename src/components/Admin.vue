@@ -96,7 +96,7 @@ export default {
         pass: '',
         checkPass: ''
       }
-      this.$emit('close')
+      this.$router.push({name: 'mainPage'})
     },
     sign: function () {
       if (this.signUpShow === true && this.signInShow === false) {

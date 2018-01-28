@@ -5,7 +5,7 @@ import Head from '@/components/Head'
 import Body from '@/components/Body'
 import Foot from '@/components/Foot'
 import Article from '@/components/Article'
-import Sign from '@/components/Sign'
+import Admin from '@/components/Admin'
 import Manage from '@/components/Manage'
 import ShowCompleteArticle from '@/components/ShowCompleteArticle'
 import ArticleManage from '@/pages/manage/ArticleManage'
@@ -18,7 +18,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Pages',
+      name: 'mainPage',
       components: {
         Head: Head,
         Body: Body,
@@ -56,7 +56,7 @@ export default new Router({
       path: '/admin',
       name: 'admin',
       components: {
-        Body: Sign
+        Body: Admin
       }
     },
     {
