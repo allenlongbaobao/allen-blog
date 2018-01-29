@@ -8,21 +8,21 @@
         </div>
         <div class="modal-body">
           <transition name="fade">
-            <el-form class="signInForm" :model="signInForm" v-show="signInShow" status-icon label-width="100px" >
-              <el-form-item label="用户名" prop="username">
-                <el-input type="text" v-model="signInForm.username"></el-input>
+            <el-form class="signInForm" :model="signInForm" ref="signInForm" v-show="signInShow" status-icon label-width="100px" >
+              <el-form-item label="用户名" prop="username" :rules="[{ required: true, message: '用户名不能为空'}, {min:6, max:12, message: '长度在6-12个字符之间'}]">
+                <el-input type="username" v-model="signInForm.username"></el-input>
               </el-form-item>
-              <el-form-item label="密码" prop="pass">
+              <el-form-item label="密码" prop="pass" :rules="[{required: true, message: '密码不能为空'}]">
                 <el-input type="password" v-model="signInForm.pass" auto-complete="off"></el-input>
               </el-form-item>
             </el-form>
           </transition>
           <transition name="fade">
-            <el-form class="signUpForm" :model="signUpForm" v-show="signUpShow" label-width="100px">
-              <el-form-item label="用户名" prop="username">
+            <el-form class="signUpForm" :model="signUpForm" :rules="signUpRule" ref="signUpForm" v-show="signUpShow" label-width="100px">
+              <el-form-item label="用户名" prop="username" :rules="[{required: true, message: '用户名不能为空'}, {min:6, max:12, message: '长度在6-12个字符之间'}]">
                 <el-input type="text" v-model="signUpForm.username"></el-input>
               </el-form-item>
-              <el-form-item label="邮箱" prop="email">
+              <el-form-item label="邮箱" prop="email" :rules="[{required: true, message: '邮箱不能为空'}, {type: 'email', message: '请输入正确的邮箱格式'}]">
                 <el-input type="text" v-model="signUpForm.email"></el-input>
               </el-form-item>
               <el-form-item label="密码" prop="pass">
@@ -49,20 +49,41 @@ let IP = env.SERVER_IP
 
 export default {
   data () {
+    let signInForm = {
+      username: '',
+      pass: ''
+    }
+    let signUpForm = {
+      username: '',
+      email: '',
+      pass: '',
+      checkPass: ''
+    }
+    let validatePass = function (rule, value, callback) {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        callback()
+      }
+    }
+
+    let validateCheckPass = function (rule, value, callback) {
+      if (value !== signUpForm.pass) {
+        callback(new Error('两次输入密码不一致'))
+      } else {
+        callback()
+      }
+    }
+
     return {
       signUpShow: false,
       signInShow: true,
-      signInForm: {
-        username: '',
-        pass: ''
-      },
-      signUpForm: {
-        username: '',
-        email: '',
-        pass: '',
-        checkPass: ''
-      },
-      user: {}
+      signInForm,
+      signUpForm,
+      signUpRule: {
+        pass: {validator: validatePass, trigger: 'blur'},
+        checkPass: {validator: validateCheckPass, trigger: 'blur'}
+      }
     }
   },
   components: {
@@ -86,30 +107,28 @@ export default {
       btn.innerHTML = '注册'
     },
     cancel: function () {
-      this.signUpForm = {
-        username: '',
-        pass: ''
-      }
-      this.signUpForm = {
-        username: '',
-        email: '',
-        pass: '',
-        checkPass: ''
-      }
       this.$router.push({name: 'mainPage'})
     },
     sign: function () {
       if (this.signUpShow === true && this.signInShow === false) {
-        this.signUp().then((data) => {
-          this.$router.push({name: 'manage', params: {user: data}})
-        }).catch(err => {
-          alert('出现错误', err.message)
+        this.$refs['signUpForm'].validate().then((value) => {
+          this.signUp().then((data) => {
+            this.$router.push({name: 'manage', params: {user: data}})
+          }).catch(err => {
+            alert('出现错误', err.message)
+          })
+        }).catch(() => {
+          alert('error： 表单输入错误')
         })
       } else if (this.signUpShow === false && this.signInShow === true) {
-        this.signIn().then((data) => {
-          this.$router.push({name: 'manage', params: {user: data}})
-        }).catch(err => {
-          alert('出现错误', err.message)
+        this.$refs['signInForm'].validate().then(() => {
+          this.signIn().then((data) => {
+            this.$router.push({name: 'manage', params: {user: data}})
+          }).catch(err => {
+            alert('出现错误', err.message)
+          })
+        }).catch(() => {
+          alert('error: 用户名或者密码错误')
         })
       }
     },
