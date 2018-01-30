@@ -32,7 +32,7 @@ export default {
           content: '实验室'
         },
         {
-          link: '/admin',
+          link: '/manage',
           content: '登录/注册'
         }
       ]

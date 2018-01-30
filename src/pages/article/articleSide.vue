@@ -21,6 +21,7 @@
       <p>
         <span>文章数量:</span>
         <span>{{articleNum}}</span>
+        <span>篇</span>
       </p>
       <p>
         <span>访问数量:</span>
