@@ -40,30 +40,19 @@ export default {
   },
   created () {
     this.manage().then((user) => {
-      console.log(user)
       this.user = user
       this.getArticleList()
     }).catch((code) => {
       this.$router.push({name: 'admin'})
     })
-    /*
-    if (this.$route.params.user) {
-      this.user = this.$route.params.user
-      this.getArticleList()
-    } else {
-      this.$router.push({name: 'admin'})
-    }
-    */
   },
   update () {
   },
   methods: {
     manage: function () {
       return this.$http.post(IP + '/api/signIn', {}, {withCredentials: true}).then(response => {
-        console.log(response.body)
         return response.body.data
       }).catch(err => {
-        console.log('err', err)
         throw new Error(err.body.data)
       })
     },

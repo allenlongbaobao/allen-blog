@@ -157,7 +157,6 @@ export default {
       }).then(response => {
         return response.data
       }).catch(err => {
-        console.log(err)
         throw new Error(err.message)
       })
     }
