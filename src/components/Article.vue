@@ -4,9 +4,11 @@
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
     <div class="list-container">
-      <el-button class="list default" @click="getAllArticle">全部</el-button>
-      <ul v-for="item in articleList">
-        <el-button class="list" @click="showArticleInList(item._id)">{{item.name}}</el-button>
+      <el-button class="articlelist__button default" @click="getAllArticle">全部</el-button>
+      <ul >
+        <li class="article__articlelist" v-for="item in articleList">
+          <el-button class="articlelist__button" @click="showArticleInList(item._id)">{{item.name}}</el-button>
+        </li>
       </ul>
     </div>
     <el-container>
@@ -16,6 +18,7 @@
         </ul>
       </el-main>
       <el-aside>
+        <article-side></article-side>
       </el-aside>
     </el-container>
   </div>
@@ -28,6 +31,7 @@ import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
 import articleItem from '../pages/article/articleItem'
+import articleSide from '../pages/article/articleSide'
 import _ from 'lodash'
 import env from '../../config/dev.env.js'
 let IP = env.SERVER_IP
@@ -58,7 +62,8 @@ export default {
   },
   components: {
     treeList,
-    articleItem
+    articleItem,
+    articleSide
   },
   methods: {
     getArticleList: function () {
@@ -128,14 +133,18 @@ export default {
   padding-left: 20px;
 }
 
-.list {
+.article__articlelist {
+  height: 0;
+}
+
+.articlelist__button{
   float: left;
   position: relative;
   border-radius: 30px;
   margin-left: 5px;
 }
 
-.list:hover, .list:focus {
+.articlelist__button:hover, .articlelist__button:focus {
   color: white;
   background-color: black;
 }
