@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="github">
-      <span>Github</span>
+      <span><b>Github</b></span>
       <hr style="border:1px solid #036" />
       <div class="github__userinfo">
         <img src="https://avatars0.githubusercontent.com/u/3255868?s=40&v=4">
@@ -16,15 +16,15 @@
       </div>
     </div>
     <div class="webinfo">
-      <span>网站信息</span>
+      <span><b>Blog Info</b></span>
       <hr style="border:1px solid #036" />
       <p>
-        <span>文章数量:</span>
+        <span><b>Article Num:</b></span>
         <span>{{articleNum}}</span>
-        <span>篇</span>
+        <span><b>篇</b></span>
       </p>
       <p>
-        <span>访问数量:</span>
+        <span><b>Access Num:</b></span>
         <span>{{accessNum}}</span>
       </p>
     </div>
@@ -77,6 +77,9 @@ div>img{
   margin: 0 auto;
   display: block;
 }
+.github {
+  overflow: hidden;
+}
 
 .github__userinfo>p {
   padding-top: 30px;
@@ -98,5 +101,9 @@ div>img{
 
 .github__profile > .pro__num {
   color: green;
+}
+
+.webinfo {
+  margin-top: 30px;
 }
 </style>

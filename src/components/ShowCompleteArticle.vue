@@ -1,6 +1,7 @@
 <template>
   <div class="completeaArticle">
     <h1 class="articleName">{{articleName}}</h1>
+    <hr style="border: 1px solid #36" />
     <markHtml :mhtml="compiledMarkdown"></markHtml>
   </div>
 </template>
@@ -50,6 +51,5 @@ export default {
   padding-right: 200px;
 }
 .articleName{
-  color: red;
 }
 </style>

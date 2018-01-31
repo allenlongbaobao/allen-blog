@@ -20,9 +20,7 @@ export default new Router({
       path: '/',
       name: 'mainPage',
       components: {
-        Head: Head,
-        Body: Body,
-        Foot: Foot
+        Body: Body
       }
     },
     {

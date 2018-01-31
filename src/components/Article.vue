@@ -4,7 +4,7 @@
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
     <div class="list-container">
-      <el-button class="articlelist__button default" @click="getAllArticle">全部</el-button>
+      <el-button class="articlelist__button default" @click="getAllArticle">ALL</el-button>
       <ul >
         <li class="article__articlelist" v-for="item in articleList">
           <el-button class="articlelist__button" @click="showArticleInList(item._id)">{{item.name}}</el-button>
