@@ -3,8 +3,10 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
+          <!-- 屏蔽注册功能
           <el-button type="button" @click="toggleSignIn">登陆</el-button>
           <el-button type="button" @click="toggleSignUp">注册</el-button>
+          -->
         </div>
         <div class="modal-body">
           <transition name="fade">
@@ -199,15 +201,14 @@ export default {
 }
 
 .modal-header {
-  width: 41%;
+  width: 70px;
   margin: 0 auto;
 }
 
-.modal-header .el-button{
+.modal-header > .el-button{
+  width: 70px;
   margin-top: 0;
   color: #42b983;
-  margin-left: 0px;
-  margin-right: 0px;
 }
 
 .modal-body {
