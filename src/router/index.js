@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Lab from '@/components/Lab'
+//  import Lab from '@/components/Lab'
 import Head from '@/components/Head'
 import Body from '@/components/Body'
 import Foot from '@/components/Foot'
@@ -11,6 +11,7 @@ import ShowCompleteArticle from '@/components/ShowCompleteArticle'
 import ArticleManage from '@/pages/manage/ArticleManage'
 import ArticleListManage from '@/pages/manage/ArticleListManage'
 import DraftManage from '@/pages/manage/DraftManage'
+import RangeClear from '@/pages/lab/RangeClear'
 
 Vue.use(Router)
 
@@ -46,7 +47,7 @@ export default new Router({
       name: 'lab',
       components: {
         Head: Head,
-        Body: Lab,
+        Body: RangeClear,
         Foot: Foot
       }
     },

@@ -16,7 +16,7 @@
             <el-button type="button" name="button" @click="exitWithoutSave">退出</el-button>
           </div>
           <div class="modal-body editor">
-            <textarea :value="articleContent" @input="update"></textarea>
+            <textarea :value="articleContent" @input="update" wrap="virtual"></textarea>
             <mark-html class="output" :mhtml="compiledMarkdown"></mark-html>
           </div>
           <div class="modal-footer">
