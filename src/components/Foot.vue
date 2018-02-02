@@ -30,4 +30,7 @@
   display: block;
   text-align: center;
 }
+.foot>p {
+  color: #FFF;
+} 
 </style>

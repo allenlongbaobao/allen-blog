@@ -36,7 +36,6 @@ import markHtml from '../common/MarkHtml'
 marked.setOptions({
   renderer: new marked.Renderer(),
   highlight: function (code) {
-    console.log(highlightjs.highlightAuto(code).value)   // 这里highlightjs会自动给代码增加类)
     return highlightjs.highlightAuto(code).value   // 这里highlightjs会自动给代码增加类
   },
   gfm: true,

@@ -25,7 +25,7 @@
       </p>
       <p>
         <span><b>Access Num:</b></span>
-        <span>{{accessNum}}</span>
+        <span>{{visitedNum}}</span>
       </p>
     </div>
   </div>
@@ -51,11 +51,12 @@ export default {
       }
       ],
       articleNum: 1,
-      accessNum: 1
+      visitedNum: 1
     }
   },
   created () {
     this.getArticleNum()
+    this.getVisitedNum()
   },
   methods: {
     getArticleNum: function () {
@@ -63,6 +64,12 @@ export default {
         this.articleNum = response.data.data
       }).catch(err => {
         console.log('err:', err)
+      })
+    },
+    getVisitedNum: function () {
+      this.$http.get(IP + '/api/getVisitedNum').then(response => {
+        console.log(response.body.data)
+        this.visitedNum = response.body.data
       })
     }
   }

@@ -38,26 +38,26 @@ export default {
     init: function () {
       let pointInfo = [
         {
-          x: 100,
-          y: 100,
+          x: 50,
+          y: 300,
           w: 100,
           h: 100
         },
         {
-          x: 210,
-          y: 100,
+          x: 160,
+          y: 300,
           w: 100,
           h: 100
         },
         {
-          x: 320,
-          y: 100,
+          x: 270,
+          y: 300,
           w: 100,
           h: 100
         },
         {
-          x: 430,
-          y: 100,
+          x: 380,
+          y: 300,
           w: 100,
           h: 100
         }
@@ -81,11 +81,6 @@ export default {
       })
     },
     clickPolygon: function (event) {
-      /*
-      let clickX = event.pageX - this.can.offsetLeft
-      let clickY = event.pageY - this.can.offsetTop
-      */
-      console.log(event)
       let clickX = event.layerX
       let clickY = event.layerY
       this.polygons.forEach(polygon => {
@@ -96,22 +91,18 @@ export default {
           polygon.chosen = true
           this.chosenPolygon = polygon
           this.isMove = true
-          console.log('被选中')
           this.draw()
         }
       })
     },
     movePolygon: function (event) {
       if (this.isMove === true && this.chosenPolygon != null && this.chosenPolygon.chosen === true) {
-        console.log('event:', event)
-        console.log('can:', this.can)
         this.chosenPolygon.x = event.layerX
         this.chosenPolygon.y = event.layerY
         this.draw()
       }
     },
     stopMovePolygon: function (event) {
-      console.log('stop')
       this.isMove = false
     }
   },
@@ -127,6 +118,7 @@ export default {
   width: 500px;
   margin: auto;
 }
+
 .container {
 }
 
@@ -135,6 +127,7 @@ export default {
   height: 500px;
   width: 500px;
 }
+
 h1, h2 {
   font-weight: normal;
 }

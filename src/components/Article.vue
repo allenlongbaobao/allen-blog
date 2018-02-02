@@ -83,7 +83,6 @@ export default {
     showArticleInList: function (id) {
       this.$http.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
         this.articles = response.data.data
-        console.log(this.articles)
       })
     },
     toggleArticle: function (link) {

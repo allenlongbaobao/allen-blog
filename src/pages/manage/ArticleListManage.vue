@@ -73,7 +73,7 @@ export default {
       if (!ifExitedName && this.form.name !== '') {
         this.dialogFormVisible = false
         this.$http.post(IP + '/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
-          this.tableData.push(response.data.data)
+          _.pull(this.tableData, response.data.data)
         }, response => {
         })
       } else {

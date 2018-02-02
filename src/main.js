@@ -12,6 +12,13 @@ Vue.use(VueResource)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  console.log(from)
+  next()
+})
+
 new Vue({
   el: '#app',
   router,
