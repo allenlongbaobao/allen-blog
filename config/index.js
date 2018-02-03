@@ -11,7 +11,8 @@ module.exports = {
     index: path.resolve(__dirname, '../../allenlongbaobao.github.io/index.html'),
     assetsRoot: path.resolve(__dirname, '../../allenlongbaobao.github.io'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/blog/',
+    assetsPublicPath: '/',
+    // assetsPublicPath: '/blog/',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
