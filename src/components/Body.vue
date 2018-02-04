@@ -58,6 +58,7 @@ div>p {
 ul .singleNavigate {
   list-style: none;
   float:left;
+  padding-left: 10px;
 }
 
 .singleNavigate a {

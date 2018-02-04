@@ -9,7 +9,7 @@
 </template>
 <script>
 import Vue from 'vue'
-//  import _ from 'lodash'
+import _ from 'lodash'
 
 let Polygon = function (x, y, w, h) {
   this.x = x
@@ -25,6 +25,21 @@ export default {
     return {
       msg: 'Welcome to RangeClear Lab',
       polygons: [],
+      vectors: [
+        {
+          X: 50,
+          Y: -50
+        },
+        {
+          X: -100,
+          Y: 0
+        },
+        {
+          X: 50,
+          Y: -50
+        }
+      ],
+      correct: false,
       chosenPolygon: null,
       isMove: false,
       can: document.getElementById('canvas'),
@@ -91,7 +106,6 @@ export default {
           polygon.chosen = true
           this.chosenPolygon = polygon
           this.isMove = true
-          this.draw()
         }
       })
     },
@@ -100,10 +114,48 @@ export default {
         this.chosenPolygon.x = event.layerX
         this.chosenPolygon.y = event.layerY
         this.draw()
+        this.check()
       }
     },
     stopMovePolygon: function (event) {
       this.isMove = false
+    },
+    check: function (event) {
+      this.sortPolygonsByY().then(() => {
+        for (let i = 0; i < this.polygons.length - 1; i++) {
+          console.log('polygons', this.polygons[i + 1])
+          let vector = this.getVector(this.polygons[i], this.polygons[i + 1])
+          this.compareVector(vector, this.vectors[i])
+        }
+        if (this.correct === true) {
+          console.log('congradulations!')
+          this.stopMovePolygon()
+        }
+      })
+    },
+    sortPolygonsByY: function () {
+      return new Promise((resolve, reject) => {
+        this.polygons = _.sortBy(this.polygons, ['y', 'x'])
+        resolve()
+      })
+    },
+    getVector: function (frontPolygon, backPolygon) {
+      let vector = {
+        X: 0,
+        Y: 0
+      }
+      vector.X = frontPolygon.x - backPolygon.x
+      vector.Y = frontPolygon.y - backPolygon.y
+      return vector
+    },
+    compareVector: function (vectorToCompare, correctVector) {
+      console.log('vectorToCompare', vectorToCompare)
+      console.log('correctVector', correctVector)
+      if (Math.abs(vectorToCompare.X - correctVector.X) < 5 && Math.abs(vectorToCompare.Y - vectorToCompare.Y) < 5) {
+        this.correct = true
+      } else {
+        this.correct = false
+      }
     }
   },
   mounted: function () {
