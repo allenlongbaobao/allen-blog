@@ -84,8 +84,6 @@ export default {
           this.isMove = true
           this.relativeDiffX = polygon.x - clickX  //  计算差值X
           this.relativeDiffY = polygon.y - clickY  //  计算差值Y
-          console.log('relativeDiffX,', this.relativeDiffX)
-          console.log('relativeDiffY,', this.relativeDiffY)
         }
       })
     },
@@ -93,8 +91,6 @@ export default {
       if (this.isMove === true && this.chosenPolygon != null && this.chosenPolygon.chosen === true) {
         this.chosenPolygon.x = event.pageX - this.can.offsetLeft + this.relativeDiffX
         this.chosenPolygon.y = event.pageY - this.can.offsetTop + this.relativeDiffY
-        console.log('chosenPolygon.x', this.chosenPolygon.x)
-        console.log('chosenPolygon.y', this.chosenPolygon.y)
         this.draw()
       }
     },
@@ -135,7 +131,9 @@ export default {
       return vector
     },
     compareVector: function (vectorToCompare, correctVector) {
-      if (Math.abs(vectorToCompare.X - correctVector.X) < 3 && Math.abs(vectorToCompare.Y - vectorToCompare.Y) < 3) {
+      console.log('vectorToCompare', vectorToCompare)
+      console.log('correctVector', correctVector)
+      if (Math.abs(vectorToCompare.X - correctVector.X) < 3 && Math.abs(vectorToCompare.Y - correctVector.Y) < 3) {
         this.correct &= true
         console.log('正确')
       } else {
