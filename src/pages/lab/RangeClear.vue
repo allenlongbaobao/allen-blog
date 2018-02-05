@@ -19,13 +19,13 @@ export default {
   data: function () {
     return {
       msg: 'Welcome to RangeClear Lab',
-      polygons: [],
-      tempPolygons: [],
-      relativeDiffX: 0,
-      relatvieDiffY: 0,
-      correct: true,
-      chosenPolygon: null,
-      isMove: false,
+      polygons: [],  //  多边形数组
+      tempPolygons: [], //  最终图形数组
+      relativeDiffX: 0,  //  点击点X与图形原点X的差值
+      relatvieDiffY: 0,  //  点击点Y与图形原点Y的差值
+      correct: true,  //  是否符合最终图形判断
+      chosenPolygon: null, // 点击选中的图形
+      isMove: false,  //  是否移动判断
       can: document.getElementById('canvas'),
       cxt: null
     }
@@ -48,7 +48,6 @@ export default {
       let cxt = can.getContext('2d')
       cxt.clearRect(0, 0, can.width, can.height)
       cxt.fillStyle = '#000000'
-      console.log('temp', this.tempPolygons)
       this.tempPolygons.forEach(polygon => {
         cxt.fillRect(polygon.x / 5, polygon.y / 5, polygon.w / 5, polygon.h / 5)
         cxt.globalCompositeOperation = 'xor'
@@ -72,13 +71,13 @@ export default {
       this.polygons.forEach(polygon => {
         if (clickX >= polygon.x && clickX <= (polygon.x + polygon.w) && clickY >= polygon.y && clickY <= (polygon.y + polygon.h)) {
           if (this.chosenPolygon != null) {
-            this.chosenPolygon.chosen = false
+            this.chosenPolygon.chosen = false  // 之前选中的图形取消选中
           }
           polygon.chosen = true
           this.chosenPolygon = polygon
           this.isMove = true
-          this.relativeDiffX = polygon.x - clickX
-          this.relatvieDiffY = polygon.y - clickY
+          this.relativeDiffX = polygon.x - clickX  //  计算差值X
+          this.relatvieDiffY = polygon.y - clickY  //  计算差值Y
         }
       })
     },
@@ -93,7 +92,7 @@ export default {
       this.isMove = false
       this.relativeDiffX = 0
       this.relatvieDiffY = 0
-      this.check()
+      this.check()  //  停止移动后判断是否正确
     },
     check: function (event) {
       this.sortPolygonsByY().then(() => {
@@ -132,7 +131,6 @@ export default {
         this.correct &= false
         console.log('不正确')
       }
-      console.log(this.correct)
     }
   },
   mounted: function () {
