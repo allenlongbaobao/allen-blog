@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="container">
+      <canvas id="temp" width="100" height="100"></canvas>
       <canvas id="canvas" width="500" height="500" v-on:mousedown="clickPolygon" v-on:mousemove="movePolygon" v-on:mouseup="stopMovePolygon" v-on:mouseover="stopMovePolygon">
       </canvas>
       <el-button @click="resetCanvas">复位</el-button>
@@ -19,6 +20,9 @@ export default {
     return {
       msg: 'Welcome to RangeClear Lab',
       polygons: [],
+      tempPolygons: [],
+      relativeDiffX: 0,
+      relatvieDiffY: 0,
       correct: true,
       chosenPolygon: null,
       isMove: false,
@@ -32,10 +36,24 @@ export default {
   methods: {
     init: function () {
       this.polygons = DATA.getInitPolygons()
+      this.tempPolygons = DATA.getTempPolygons()
+      this.showTemp()
       this.draw()
     },
     resetCanvas: function () {
       this.init()
+    },
+    showTemp: function () {
+      let can = document.getElementById('temp')
+      let cxt = can.getContext('2d')
+      cxt.clearRect(0, 0, can.width, can.height)
+      cxt.fillStyle = '#000000'
+      console.log('temp', this.tempPolygons)
+      this.tempPolygons.forEach(polygon => {
+        cxt.fillRect(polygon.x / 5, polygon.y / 5, polygon.w / 5, polygon.h / 5)
+        cxt.globalCompositeOperation = 'xor'
+        cxt.save()
+      })
     },
     draw: function () {
       this.can = document.getElementById('canvas')
@@ -59,19 +77,23 @@ export default {
           polygon.chosen = true
           this.chosenPolygon = polygon
           this.isMove = true
+          this.relativeDiffX = polygon.x - clickX
+          this.relatvieDiffY = polygon.y - clickY
         }
       })
     },
     movePolygon: function (event) {
       if (this.isMove === true && this.chosenPolygon != null && this.chosenPolygon.chosen === true) {
-        this.chosenPolygon.x = event.layerX
-        this.chosenPolygon.y = event.layerY
+        this.chosenPolygon.x = event.layerX + this.relativeDiffX
+        this.chosenPolygon.y = event.layerY + this.relatvieDiffY
         this.draw()
-        this.check()
       }
     },
     stopMovePolygon: function (event) {
       this.isMove = false
+      this.relativeDiffX = 0
+      this.relatvieDiffY = 0
+      this.check()
     },
     check: function (event) {
       this.sortPolygonsByY().then(() => {
@@ -80,8 +102,8 @@ export default {
           this.compareVector(vector, DATA.vectors[i])
         }
         if (this.correct === 1) {
-          console.log('congradulations!')
-          this.stopMovePolygon()
+          alert('congratulations')
+          this.resetCanvas()
         } else {
           this.correct = true
         }
