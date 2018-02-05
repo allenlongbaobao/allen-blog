@@ -4,20 +4,14 @@
     <div class="container">
       <canvas id="canvas" width="500" height="500" v-on:mousedown="clickPolygon" v-on:mousemove="movePolygon" v-on:mouseup="stopMovePolygon" v-on:mouseover="stopMovePolygon">
       </canvas>
+      <el-button @click="resetCanvas">复位</el-button>
     </div>
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import _ from 'lodash'
-
-let Polygon = function (x, y, w, h) {
-  this.x = x
-  this.y = y
-  this.w = w
-  this.h = h
-  this.chosen = false
-}
+import DATA from './RangeClear/data'
 
 Vue.config.productionTip = false
 export default {
@@ -25,21 +19,7 @@ export default {
     return {
       msg: 'Welcome to RangeClear Lab',
       polygons: [],
-      vectors: [
-        {
-          X: 50,
-          Y: -50
-        },
-        {
-          X: -100,
-          Y: 0
-        },
-        {
-          X: 50,
-          Y: -50
-        }
-      ],
-      correct: false,
+      correct: true,
       chosenPolygon: null,
       isMove: false,
       can: document.getElementById('canvas'),
@@ -51,39 +31,12 @@ export default {
   },
   methods: {
     init: function () {
-      let pointInfo = [
-        {
-          x: 50,
-          y: 300,
-          w: 100,
-          h: 100
-        },
-        {
-          x: 160,
-          y: 300,
-          w: 100,
-          h: 100
-        },
-        {
-          x: 270,
-          y: 300,
-          w: 100,
-          h: 100
-        },
-        {
-          x: 380,
-          y: 300,
-          w: 100,
-          h: 100
-        }
-      ]
-      pointInfo.forEach(info => {
-        let newPolygon = new Polygon(info.x, info.y, info.w, info.h)
-        this.polygons.push(newPolygon)
-      })
+      this.polygons = DATA.getInitPolygons()
       this.draw()
     },
-
+    resetCanvas: function () {
+      this.init()
+    },
     draw: function () {
       this.can = document.getElementById('canvas')
       this.cxt = this.can.getContext('2d')
@@ -123,13 +76,14 @@ export default {
     check: function (event) {
       this.sortPolygonsByY().then(() => {
         for (let i = 0; i < this.polygons.length - 1; i++) {
-          console.log('polygons', this.polygons[i + 1])
           let vector = this.getVector(this.polygons[i], this.polygons[i + 1])
-          this.compareVector(vector, this.vectors[i])
+          this.compareVector(vector, DATA.vectors[i])
         }
-        if (this.correct === true) {
+        if (this.correct === 1) {
           console.log('congradulations!')
           this.stopMovePolygon()
+        } else {
+          this.correct = true
         }
       })
     },
@@ -149,13 +103,14 @@ export default {
       return vector
     },
     compareVector: function (vectorToCompare, correctVector) {
-      console.log('vectorToCompare', vectorToCompare)
-      console.log('correctVector', correctVector)
-      if (Math.abs(vectorToCompare.X - correctVector.X) < 5 && Math.abs(vectorToCompare.Y - vectorToCompare.Y) < 5) {
-        this.correct = true
+      if (Math.abs(vectorToCompare.X - correctVector.X) < 3 && Math.abs(vectorToCompare.Y - vectorToCompare.Y) < 3) {
+        this.correct &= true
+        console.log('正确')
       } else {
-        this.correct = false
+        this.correct &= false
+        console.log('不正确')
       }
+      console.log(this.correct)
     }
   },
   mounted: function () {
