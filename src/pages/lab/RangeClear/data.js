@@ -53,8 +53,10 @@ export default {
     let polygons = []
     pointInfo.forEach(point => {
       let P = new Polygon(point)
+      console.log('P', P)
       polygons.push(P)
     })
+    console.log(polygons)
     return polygons
   },
   getTempPolygons: function () {

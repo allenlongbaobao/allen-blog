@@ -3,8 +3,10 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
+          <!--
           <el-button type="button" @click="toggleSignIn">登陆</el-button>
           <el-button type="button" @click="toggleSignUp">注册</el-button>
+          -->
         </div>
         <div class="modal-body">
           <transition name="fade">

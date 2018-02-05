@@ -2,6 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="container">
+      <h3>your score: {{score}}</h3>
       <canvas id="temp" width="100" height="100"></canvas>
       <canvas id="canvas" width="500" height="500" v-on:mousedown="clickPolygon" v-on:mousemove="movePolygon" v-on:mouseup="stopMovePolygon" v-on:mouseover="stopMovePolygon">
       </canvas>
@@ -19,6 +20,7 @@ export default {
   data: function () {
     return {
       msg: 'Welcome to RangeClear Lab',
+      score: 0,
       polygons: [],  //  多边形数组
       tempPolygons: [], //  最终图形数组
       relativeDiffX: 0,  //  点击点X与图形原点X的差值
@@ -66,8 +68,12 @@ export default {
       })
     },
     clickPolygon: function (event) {
+      /*
       let clickX = event.layerX
       let clickY = event.layerY
+      */
+      let clickX = event.pageX - this.can.offsetLeft
+      let clickY = event.pageY - this.can.offsetTop
       this.polygons.forEach(polygon => {
         if (clickX >= polygon.x && clickX <= (polygon.x + polygon.w) && clickY >= polygon.y && clickY <= (polygon.y + polygon.h)) {
           if (this.chosenPolygon != null) {
@@ -77,14 +83,18 @@ export default {
           this.chosenPolygon = polygon
           this.isMove = true
           this.relativeDiffX = polygon.x - clickX  //  计算差值X
-          this.relatvieDiffY = polygon.y - clickY  //  计算差值Y
+          this.relativeDiffY = polygon.y - clickY  //  计算差值Y
+          console.log('relativeDiffX,', this.relativeDiffX)
+          console.log('relativeDiffY,', this.relativeDiffY)
         }
       })
     },
     movePolygon: function (event) {
       if (this.isMove === true && this.chosenPolygon != null && this.chosenPolygon.chosen === true) {
-        this.chosenPolygon.x = event.layerX + this.relativeDiffX
-        this.chosenPolygon.y = event.layerY + this.relatvieDiffY
+        this.chosenPolygon.x = event.pageX - this.can.offsetLeft + this.relativeDiffX
+        this.chosenPolygon.y = event.pageY - this.can.offsetTop + this.relativeDiffY
+        console.log('chosenPolygon.x', this.chosenPolygon.x)
+        console.log('chosenPolygon.y', this.chosenPolygon.y)
         this.draw()
       }
     },
@@ -102,6 +112,7 @@ export default {
         }
         if (this.correct === 1) {
           alert('congratulations')
+          this.score += 100
           this.resetCanvas()
         } else {
           this.correct = true
