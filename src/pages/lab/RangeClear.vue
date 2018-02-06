@@ -2,11 +2,16 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div class="container">
-      <h3>your score: {{score}}</h3>
-      <canvas id="temp" width="100" height="100"></canvas>
       <canvas id="canvas" width="500" height="500" v-on:mousedown="clickPolygon" v-on:mousemove="movePolygon" v-on:mouseup="stopMovePolygon" v-on:mouseover="stopMovePolygon">
       </canvas>
-      <el-button @click="resetCanvas">复位</el-button>
+    </div>
+    <div class="side-container">
+      <h3>your score: {{score}}</h3>
+      <canvas id="temp" width="100" height="100"></canvas>
+      <div class="sidc-container--button">
+        <el-button @click="resetCanvas">下一关</el-button>
+        <el-button @click="resetCanvas">复位</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -151,11 +156,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .hello {
-  width: 500px;
+  width: 800px;
   margin: auto;
 }
 
 .container {
+  float: left;
+  margin-bottom: 50px;
+}
+
+.side-container {
+  float: right;
+}
+
+.side-container--button {
+  float: left;
+  clear: both;
 }
 
 #canvas {
@@ -164,8 +180,14 @@ export default {
   width: 500px;
 }
 
+#temp {
+  float: left;
+  clear: both;
+}
+
 h1, h2 {
   font-weight: normal;
+  text-align: center;
 }
 
 ul {

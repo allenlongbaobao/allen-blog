@@ -98,9 +98,14 @@ export default {
       })
     },
     openCompleteArticle: function (article) {
+    },
+    addVisitedNum: function () {
+      this.$http.get(IP + '/api/addVisitedNum', {withCredentials: true}).then(response => {
+      })
     }
   },
   created () {
+    this.addVisitedNum()
     this.getAllArticle()
     this.getArticleList()
   },
