@@ -102,9 +102,12 @@ export default {
     },
     removeArticle: function (e) {
       this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
+        this.tableData = this.tableData.filter(t => {
+          return t._id !== response.data.data._id
+        })
       }).catch(err => {
         console.log(err)
-      }).then(this.getAllArticle)
+      })
     },
     save: function () {
       console.log('it will save')

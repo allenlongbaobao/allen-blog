@@ -34,7 +34,7 @@
 import _ from 'lodash'
 import env from '../../../config/dev.env.js'
 let IP = env.SERVER_IP
-console.log(IP)
+
 export default {
   data () {
     return {
@@ -46,7 +46,6 @@ export default {
     }
   },
   created () {
-    console.log(this.$http.options)
     this.$http.get(IP + '/api/getArticleList').then(response => {
       this.tableData = response.data.data
     }).catch(err => {
@@ -61,8 +60,10 @@ export default {
         alert('该文章集内还有文章')
       } else {
         this.$http.post(IP + '/api/removeArticleList', {_id: e._id}).then(response => {
-          console.log('data:', response.data)
-          _.pull(this.tableData, response.data.data)
+          this.tableData = this.tableData.filter(t => {
+            return t._id !== response.data.data._id
+          })
+          console.log('this.tableData', this.tableData)
         }, err => {
           console.log(err)
         })
