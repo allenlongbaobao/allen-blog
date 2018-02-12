@@ -36,6 +36,8 @@ export default {
         }
       ]
     }
+  },
+  created () {
   }
 }
 </script>

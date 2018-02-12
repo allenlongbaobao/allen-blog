@@ -2,8 +2,9 @@
   <div>
     <el-container>
       <el-header>
-        <span>{{user.username}}</span>
-        <el-button @click="signOut">注销</el-button>
+        <span>Welcome: {{user.username}}</span>
+        <el-button type="primary" @click="goToMainPage">主页</el-button>
+        <el-button type="danger" @click="signOut">注销</el-button>
       </el-header>
       <el-container>
         <el-aside>
@@ -46,8 +47,6 @@ export default {
       this.$router.push({name: 'admin'})
     })
   },
-  update () {
-  },
   methods: {
     manage: function () {
       return this.$http.post(IP + '/api/signIn', {}, {withCredentials: true}).then(response => {
@@ -61,9 +60,13 @@ export default {
         this.articleList = response.body.data
       })
     },
+    goToMainPage: function () {
+      this.$destroy()
+      this.$router.push({name: 'article'})
+    },
     signOut: function () {
       this.$http.post(IP + '/api/signOut', {}, {withCredentials: true}).then(response => {
-        this.$router.push({name: 'mainPage'})
+        this.$router.push({name: 'article'})
       })
     }
   },

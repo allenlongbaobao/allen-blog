@@ -222,11 +222,6 @@ export default {
   margin: 0 auto;
 }
 
-.modal-default-button {
-  float: right;
-}
-
-
 .signInForm {
   vertical-align: middle;
 }
