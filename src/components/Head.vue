@@ -77,8 +77,8 @@ ul .singleNavigate {
 }
 
 .singleNavigate a:hover, .singleNavigate a:active {
-  width:78px;
-  height:33px;
+  width:80px;
+  height:35px;
   line-height:28px;
   border: solid #000;
   border-width: 0 0 1px 0;

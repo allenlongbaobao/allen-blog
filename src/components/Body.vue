@@ -55,6 +55,7 @@ div>p {
   margin-left: auto;
   margin-right:auto;
 }
+
 ul .singleNavigate {
   list-style: none;
   float:left;
@@ -69,11 +70,12 @@ ul .singleNavigate {
   display:block;/*这个比较关键，因为a本身就是联级元素，本身不具有宽高，用这个把它变成块级元素，这样前面设置的宽和高就能起作用了*/
   text-align:center;/*让文本居中*/
   text-decoration:none; /*去掉下划线*/
+  color: #000;
 }
 
 .singleNavigate a:hover{
-  width:78px;
-  height:33px;
+  width: 80px;
+  height:35px;
   line-height:28px;
   font-size: 25px;
 }
