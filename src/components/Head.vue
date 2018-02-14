@@ -60,6 +60,7 @@ img {
   width:auto;/*设置元素宽度为980px*/
   margin:0px auto 0px auto;/*也可以简写为margin:0 auto*/
   height: 35px;
+  clear:both;
 }
 ul .singleNavigate {
   list-style: none;

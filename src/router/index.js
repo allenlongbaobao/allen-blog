@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//  import Lab from '@/components/Lab'
+import Lab from '@/components/Lab'
 import Head from '@/components/Head'
 import Body from '@/components/Body'
 import Foot from '@/components/Foot'
@@ -12,6 +12,8 @@ import ArticleManage from '@/pages/manage/ArticleManage'
 import ArticleListManage from '@/pages/manage/ArticleListManage'
 import DraftManage from '@/pages/manage/DraftManage'
 import RangeClear from '@/pages/lab/RangeClear'
+import ReaderAssist from '@/pages/lab/ReaderAssist'
+import Valentine from '@/pages/lab/Valentine'
 
 Vue.use(Router)
 
@@ -43,11 +45,32 @@ export default new Router({
       }
     },
     {
+      path: '/RangeClear',
+      name: 'RangeClear',
+      components: {
+        Body: RangeClear
+      }
+    },
+    {
+      path: '/ReaderAssist',
+      name: 'ReaderAssist',
+      components: {
+        Body: ReaderAssist
+      }
+    },
+    {
+      path: '/Valentine',
+      name: 'Valentine',
+      components: {
+        Body: Valentine
+      }
+    },
+    {
       path: '/lab',
       name: 'lab',
       components: {
         Head: Head,
-        Body: RangeClear,
+        Body: Lab,
         Foot: Foot
       }
     },

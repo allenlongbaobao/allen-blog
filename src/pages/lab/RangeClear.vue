@@ -33,7 +33,7 @@ export default {
       correct: true,  //  是否符合最终图形判断
       chosenPolygon: null, // 点击选中的图形
       isMove: false,  //  是否移动判断
-      can: document.getElementById('canvas'),
+      can: null,
       cxt: null
     }
   },

@@ -50,8 +50,8 @@ export default {
         num: 7
       }
       ],
-      articleNum: 1,
-      visitedNum: 1
+      articleNum: null,
+      visitedNum: null
     }
   },
   created () {
