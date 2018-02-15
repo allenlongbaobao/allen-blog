@@ -1,12 +1,13 @@
 <template>
   <div id="container">
-    <audio controls="" autoplay="" name="media"><source src="http://dl.stream.qqmusic.qq.com/C400003OIP8A3BE5uK.m4a?vkey=A354F9A6B118F47BD7AA2487867625D978DBF4B019B9424045E30E355EECA364051BA2663CFEC1F76E42B2728B42D73B6366BF685F51A087&amp;guid=6226037951&amp;uin=0&amp;fromtag=66" type="audio/mp4"></audio>
+    <audio controls="" autoplay="" name="media"><source src="http://dl.stream.qqmusic.qq.com/C400004AGa4s1SF7je.m4a?vkey=11650703A12241BAC9A08524EA6E34C3C789973EDD6FC3A6CD4562D0E37DC3A2EF53ADE718484B43E135831641CB7A957B9970DD33F59548&guid=6226037951&uin=0&fromtag=66" type="audio/mp4"></audio>
     <canvas id="canvas" class="background" :width="width" :height="height"></canvas>
     <canvas id="postcard" width="600" height="400"></canvas>
   </div>
 </template>
 
 <script>
+'use strict'
 import _ from 'lodash'
 //  文字粒子类
 class Point {
@@ -14,12 +15,12 @@ class Point {
     this.context = context
     this.x = x
     this.y = y
+    this.size = 0.2
+    this.opacity = 1
     this.dx = 20
     this.dy = 20
     this.ds = 0.005
     this.do = 0.005
-    this.size = 0.2
-    this.opacity = 1
   }
 
   draw () {
@@ -53,7 +54,6 @@ export default {
   mounted () {
     this.initBackground()
     this.draw(this.particles)
-    //  setInterval(this.move, 10)
     this.context = '亲爱的，我来晚了'
     this.showPicture().then(resolve => {
       this.context = "HAPPY Valentine's day"
@@ -113,13 +113,7 @@ export default {
     },
     draw: function () {
       this.cxt.clearRect(0, 0, this.can.width, this.can.height)
-      this.particles.forEach(p => {
-        this.cxt.fillStyle = 'rgba(255, 255, 255, ' + p.opacity + ')'
-        this.cxt.beginPath()
-        this.cxt.arc(p.position.x, p.position.y, p.size * 10, 0, 2 * Math.PI, true)
-        this.cxt.fill()
-      })
-      this.particlesToBeMoved.forEach(p => {
+      this.particles.concat(this.particlesToBeMoved).forEach(p => {
         this.cxt.fillStyle = 'rgba(255, 255, 255, ' + p.opacity + ')'
         this.cxt.beginPath()
         this.cxt.arc(p.position.x, p.position.y, p.size * 10, 0, 2 * Math.PI, true)
@@ -134,6 +128,7 @@ export default {
         if (this.points.length > this.particleNum) {
           console.log(this.points.length)
           console.log('超出数量')
+          resolve()
         } else {
           this.makeAnimation()
           setTimeout(resolve, 10000)

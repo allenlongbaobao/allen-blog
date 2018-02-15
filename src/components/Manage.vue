@@ -1,22 +1,24 @@
 <template>
-  <div>
-    <el-container>
+  <div class="manage-container">
+    <el-container v-show="bodyShow">
       <el-header>
-        <span>Welcome: {{user.username}}</span>
-        <el-button type="primary" @click="goToMainPage">主页</el-button>
-        <el-button type="danger" @click="signOut">注销</el-button>
+        <div class="header-manage">
+          <span @click="goToMainPage">Manage Center</span>
+        </div>
+        <div class="header-info">
+          <span>Welcome: {{user.username}}</span>
+          <el-button type="primary" @click="goToMainPage">主页</el-button>
+          <el-button type="danger" @click="signOut">注销</el-button>
+        </div>
       </el-header>
       <el-container>
         <el-aside>
           <el-menu :router=true>
-            <el-submenu index="1">
-              <template slot="title"><i class="el-icon-message"></i>列表</template>
-              <el-menu-item-group>
-                <el-menu-item index="1-1" route="/manage/articleManage">文章</el-menu-item>
-                <el-menu-item index="1-2" route="/manage/articleListManage">文章集</el-menu-item>
-                <el-menu-item index="1-3" route="/manage/draftManage">草稿箱</el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
+            <el-menu-item-group>
+              <el-menu-item index="1-1" route="/manage/articleManage">文章</el-menu-item>
+              <el-menu-item index="1-2" route="/manage/articleListManage">文章集</el-menu-item>
+              <el-menu-item index="1-3" route="/manage/draftManage">草稿箱</el-menu-item>
+            </el-menu-item-group>
           </el-menu>
         </el-aside>
         <el-main>
@@ -24,6 +26,9 @@
         </el-main>
       </el-container>
     </el-container>
+    <div class='master' v-show="masterShow">
+      <p>加载中</p>
+    </div>
   </div>
 </template>
 
@@ -36,28 +41,35 @@ export default {
     return {
       user: {},
       signPageShow: false,
-      artileList: []
+      masterShow: true,
+      bodyShow: false
     }
   },
   created () {
     this.manage().then((user) => {
+      this.masterShow = false
+      this.bodyShow = true
       this.user = user
-      this.getArticleList()
     }).catch((code) => {
+      this.masterShow = false
       this.$router.push({name: 'admin'})
     })
   },
   methods: {
     manage: function () {
-      return this.$http.post(IP + '/api/signIn', {}, {withCredentials: true}).then(response => {
+      return this.$http.post(
+        IP + '/api/signIn',
+        {},
+        {
+          withCredentials: true,
+          progress: event => {
+            this.masterShow = true
+          }
+        }
+      ).then(response => {
         return response.body.data
       }).catch(err => {
         throw new Error(err.body.data)
-      })
-    },
-    getArticleList: function () {
-      this.$http.get(IP + '/api/getArticleList').then(response => {
-        this.articleList = response.body.data
       })
     },
     goToMainPage: function () {
@@ -78,5 +90,51 @@ export default {
 <style>
 .addNew {
   width: 100%;
+}
+
+.manage-container {
+}
+
+.master {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200,200,200, 0.5);
+  z-index: 1000;
+}
+
+.master > p {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.el-header {
+  background-color: #000;
+  position: relative;
+}
+
+
+.header-manage {
+  margin-top: 13px;
+  float: left;
+  color: #FFF;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.header-manage:hover {
+  font-style: italic;
+}
+
+.header-info {
+  margin-top: 10px;
+  float: right;
+  color: #FFF;
 }
 </style>
