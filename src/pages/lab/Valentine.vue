@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <audio controls="" autoplay="" name="media"><source src="http://dl.stream.qqmusic.qq.com/C400004AGa4s1SF7je.m4a?vkey=11650703A12241BAC9A08524EA6E34C3C789973EDD6FC3A6CD4562D0E37DC3A2EF53ADE718484B43E135831641CB7A957B9970DD33F59548&guid=6226037951&uin=0&fromtag=66" type="audio/mp4"></audio>
+    <audio controls="" autoplay="" name="media"><source src="/static/music.mp4" type="audio/mp4"></audio>
     <canvas id="canvas" class="background" :width="width" :height="height"></canvas>
     <canvas id="postcard" width="600" height="400"></canvas>
   </div>
@@ -46,12 +46,11 @@ export default {
       points: [],
       particleNum: 1500,
       intervalId: 0,
-      finishTime: 3000,
-      intervalTime: 10,
       power: 1  //  倍率
     }
   },
   mounted () {
+    this.getMusic()
     this.initBackground()
     this.draw(this.particles)
     this.context = '亲爱的，我来晚了'
@@ -120,6 +119,13 @@ export default {
         this.cxt.fill()
       })
     },
+    showPostcard: function () {
+      let can = document.getElementById('postcard')
+      let points = this.getPoint(can)
+      points.forEach(p => {
+        p.draw()
+      })
+    },
     showPicture: function () {
       return new Promise((resolve, reject) => {
         this.makeWords(this.context, this.cxt)
@@ -147,13 +153,7 @@ export default {
       this.particlesToBeMoved = []
       this.intervalId = setInterval(this.moveRestParticles, 10)
     },
-    showPostcard: function () {
-      let can = document.getElementById('postcard')
-      let points = this.getPoint(can)
-      points.forEach(p => {
-        p.draw()
-      })
-    },
+
     shuffleParticle: function () {
       this.particles = _.shuffle(this.particles)
     },
@@ -242,6 +242,8 @@ export default {
     },
     getRandom: function (num) {
       return Math.random() * num
+    },
+    getMusic: function () {
     }
   }
 }
