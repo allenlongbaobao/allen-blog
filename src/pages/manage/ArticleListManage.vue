@@ -61,9 +61,8 @@ export default {
       } else {
         this.$http.post(IP + '/api/removeArticleList', {_id: e._id}).then(response => {
           this.tableData = this.tableData.filter(t => {
-            return t._id !== response.data.data._id
+            return t._id !== response.body.data._id
           })
-          console.log('this.tableData', this.tableData)
         }, err => {
           console.log(err)
         })
