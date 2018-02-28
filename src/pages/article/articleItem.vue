@@ -1,6 +1,7 @@
 <template>
   <div class="item">
     <h1>{{articleInfo.articleName}}</h1>
+    <span>{{publishAt}}</span>
     <mark-html class="partContent" :mhtml="compiledMarkdown"></mark-html>
     <router-link :to="{name: 'showCompleteArticle', params:{id: articleInfo._id}}"><el-button type="primary" @click="openCompleteArticle">查看原文</el-button></router-link>
     <hr style="border:1px dashed #036" />
@@ -14,6 +15,7 @@ import markHtml from '../common/MarkHtml'
 export default {
   data () {
     return {
+      publishAt: null
     }
   },
   props: {
@@ -26,11 +28,20 @@ export default {
     compiledMarkdown: function () {
       return Marked(this.articleInfo.articleContent)
     }
-
+  },
+  mounted () {
+    this.publishAt = this.getPublishAt(this.articleInfo.publishAt)
   },
   methods: {
     openCompleteArticle: function () {
       this.$emit('openCompleteArticle', this.articleInfo)
+    },
+    getPublishAt: function (publishAt) {
+      let date = new Date(publishAt)
+      let year = date.getFullYear()
+      let mon = (date.getMonth() + 1) > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
+      let day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
+      return year + '-' + mon + '-' + day
     }
   }
 }

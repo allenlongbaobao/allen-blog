@@ -85,7 +85,6 @@ export default {
           _id: this.articleId.length > 0 ? this.articleId : null,
           articleContent: this.articleContent,
           publish: true,
-          publishAt: new Date(),
           articleName: this.articleName,
           articleList: {
             Lid: selectedOption._id,

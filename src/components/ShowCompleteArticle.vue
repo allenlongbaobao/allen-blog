@@ -1,6 +1,7 @@
 <template>
   <div class="completeaArticle">
     <h1 class="articleName">{{articleName}}</h1>
+    <span>{{publishAt}}</span>
     <hr style="border: 1px solid #36" />
     <markHtml :mhtml="compiledMarkdown"></markHtml>
     <div class="comment">
@@ -26,11 +27,14 @@
           <div class="single-comment--operate">
             <img @click="addLikeNum" src="/static/heart-outline.png" alt="1" :title="c._id">
             <span>{{c.likeNum}}</span>
-            <a href="">回复</a>
+            <el-button @click="reply(c)" type="text" size="">回复</el-button>
             {{c.date}}
           </div>
+          <div class="single-comment--reply" v-show="false" :id="c._id">
+            <p>aaaa</p>
+          </div>
         </div>
-        <hr style="border:1px dashed #036;clear:both;" />
+        <hr style="border:.5px solid rgb(179,183,193);clear:both;" />
       </div>
     </div>
   </div>
@@ -47,6 +51,7 @@ export default {
       id: null,
       article: '',
       articleName: '',
+      publishAt: null,
       comments: []
     }
   },
@@ -66,19 +71,27 @@ export default {
   methods: {
     getArticleById: function (id) {
       this.$http.post(IP + '/api/getArticleById', {id: id}).then(response => {
-        this.article = response.data.data.articleContent
-        this.articleName = response.data.data.articleName
+        this.article = response.body.data.articleContent
+        this.articleName = response.body.data.articleName
+        this.publishAt = this.getPublishAt(response.body.data.publishAt)
       }).catch(error => {
         console.log(error)
       })
+    },
+    getPublishAt: function (publishAt) {
+      let date = new Date(publishAt)
+      let year = date.getFullYear()
+      let mon = (date.getMonth() + 1) > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)
+      let day = date.getDate() > 9 ? date.getDate() : '0' + date.getDate()
+      return year + '-' + mon + '-' + day
     },
     compiledMarkdown: function () {
       return Marked(this.article)
     },
     showComment: function () {
       this.$http.post(IP + '/api/getAllComments', {id: this.id}).then(response => {
-        console.log(response.data)
-        this.comments = response.data.data
+        console.log(response.body)
+        this.comments = response.body.data
       }).catch(error => {
         console.log(error)
       })
@@ -107,8 +120,6 @@ export default {
         childComment: []
       }
       this.$http.post(IP + '/api/addComment', data).then(response => {
-        console.log('增加评论成功')
-        console.log(this.comments)
         this.comments.unshift(response.data.data)
         user.value = ''
         content.value = ''
@@ -138,6 +149,11 @@ export default {
         })
         e.target.alt = '1'
       }
+    },
+    reply: function (c, e) {
+      let reply = document.getElementById(c._id)
+      reply.style.display = ''
+      console.log(e)
     }
   }
 }
@@ -203,13 +219,19 @@ export default {
   height: auto;
   font-size: 23px;
   float: left;
+  clear: both;
 }
 .single-comment--operate {
   display: inline-block;
-  width: 80%;
+  width: 100%;
   float: left;
+  clear: both;
 }
 .single-comment--operate img {
   cursor: pointer;
+}
+.single-comment--reply {
+  display: inline-block;
+  float: left;
 }
 </style>

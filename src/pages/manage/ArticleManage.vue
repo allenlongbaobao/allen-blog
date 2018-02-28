@@ -103,7 +103,7 @@ export default {
     removeArticle: function (e) {
       this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
         this.tableData = this.tableData.filter(t => {
-          return t._id !== response.data.data._id
+          return t._id !== response.body.data._id
         })
       }).catch(err => {
         console.log(err)
