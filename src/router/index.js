@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+/*
 import Lab from '@/components/Lab'
 import Head from '@/components/Head'
 import Body from '@/components/Body'
@@ -14,7 +15,7 @@ import DraftManage from '@/pages/manage/DraftManage'
 import RangeClear from '@/pages/lab/RangeClear'
 import ReaderAssist from '@/pages/lab/ReaderAssist'
 import Valentine from '@/pages/lab/Valentine'
-/*
+*/
 const Lab = () => import('@/components/Lab')
 const Head = () => import('@/components/Head')
 const Body = () => import('@/components/Body')
@@ -29,7 +30,6 @@ const DraftManage = () => import('@/pages/manage/DraftManage')
 const RangeClear = () => import('@/pages/lab/RangeClear')
 const ReaderAssist = () => import('@/pages/lab/ReaderAssist')
 const Valentine = () => import('@/pages/lab/Valentine')
-*/
 
 Vue.use(Router)
 

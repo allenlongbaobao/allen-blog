@@ -73,6 +73,7 @@ export default {
       this.$http.post(IP + '/api/getArticleById', {id: id}).then(response => {
         this.article = response.body.data.articleContent
         this.articleName = response.body.data.articleName
+        console.log(response)
         this.publishAt = this.getPublishAt(response.body.data.publishAt)
       }).catch(error => {
         console.log(error)
@@ -116,7 +117,6 @@ export default {
         aid: this.id,
         likeNum: 0,
         disNum: 0,
-        date: new Date(),
         childComment: []
       }
       this.$http.post(IP + '/api/addComment', data).then(response => {
