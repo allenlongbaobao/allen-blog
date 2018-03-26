@@ -1,5 +1,5 @@
 <template>
-  <div class="completeaArticle">
+  <div class="completeArticle">
     <h1 class="articleName">{{articleName}}</h1>
     <span>{{publishAt}}</span>
     <hr style="border: 1px solid #36" />
@@ -160,9 +160,22 @@ export default {
 </script>
 
 <style scoped>
-.completeaArticle {
+.completeArticle {
   padding-left: 200px;
   padding-right: 200px;
+}
+
+@media all and (max-width: 800px) {
+  .completeArticle {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+@media all and (max-width: 600px) {
+  .completeArticle {
+    padding-left: 40px;
+    padding-right: 10px;
+  }
 }
 .articleName{
 }

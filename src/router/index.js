@@ -18,7 +18,7 @@ import Valentine from '@/pages/lab/Valentine'
 */
 const Lab = () => import('@/components/Lab')
 const Head = () => import('@/components/Head')
-const Body = () => import('@/components/Body')
+//  const Body = () => import('@/components/Body')
 const Foot = () => import('@/components/Foot')
 const Article = () => import('@/components/Article')
 const Admin = () => import('@/components/Admin')
@@ -39,7 +39,9 @@ export default new Router({
       path: '/',
       name: 'mainPage',
       components: {
-        Body: Body
+        Head: Head,
+        Body: Article,
+        Foot: Foot
       }
     },
     {

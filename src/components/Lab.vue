@@ -55,7 +55,8 @@ export default {
   clear: both;
   height: auto;
   padding-bottom: 30px;
-  display: block;
+  display: flex;
+  justify-content: center;
 }
 
 .lab-container:after {
@@ -89,5 +90,12 @@ export default {
 
 .lab--introduce {
   top: 250px;
+}
+
+@media all and (max-width: 600px) {
+  .lab-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

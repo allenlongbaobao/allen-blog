@@ -1,7 +1,80 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style lang="scss">
+      html,body {
+        margin: 0px;
+        padding: 0px;
+        display: block;
+      }
+
+      #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      @media screen and (min-width: 375px) {
+          html, body {
+              /* iPhone6的375px尺寸作为16px基准，414px正好18px大小, 600 20px */
+              font-size: calc(100% + 2 * (100vw - 375px) / 39);
+              font-size: calc(6px + 2 * (100vw - 375px) / 39);
+          }
+      }
+      @media screen and (min-width: 414px) {
+          html, body {
+              /* 414px-1000px每100像素宽字体增加1px(18px-22px) */
+              font-size: calc(112.5% + 4 * (100vw - 414px) / 586);
+              font-size: calc(8px + 4 * (100vw - 414px) / 586);
+          }
+      }
+      @media screen and (min-width: 600px) {
+          html, body {
+              /* 600px-1000px每100像素宽字体增加1px(20px-24px) */
+              font-size: calc(125% + 4 * (100vw - 600px) / 400);
+              font-size: calc(10px + 4 * (100vw - 600px) / 400);
+          }
+      }
+      @media screen and (min-width: 1000px) {
+          html,body {
+              /* 1000px往后是每100像素0.5px增加 */
+              font-size: calc(137.5% + 6 * (100vw - 1000px) / 1000);
+              font-size: calc(12px + 6 * (100vw - 1000px) / 1000);
+          }
+      } 
+    </style>
+
+    <script>
+    (function (doc, win) {
+      let docEl = doc.documentElement
+      let resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize'
+      let recalc = () => {
+        let clientWidth = docEl.clientWidth
+        if (clientWidth >= 750) {
+          docEl.style.fontSize = '10px'
+          console.log('clientWidth > 750')
+        } else {
+          docEl.style.fontSize = '10px'
+          //  docEl.style.fontSize = 10 * (clientWidth / 750) + 'px'
+          console.log('clientWidth < 750')
+        }
+      }
+      if (!doc.addEventListener) return
+      win.addEventListener(resizeEvt, recalc, false)
+      doc.addEventListener('DOMContentLoaded', recalc, false)
+    })(document, window)
+
+    export default {
+      data: function () {
+        return {
+        }
+      }
+    }
+    </script>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>allen-blog</title>
   </head>
   <body>

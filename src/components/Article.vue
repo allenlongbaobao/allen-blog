@@ -4,8 +4,7 @@
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
     <div class="list-container">
-      <el-button class="articlelist__button default" @click="getAllArticle">ALL</el-button>
-      <ul >
+      <ul>
         <li class="article__articlelist" v-for="item in articleList">
           <el-button class="articlelist__button" @click="showArticleInList(item._id)">{{item.name}}</el-button>
         </li>
@@ -13,8 +12,10 @@
     </div>
     <el-container>
       <el-main id="article_content">
-        <ul v-for="item in articles">
-          <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
+        <ul>
+          <li v-for="item in articles">
+            <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
+          </li>
         </ul>
       </el-main>
       <el-aside>
@@ -69,6 +70,8 @@ export default {
     getArticleList: function () {
       this.$http.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
+        this.articleList.unshift({_id: 'all', name: 'All'})
+        console.log(this.articleList)
       })
     },
     getAllArticle: function () {
@@ -81,9 +84,13 @@ export default {
       })
     },
     showArticleInList: function (id) {
-      this.$http.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
-        this.articles = response.data.data
-      })
+      if (id === 'all') {
+        this.getAllArticle()
+      } else {
+        this.$http.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
+          this.articles = response.data.data
+        })
+      }
     },
     toggleArticle: function (link) {
       this.getArticleAndShow(link)
@@ -133,10 +140,24 @@ export default {
 }
 
 .list-container {
-  height: 50px;
+  height: 55px;
   padding-left: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
 }
 
+.list-container::-webkit-scrollbar {
+  display:none;
+}
+
+.list-container ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 0;
+  list-style: none;
+}
 .article__articlelist {
   height: 0;
 }
@@ -152,7 +173,25 @@ export default {
   color: white;
   background-color: black;
 }
+
 code {
   color: #f66;
+}
+
+#article_content {
+  padding: 10px 5px 10px 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#article_content ul {
+  list-style: none;
+  padding: 0;
+}
+@media all and (max-width: 600px) {
+  .el-aside {
+    display: none;
+  }
 }
 </style>

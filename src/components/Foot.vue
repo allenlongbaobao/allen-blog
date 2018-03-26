@@ -32,5 +32,7 @@
 }
 .foot>p {
   color: #FFF;
+  margin-left: 0px;
+  margin-right: 0px;
 } 
 </style>

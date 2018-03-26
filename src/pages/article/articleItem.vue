@@ -55,6 +55,11 @@ export default {
 }
 
 h1{
+  font-size: 1rem;
+}
+
+span {
+  font-size: 0.8rem;
 }
 
 hr {
