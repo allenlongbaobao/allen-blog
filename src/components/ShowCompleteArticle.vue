@@ -173,7 +173,7 @@ export default {
 }
 @media all and (max-width: 600px) {
   .completeArticle {
-    padding-left: 40px;
+    padding-left: 10px;
     padding-right: 10px;
   }
 }
