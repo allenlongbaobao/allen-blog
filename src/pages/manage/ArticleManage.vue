@@ -71,6 +71,7 @@ export default {
     getArticleList: function () {
       this.$http.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
+        console.log(this.articleList)
       })
     },
     /*

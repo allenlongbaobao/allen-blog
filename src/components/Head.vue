@@ -1,6 +1,8 @@
 <template>
   <div id='head'>
-    <img src="../assets/banner.jpg">
+    <div id="tap">
+      <p>Allen's Blog</p>
+    </div>
     <ul id="navigateBar">
       <li class="singleNavigate" v-for="item in items">
         <router-link :to="item.link">{{ item.content }}</router-link>
@@ -49,9 +51,18 @@ export default {
   display: flex;
   flex-direction: column;
 }
-img {
+#tap {
   width: 100%;
   height: 300px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+
+#tap > p {
+  color: white;
+  font-size: 8rem;
+  margin: 0;
 }
 
 #navigateBar {
@@ -67,6 +78,7 @@ img {
   
   -webkit-flex-flow: row wrap;
   justify-content: flex-start;
+  height: 50px;
 
 }
 
@@ -96,7 +108,7 @@ img {
 
 
 @media all and (max-width: 600px) {
-  img {
+  #tap {
     display: none;
   }
   #navigateBar {
@@ -104,6 +116,7 @@ img {
     flex-flow: column wrap;
     padding: 0;
     background-color: black;
+    height: auto;
   }
   
   #navigateBar a { 

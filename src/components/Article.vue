@@ -3,6 +3,7 @@
     <!--
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
+
     <div class="list-container">
       <ul>
         <li class="article__articlelist" v-for="item in articleList">
@@ -12,6 +13,13 @@
     </div>
     <el-container>
       <el-main id="article_content">
+        <div class="beforeLoaded" v-show="notLoaded">
+          <div class="ball-pulse-sync">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
         <ul>
           <li v-for="item in articles">
             <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
@@ -58,7 +66,8 @@ export default {
       files: '',
       menu: [],
       articles: [],
-      articleList: []
+      articleList: [],
+      notLoaded: true
     }
   },
   components: {
@@ -76,6 +85,7 @@ export default {
     },
     getAllArticle: function () {
       this.$http.get(IP + '/api/getAllArticle').then(response => {
+        this.notLoaded = false
         this.articles = _.remove(response.data.data, n => {
           return n.publish === true
         })
@@ -112,6 +122,13 @@ export default {
     }
   },
   created () {
+    console.log(this.articles[0])
+    console.log(this.articleList[0])
+    if (this.articles[0] === undefined || this.articleList[0] === undefined) {
+      console.log('页面未加载成功')
+    } else {
+      console.log('页面加载完毕')
+    }
     this.addVisitedNum()
     this.getAllArticle()
     this.getArticleList()
@@ -192,6 +209,53 @@ code {
 @media all and (max-width: 600px) {
   .el-aside {
     display: none;
+  }
+}
+
+.beforeLoaded {
+  display: flex;
+  justify-content: center;
+}
+
+.ball-pulse-sync {
+  transform: scale(1);
+}
+
+.ball-pulse-sync > div:nth-child(1) {
+  -webkit-animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;
+  animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;
+}
+.ball-pulse-sync > div:nth-child(2) {
+  -webkit-animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;
+  animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;
+}
+.ball-pulse-sync > div:nth-child(3) {
+  -webkit-animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;
+  animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;
+}
+.ball-pulse-sync > div {
+  background-color: #B1AFAE;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+}
+
+@keyframes ball-pulse-sync {
+  33% {
+  -webkit-transform: translateY(10px);
+  transform: translateY(10px);
+  }
+  66% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
   }
 }
 </style>

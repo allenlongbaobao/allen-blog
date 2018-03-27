@@ -20,7 +20,7 @@ const Lab = () => import('@/components/Lab')
 const Head = () => import('@/components/Head')
 //  const Body = () => import('@/components/Body')
 const Foot = () => import('@/components/Foot')
-const Article = () => import('@/components/Article')
+//  const Article = () => import('@/components/Article')
 const Admin = () => import('@/components/Admin')
 const Manage = () => import('@/components/Manage')
 const ShowCompleteArticle = () => import('@/components/ShowCompleteArticle')
@@ -39,9 +39,9 @@ export default new Router({
       path: '/',
       name: 'mainPage',
       components: {
-        Head: Head,
-        Body: Article,
-        Foot: Foot
+        Head: resolve => require(['@/components/Head.vue'], resolve),
+        Body: resolve => require(['@/components/Article.vue'], resolve),
+        Foot: resolve => require(['@/components/Foot.vue'], resolve)
       }
     },
     {
@@ -49,7 +49,7 @@ export default new Router({
       name: 'article',
       components: {
         Head: Head,
-        Body: Article,
+        Body: resolve => require(['@/components/Article.vue'], resolve),
         Foot: Foot
       }
     },

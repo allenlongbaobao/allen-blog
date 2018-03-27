@@ -48,6 +48,7 @@ export default {
   created () {
     this.$http.get(IP + '/api/getArticleList').then(response => {
       this.tableData = response.data.data
+      console.log('tableData', this.tableData)
     }).catch(err => {
       console.log(err)
     })

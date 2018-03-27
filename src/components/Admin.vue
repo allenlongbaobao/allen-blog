@@ -200,6 +200,13 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+@media all and (max-width: 800px){
+  .modal-container {
+    width: 100%;
+  }
+
+}
+
 .modal-header {
   width: 70px;
   margin: 0 auto;
