@@ -60,6 +60,7 @@ export default {
 }
 
 #tap > p {
+  padding-left: 1.5rem;
   color: white;
   font-size: 8rem;
   margin: 0;

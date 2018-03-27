@@ -84,6 +84,10 @@ div>img{
   margin: 0 auto;
   display: block;
 }
+
+span {
+  font-size: 1.5rem;
+}
 .github {
   overflow: hidden;
 }

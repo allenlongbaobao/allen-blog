@@ -55,11 +55,11 @@ export default {
 }
 
 h1{
-  font-size: 1rem;
+  font-size: 3rem;
 }
 
 span {
-  font-size: 0.8rem;
+  font-size: 1.3rem;
 }
 
 hr {
