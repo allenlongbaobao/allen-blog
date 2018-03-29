@@ -1,26 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-/*
-import Lab from '@/components/Lab'
-import Head from '@/components/Head'
-import Body from '@/components/Body'
-import Foot from '@/components/Foot'
-import Article from '@/components/Article'
-import Admin from '@/components/Admin'
-import Manage from '@/components/Manage'
-import ShowCompleteArticle from '@/components/ShowCompleteArticle'
-import ArticleManage from '@/pages/manage/ArticleManage'
-import ArticleListManage from '@/pages/manage/ArticleListManage'
-import DraftManage from '@/pages/manage/DraftManage'
-import RangeClear from '@/pages/lab/RangeClear'
-import ReaderAssist from '@/pages/lab/ReaderAssist'
-import Valentine from '@/pages/lab/Valentine'
-*/
 const Lab = () => import('@/components/Lab')
 const Head = () => import('@/components/Head')
 //  const Body = () => import('@/components/Body')
 const Foot = () => import('@/components/Foot')
-//  const Article = () => import('@/components/Article')
+const Article = () => import('@/components/Article')
 const Admin = () => import('@/components/Admin')
 const Manage = () => import('@/components/Manage')
 const ShowCompleteArticle = () => import('@/components/ShowCompleteArticle')
@@ -39,9 +23,9 @@ export default new Router({
       path: '/',
       name: 'mainPage',
       components: {
-        Head: resolve => require(['@/components/Head.vue'], resolve),
-        Body: resolve => require(['@/components/Article.vue'], resolve),
-        Foot: resolve => require(['@/components/Foot.vue'], resolve)
+        Head: Head,
+        Body: Article,
+        Foot: Foot
       }
     },
     {
@@ -49,7 +33,7 @@ export default new Router({
       name: 'article',
       components: {
         Head: Head,
-        Body: resolve => require(['@/components/Article.vue'], resolve),
+        Body: Article,
         Foot: Foot
       }
     },

@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import { Button, Select, Container, Header, Main, Aside, Menu, MenuItem, MenuItemGroup, Form, FormItem, Input, Table, TableColumn, Dialog, Option } from 'element-ui'
-import VueResource from 'vue-resource'
+//  import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -23,7 +23,7 @@ Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)
 Vue.component(Dialog.name, Dialog)
 Vue.component(Option.name, Option)
-Vue.use(VueResource)
+//  Vue.use(VueResource)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */

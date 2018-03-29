@@ -6,7 +6,7 @@
     <markHtml :mhtml="compiledMarkdown"></markHtml>
     <div class="comment">
       <hr style="border:1px solid #036;clear:both;" />
-      <span class="comment-title">评论</span>
+      <span class="comment-title">评论(共有{{comments.length}}条评论)</span>
       <div class="add-comment">
         <el-input class="comment-userinfo" id="commentUsername" type="text" name="username" placeholder="username"></el-input>
         <el-input class="comment-userinfo" id="commentUseremail" type="text" name="useremail" placeholder="email"></el-input>
@@ -183,7 +183,7 @@ export default {
 .comment {
 }
 .comment-title {
-  font-size: 50px;
+  font-size: 3rem;
 }
 
 .add-comment {

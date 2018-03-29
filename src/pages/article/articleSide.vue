@@ -4,7 +4,7 @@
       <span><b>Github</b></span>
       <hr style="border:1px solid #036" />
       <div class="github__userinfo">
-        <img src="https://avatars0.githubusercontent.com/u/3255868?s=40&v=4">
+        <img src="http://p6bztekng.bkt.clouddn.com/3255868.jpeg">
         <p>allenlongbaobao</p>
         <a href="https://github.com/allenlongbaobao" target="blank"><el-button type="primary">Follow</el-button></a>
       </div>
