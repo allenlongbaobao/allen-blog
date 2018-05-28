@@ -1,4 +1,4 @@
-<template>
+<template v-if="$route.meta.keepAlive">
   <div id="artcicle">
     <!--
     <div id="article_content" v-html="compiledMarkdown"></div>

@@ -33,6 +33,10 @@ export default {
           content: 'Lab'
         },
         {
+          link: '/download',
+          content: 'Download'
+        },
+        {
           link: '/manage',
           content: 'Manage'
         }
