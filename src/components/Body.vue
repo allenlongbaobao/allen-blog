@@ -1,7 +1,7 @@
 <template>
   <div class="wraper" :style="'height:' + clientHeight + 'px;'">
     <div class="nav">
-      <span>Allen's House</span>
+      <router-link class="title" to="/">Allen's House</router-link>
       <ul id="navigater">
         <li class="singleNavigate" v-for="item in items">
           <router-link :to="item.link">{{ item.content }}</router-link>
@@ -19,6 +19,8 @@
       </p>
       <p>Allways love searching feathure online and offline.I believe "Clean Code" drives Development and simple within logistic code makes world running better.</p>
       <p>In short, analyze and practices make me more powerful!</p>
+    </div>
+    <div class="mask fade-out">
     </div>
   </div>
 </template>
@@ -63,7 +65,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css?family=Lobster|Roboto|Tangerine');
+@import url('https://fonts.googleapis.cnpmjs.org/css?family=Lobster|Roboto|Tangerine');
+@import '../assets/common.css';
 
 .wraper {
   display: flex;
@@ -82,10 +85,11 @@ export default {
     align-items: center;
     margin-top: 20px;
 
-    span {
+    .title {
       font-family: 'Lobster', cursive;
       color: white;
       font-size: 30px;
+      text-decoration: none;
     }
 
     ul {
@@ -102,6 +106,22 @@ export default {
           color: white;
           text-decoration: none;
           font-family: 'Roboto-Bold', sans-serif;
+          position: relative;
+        }
+
+        a::before {
+          content:"";
+          position:absolute;
+          left:0;
+          bottom:-2px;
+          height:2px;
+          width:100%;
+          background:#fff;
+          transform: scale(0);
+          transition:all 0.3s;
+        }
+        a:hover::before {
+          transform: scale(1);
         }
       }
     }
@@ -140,6 +160,12 @@ export default {
     }
   }
 
+  .mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+  }
 }
 
 </style>
