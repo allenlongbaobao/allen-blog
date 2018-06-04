@@ -35,11 +35,14 @@ export default {
         {
           link: '/download',
           content: 'Download'
-        },
+        }
+        /*
+        ,
         {
           link: '/manage',
           content: 'Manage'
         }
+        */
       ]
     }
   },
