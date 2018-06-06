@@ -29,8 +29,8 @@ export default new Router({
       }
     },
     {
-      path: '/article',
-      name: 'article',
+      path: '/blog',
+      name: 'blog',
       meta: {keepAlive: true},
       components: {
         Head: Head,
@@ -69,8 +69,8 @@ export default new Router({
       }
     },
     {
-      path: '/lab',
-      name: 'lab',
+      path: '/project',
+      name: 'project',
       components: {
         Head: Head,
         Body: Lab,

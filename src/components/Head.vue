@@ -1,16 +1,12 @@
 <template>
-  <div id='head'>
-    <div id="tap">
-      <p>Allen's Blog</p>
-    </div>
-    <ul id="navigateBar">
-      <li class="singleNavigate" v-for="item in items">
-        <router-link :to="item.link">{{ item.content }}</router-link>
-      </li>
+  <div class="nav">
+    <router-link class="title" to="/">Allen's House</router-link>
+      <ul id="navigater">
+        <li class="singleNavigate" v-for="item in items">
+          <router-link :to="item.link">{{ item.content }}</router-link>
+        </li>
     </ul>
-    <router-view name='homePage'> </router-view>
   </div>
-
 </template>
 
 <script>
@@ -21,20 +17,16 @@ export default {
       msg: 'i am allen, a software engineer!',
       items: [
         {
+          link: '/blog',
+          content: 'Blog'
+        },
+        {
+          link: '/project',
+          content: 'Project'
+        },
+        {
           link: '/',
-          content: 'Main'
-        },
-        {
-          link: '/article',
-          content: 'Article'
-        },
-        {
-          link: '/lab',
-          content: 'Lab'
-        },
-        {
-          link: '/download',
-          content: 'Download'
+          content: 'Contract'
         }
         /*
         ,
@@ -51,70 +43,65 @@ export default {
 }
 </script>
 
-<style scoped>
-#head {
-  width: 100%;
-  height: 100%;
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.cnpmjs.org/css?family=Lobster|Roboto|Tangerine');
+@import '../assets/common.css';
+.nav {
+  top: 0;
   display: flex;
-  flex-direction: column;
-}
-#tap {
-  width: 100%;
-  height: 300px;
-  background-color: black;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
+  background-color: black;
+  padding: 0 20px 0 20px;
+
+  .title {
+    font-family: 'Lobster', cursive;
+    color: white;
+    font-size: 30px;
+    text-decoration: none;
+  }
+
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 20px;
+    list-style: none;
+
+    li {
+      padding-left: 10px;
+      margin-left: 50px;
+
+      a {
+        color: white;
+        text-decoration: none;
+        font-family: 'Roboto-Bold', sans-serif;
+        position: relative;
+      }
+
+      a::before {
+        content:"";
+        position:absolute;
+        left:0;
+        bottom:-2px;
+        height:2px;
+        width:100%;
+        background:#fff;
+        transform: scale(0);
+        transition:all 0.3s;
+      }
+      a:hover::before {
+        transform: scale(1);
+      }
+    }
+  }
 }
 
-#tap > p {
-  padding-left: 1.5rem;
-  color: white;
-  font-size: 8rem;
-  margin: 0;
-}
-
-#navigateBar {
-  list-style: none;
-  margin: 0; 
-  
-  
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  
-  -webkit-flex-flow: row wrap;
-  justify-content: flex-start;
-  height: 50px;
-
-}
-
-.singleNavigate a {
-  width:100%;/*设置元素宽为80px*/
-  height:35px;/*设置高度为28px*/
-  line-height:35px;/*设置行距为28px，让文字在每行的中间位置*/
-  color:#000;/*文字颜色是白色*/
-  font-size:20px;/*用12号字*/
-  display:block;/*这个比较关键，因为a本身就是联级元素，本身不具有宽高，用这个把它变成块级元素，这样前面设置的宽和高就能起作用了*/
-  text-align:center;/*让文本居中*/
-  text-decoration:none; /*去掉下划线*/
-  padding: 10px 10px 10px 10px;
-}
-
-.singleNavigate a:hover, .singleNavigate a:active {
-  line-height:28px;
-  border: solid #000;
-  border-width: 0 0 1px 0;
-}
 
 @media all and (max-width: 800px) {
   #navigateBar {
     justify-content: space-around;
   }
 }
-
-
 @media all and (max-width: 600px) {
   #tap {
     display: none;

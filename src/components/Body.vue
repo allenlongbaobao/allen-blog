@@ -40,11 +40,11 @@
 export default {
   items: [
     {
-      link: '/',
+      link: '/blog',
       content: 'Blog'
     },
     {
-      link: '/',
+      link: '/project',
       content: 'Project'
     },
     {
