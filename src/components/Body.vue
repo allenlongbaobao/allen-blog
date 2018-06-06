@@ -1,5 +1,5 @@
 <template>
-  <div class="wraper" :style="'height:' + clientHeight + 'px;'">
+  <div class="wraper">
     <div class="nav">
       <router-link class="title" to="/">Allen's House</router-link>
       <ul id="navigater">
@@ -8,17 +8,28 @@
         </li>
       </ul>
     </div>
-    <div class="left-part">
-      <img id="main-left-img" src="../../static/main-left-img.jpg" :style="'height:' + clientHeight + 'px;'">
+    <div class="image-and-intro">
+      <div class="left-part">
+        <img id="main-left-img" src="../../static/main-left-img.jpg" :style="'height:' + clientHeight + 'px;'">
+      </div>
+      <div class="right-part">
+        <p>Front-end Developer</p>
+        <p>Perpetually Mixing
+        </br>
+        <span class="bold">Function And Creation</span>
+        </p>
+        <p>Allways love searching feathure online and offline.I believe "Clean Code" drives Development and simple within logistic code makes world running better.</p>
+        <p>In short, analyze and practices make me more powerful!</p>
+      </div>
     </div>
-    <div class="right-part">
-      <p>Front-end Developer</p>
-      <p>Perpetually Mixing
-      </br>
-      <span class="bold">Function And Creation</span>
-      </p>
-      <p>Allways love searching feathure online and offline.I believe "Clean Code" drives Development and simple within logistic code makes world running better.</p>
-      <p>In short, analyze and practices make me more powerful!</p>
+    <div class="skill" :style="'height:' + clientHeight + 'px;'">
+      <p>My Stack</p>
+      <ul>
+        <li class="skill-item" v-for="(value, key) in skills">
+          <span>{{key}}</span>
+          <span>{{value}}</span>
+        </li>
+      </ul>
     </div>
     <div class="mask fade-out">
     </div>
@@ -38,13 +49,17 @@ export default {
     },
     {
       link: '/',
-      content: 'About'
-    },
-    {
-      link: '/',
       content: 'Contract'
     }
   ],
+  skills: {
+    'JavaScript': 'Vue, Vuex',
+    'Automation & Bunding': 'Webpack, Gulp',
+    'Server': 'Linux, Unix, Shell',
+    'Database': 'MongoDB, Redis, Mysql',
+    'Mobile': 'wx 小程序',
+    'Version Control': 'Git, Npm'
+  },
   data () {
   },
   watch () {
@@ -59,6 +74,9 @@ export default {
     },
     clientHeight: function () {
       return window.innerHeight
+    },
+    skills: function () {
+      return this.$options.skills
     }
   }
 }
@@ -70,11 +88,12 @@ export default {
 
 .wraper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   overflow: hidden;
+  height: 100%;
 
   .nav {
     position: absolute;
@@ -127,37 +146,79 @@ export default {
     }
   }
 
-  .left-part {
+  .image-and-intro {
     display: flex;
-    flex: .5;
-
-    img {
-      height: 100%;
-      flex: 1;
-    }
-
-  }
-
-  .right-part {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: .5;
-    background-color: black;
-    color: white;
     height: 100%;
 
+    .left-part {
+      display: flex;
+      flex: .5;
+
+      img {
+        height: 100%;
+        flex: 1;
+      }
+    }
+
+    .right-part {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: .5;
+      background-color: black;
+      color: white;
+
+      p {
+        font-family: 'Roboto-Bold', sans-serif;
+        font-size: 20px;
+        text-align: left;
+        width: 80%;
+      }
+
+      .bold {
+        font-size: 40px;
+      }
+    }
+  }
+
+  .skill {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
 
     p {
-      font-size: 20px;
-      text-align: left;
-      width: 80%;
+      font-size: 30px;
+      margin-top: 100px;
     }
 
-    .bold {
-      font-size: 40px;
+    ul {
+      list-style: none;
+      width: 80%;
+
+      .skill-item {
+        font-family: 'Roboto-Bold', sans-serif;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px 0 10px;
+        margin-bottom: .5px;
+        height: 60px;
+        font-size: 18px;
+        border-bottom: .5px solid rgba(244, 244, 244, .2);
+      }
+
+      .skill-item:hover {
+        background-color: rgb(36, 46, 229);
+        border-bottom: .5px solid rgb(36, 46, 229);
+      }
     }
+
+
   }
 
   .mask {
@@ -165,6 +226,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: black;
+    z-index: -1;
   }
 }
 
