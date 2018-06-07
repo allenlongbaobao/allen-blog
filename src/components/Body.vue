@@ -53,14 +53,12 @@ export default {
     }
   ],
   skills: {
-    'JavaScript': 'Vue, Vuex',
+    'JavaScript': 'Vue, Vuex, Vue Router, ES 6',
     'Automation & Bunding': 'Webpack, Gulp',
     'Server': 'Linux, Unix, Shell',
     'Database': 'MongoDB, Redis, Mysql',
     'Mobile': 'wx 小程序',
     'Version Control': 'Git, Npm'
-  },
-  data () {
   },
   watch () {
   },
@@ -217,7 +215,6 @@ export default {
         border-bottom: .5px solid rgb(36, 46, 229);
       }
     }
-
 
   }
 
