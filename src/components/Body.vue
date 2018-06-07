@@ -1,7 +1,10 @@
 <template>
   <div class="wraper">
     <div class="nav">
-      <router-link class="title" to="/">Allen's House</router-link>
+      <router-link class="title" to="/" tag="a">
+        <img src="../../static/logo.png">
+      Allen's House
+      </router-link>
       <ul id="navigater">
         <li class="singleNavigate" v-for="item in items">
           <router-link :to="item.link">{{ item.content }}</router-link>
@@ -107,6 +110,8 @@ export default {
       color: white;
       font-size: 30px;
       text-decoration: none;
+      display: flex;
+      align-items: center;
     }
 
     ul {
