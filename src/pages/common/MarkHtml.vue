@@ -5,11 +5,6 @@
 
 <script>
 export default {
-  data () {
-    return {
-
-    }
-  },
   props: {
     mhtml: String
   }
@@ -24,12 +19,15 @@ export default {
 }
 .markDiv>>>h1,h2{position:relative;padding-top:1rem;padding-bottom:0.2rem;margin-bottom:1rem;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC') bottom left repeat-x;}
 .markDiv>>>h2{padding-top:0.8rem;padding-bottom:0.2rem;}
-.markDiv>>>h1{ font-size: 1.6rem;}
-.markDiv>>>h2{ font-size: 1.4rem;}
-.markDiv>>>h3{ font-size: 1.2rem;}
-.markDiv>>>h4{ font-size: 1.1rem;}
-.markDiv>>>h5{ font-size: 1.0rem;}
-.markDiv>>>h6{ font-size: 0.9rem;}
+.markDiv>>>h1{ font-size: 2.6rem;}
+.markDiv>>>h2{ font-size: 2.4rem;}
+.markDiv>>>h3{ font-size: 2.2rem;}
+.markDiv>>>h4{ font-size: 2.0rem;}
+.markDiv>>>h5{ font-size: 1.8rem;}
+.markDiv>>>h6{ font-size: 1.6rem;}
+
+.markDiv>>>p{ font-size: 1.8rem;line-height: 2.6rem;}
+.markDiv>>>li{ font-size: 1.8rem; }
 
 .markDiv>>>table{border-collapse:collapse;border-spacing:0;
   margin-top: 0.8rem;
@@ -40,7 +38,7 @@ export default {
 .markDiv>>>th,td{padding: 5px 14px;
   border: 1px solid #ddd;}
 
-.markDiv>>>blockquote{font-style:italic;font-size:1.1em;line-height:1.5em;padding-left:1em; border-left:4px solid #D5D5D5;    margin-left: 0;
+.markDiv>>>blockquote{font-style:italic;font-size:1.3em;line-height:1.5em;padding-left:1em; border-left:4px solid #D5D5D5;    margin-left: 0;
     margin-right: 0;
     margin-bottom: 1.5rem; }
 
@@ -48,10 +46,10 @@ export default {
 
 .markDiv>>>pre,code,p code,li code{font-family:Menlo,Monaco,"Andale Mono","lucida console","Courier New",monospace}
 
-.markDiv>>>pre{-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;border:1px solid #e7dec3;line-height:1.45em;font-size:0.9rem;margin-bottom:2.1em;padding:.8em 1em;color:#586e75;overflow:auto; background-color:#fdf6e3;}
+.markDiv>>>pre{-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;border:1px solid #e7dec3;line-height:1.45em;font-size:1.5rem;margin-bottom:2.1em;padding:.8em 1em;color:#586e75;overflow:auto; background-color:#fdf6e3;}
 
-.markDiv>>>p code,li code{display:inline-block;white-space:no-wrap;background:#fff;font-size:0.9rem;line-height:1.5em;color:#555;border:1px solid #ddd;-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;padding:0 .3em;margin:-1px 4px;}
-.markDiv>>>p pre code,li pre code{font-size:1em !important;background:none;border:none}
+.markDiv>>>p code,li code{display:inline-block;white-space:no-wrap;background:#fff;font-size:1.5rem;line-height:1.5em;color:#555;border:1px solid #ddd;-webkit-border-radius:0.4em;-moz-border-radius:0.4em;-ms-border-radius:0.4em;-o-border-radius:0.4em;border-radius:0.4em;padding:0 .3em;margin:-1px 4px;}
+.markDiv>>>p pre code,li pre code{font-size:1.5em !important;background:none;border:none}
 
 .markDiv>>>img{max-width:100%;-webkit-border-radius:0.3em;-moz-border-radius:0.3em;-ms-border-radius:0.3em;-o-border-radius:0.3em;border-radius:0.3em;-webkit-box-shadow:rgba(0,0,0,0.15) 0 1px 4px;-moz-box-shadow:rgba(0,0,0,0.15) 0 1px 4px;box-shadow:rgba(0,0,0,0.15) 0 1px 4px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;border:#fff 0.5em solid}
 

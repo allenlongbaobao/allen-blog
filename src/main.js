@@ -25,7 +25,7 @@ Vue.component(Dialog.name, Dialog)
 Vue.component(Option.name, Option)
 //  Vue.use(VueResource)
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 /* eslint-disable no-new */
 
 router.beforeEach((to, from, next) => {

@@ -1,11 +1,10 @@
 <template>
   <div class="lab-container">
-    <div class="single-lab" v-show="labShow" v-for="lab in labs" v-on:click="showLab(lab.link)">
+    <div class="single-lab"  v-for="lab in labs" v-on:click="showLab(lab.link)">
       <p class="lab-name">{{lab.name}}</p>
       <img :src="lab.img" :alt="lab.name">
       <p class="lab--introduce">{{lab.introduce}}</p>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
@@ -13,7 +12,6 @@
 export default {
   data: function () {
     return {
-      labShow: true,
       labs: [
         {
           name: 'ReaderAssist',
@@ -42,7 +40,6 @@ export default {
   },
   methods: {
     showLab: function (e) {
-      this.labShow = false
       this.$router.push({name: e})
     }
   }

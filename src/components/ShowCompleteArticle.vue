@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Marked from 'marked'
 import markHtml from '../pages/common/MarkHtml'
 import env from '../../config/dev.env.js'
@@ -70,11 +71,12 @@ export default {
   },
   methods: {
     getArticleById: function (id) {
-      this.$http.post(IP + '/api/getArticleById', {id: id}).then(response => {
-        this.article = response.body.data.articleContent
-        this.articleName = response.body.data.articleName
+      axios.post(IP + '/api/getArticleById', {id: id}).then(response => {
         console.log(response)
-        this.publishAt = this.getPublishAt(response.body.data.publishAt)
+        this.article = response.data.data.articleContent
+        this.articleName = response.data.data.articleName
+        console.log(response)
+        this.publishAt = this.getPublishAt(response.data.data.publishAt)
       }).catch(error => {
         console.log(error)
       })
@@ -90,9 +92,9 @@ export default {
       return Marked(this.article)
     },
     showComment: function () {
-      this.$http.post(IP + '/api/getAllComments', {id: this.id}).then(response => {
+      axios.post(IP + '/api/getAllComments', {id: this.id}).then(response => {
         console.log(response.body)
-        this.comments = response.body.data
+        this.comments = response.data.data
       }).catch(error => {
         console.log(error)
       })
@@ -119,7 +121,7 @@ export default {
         disNum: 0,
         childComment: []
       }
-      this.$http.post(IP + '/api/addComment', data).then(response => {
+      axios.post(IP + '/api/addComment', data).then(response => {
         this.comments.unshift(response.data.data)
         user.value = ''
         content.value = ''
@@ -135,8 +137,8 @@ export default {
         let data = {
           cid: e.target.title
         }
-        this.$http.post(IP + '/api/addLikeToComment', data).then(response => {
-          e.target.nextElementSibling.innerHTML = response.body.data
+        axios.post(IP + '/api/addLikeToComment', data).then(response => {
+          e.target.nextElementSibling.innerHTML = response.data.data
         })
         e.target.alt = '0'
       } else {
@@ -144,8 +146,8 @@ export default {
         let data = {
           cid: e.target.title
         }
-        this.$http.post(IP + '/api/removeLikeFromComment', data).then(response => {
-          e.target.nextElementSibling.innerHTML = response.body.data
+        axios.post(IP + '/api/removeLikeFromComment', data).then(response => {
+          e.target.nextElementSibling.innerHTML = response.data.data
         })
         e.target.alt = '1'
       }
