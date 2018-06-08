@@ -11,7 +11,7 @@
   export default{
     data () {
       return {
-        msg: 'Copyright (c) 2018 allen Wang All Rights Reserved.'
+        msg: 'Copyright (c) 2018 All Rights Reserved. 浙ICP备18024661号-1'
       }
     }
   }
