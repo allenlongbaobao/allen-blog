@@ -37,7 +37,7 @@ export default {
             }
           },
           {
-            src: 'static/youandme.jpg',
+            src: 'static/Valentine.png',
             link: 'Valentine',
             tagName: 'Valentine',
             tagStyle: {

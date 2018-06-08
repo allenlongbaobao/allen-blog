@@ -97,6 +97,8 @@ export default {
     })
     //  this.showPostcard() // 明信片
   },
+  beforeDestoryed () {
+  },
   methods: {
     initBackground: function () {
       this.can = document.getElementById('canvas')

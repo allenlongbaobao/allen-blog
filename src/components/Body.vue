@@ -25,7 +25,7 @@
         <p>In short, analyze and practices make me more powerful!</p>
       </div>
     </div>
-    <div class="skill" :style="'height:' + clientHeight + 'px;'">
+    <div class="skill" :style="'height:' + clientHeight + 'px;' + 'margin-bottom:' + clientHeight*.69 + 'px;'">
       <p>My Stack</p>
       <ul>
         <li class="skill-item" v-for="(value, key) in skills">
@@ -33,6 +33,17 @@
           <span>{{value}}</span>
         </li>
       </ul>
+    </div>
+    <div class="bottom" :style="'height:' + clientHeight*.7 + 'px;'">
+      <ul>
+        <li class="account-item" v-for="item in accounts">
+          <a target="_blank" :href="item.link">
+            <img class="account-icon" :src="item.src" alt="item.name">
+            <span></span>
+          </a>
+        </li>
+      </ul>
+      <p>浙ICP备18024661号-1</p>
     </div>
     <div class="mask fade-out">
     </div>
@@ -49,10 +60,6 @@ export default {
     {
       link: '/project',
       content: 'Project'
-    },
-    {
-      link: '/',
-      content: 'Contract'
     }
   ],
   skills: {
@@ -63,6 +70,23 @@ export default {
     'Mobile': 'wx 小程序',
     'Version Control': 'Git, Npm'
   },
+  accounts: [
+    {
+      name: 'gmail',
+      link: 'mailto:allenwangyu0311@gmail.com',
+      src: '../../static/gmail.png'
+    },
+    {
+      name: 'github',
+      link: 'https://www.github.com/allenlongbaobao',
+      src: '../../static/github.png'
+    },
+    {
+      name: 'stackoverflow',
+      link: 'https://stackoverflow.com/users/2922289/allen-wang',
+      src: '../../static/stack-overflow.png'
+    }
+  ],
   watch () {
   },
   created () {
@@ -78,6 +102,9 @@ export default {
     },
     skills: function () {
       return this.$options.skills
+    },
+    accounts: function () {
+      return this.$options.accounts
     }
   }
 }
@@ -104,6 +131,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+    z-index: 1000;
 
     .title {
       font-family: 'Lobster', cursive;
@@ -152,6 +180,7 @@ export default {
   .image-and-intro {
     display: flex;
     height: 100%;
+    z-index: 100;
 
     .left-part {
       display: flex;
@@ -193,6 +222,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    z-index: 100;
 
     p {
       font-size: 30px;
@@ -220,7 +250,53 @@ export default {
         border-bottom: .5px solid rgb(36, 46, 229);
       }
     }
+  }
+  .bottom {
+    background-color: rgb(50, 50, 50);
+    bottom: 0;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
+
+    ul {
+      flex:.7;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 30%;
+      z-index: 1;
+
+      .account-item {
+        a {
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+
+          .account-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            opacity: .5;
+          }
+
+          .account-icon:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    p {
+      flex: .1;
+      color: white;
+      opacity: .8;
+    }
   }
 
   .mask {

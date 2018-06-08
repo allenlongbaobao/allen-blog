@@ -4,6 +4,7 @@
     <span>{{publishAt}}</span>
     <hr style="border: 1px solid #36" />
     <markHtml :mhtml="compiledMarkdown"></markHtml>
+    <!--
     <div class="comment">
       <hr style="border:1px solid #036;clear:both;" />
       <span class="comment-title">评论(共有{{comments.length}}条评论)</span>
@@ -37,6 +38,7 @@
         <hr style="border:.5px solid rgb(179,183,193);clear:both;" />
       </div>
     </div>
+    !-->
   </div>
 </template>
 

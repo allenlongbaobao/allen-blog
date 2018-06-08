@@ -23,10 +23,6 @@ export default {
         {
           link: '/project',
           content: 'Project'
-        },
-        {
-          link: '/',
-          content: 'Contract'
         }
         /*
         ,
