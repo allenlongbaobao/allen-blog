@@ -18,6 +18,7 @@ export default {
           borderRadius: '20px'
         },
         image: [
+        /*
           {
             src: 'static/readerAssist.png',
             link: 'ReaderAssist',
@@ -27,6 +28,7 @@ export default {
               fontSize: '20px'
             }
           },
+        */
           {
             src: 'static/rangeClear.png',
             link: 'RangeClear',
@@ -37,7 +39,16 @@ export default {
             }
           },
           {
-            src: 'static/Valentine.png',
+            src: 'static/shop-snap.png',
+            link: 'VueShop',
+            tagName: 'VueShop',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          },
+          {
+            src: 'static/Valentine.jpg',
             link: 'Valentine',
             tagName: 'Valentine',
             tagStyle: {

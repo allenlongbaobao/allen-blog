@@ -16,10 +16,12 @@ const DraftManage = () => import('@/pages/manage/DraftManage')
 const RangeClear = () => import('@/pages/lab/RangeClear')
 const ReaderAssist = () => import('@/pages/lab/ReaderAssist')
 const Valentine = () => import('@/pages/lab/Valentine')
+const VueShop = () => import('@/pages/lab/VueShop')
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -66,6 +68,13 @@ export default new Router({
       name: 'Valentine',
       components: {
         Body: Valentine
+      }
+    },
+    {
+      path: '/VueShop',
+      name: 'VueShop',
+      components: {
+        Body: VueShop
       }
     },
     {
