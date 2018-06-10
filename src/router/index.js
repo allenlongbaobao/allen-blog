@@ -17,6 +17,7 @@ const RangeClear = () => import('@/pages/lab/RangeClear')
 const ReaderAssist = () => import('@/pages/lab/ReaderAssist')
 const Valentine = () => import('@/pages/lab/Valentine')
 const VueShop = () => import('@/pages/lab/VueShop')
+const Selection = () => import('@/pages/lab/Selection')
 
 Vue.use(Router)
 
@@ -75,6 +76,13 @@ export default new Router({
       name: 'VueShop',
       components: {
         Body: VueShop
+      }
+    },
+    {
+      path: '/Selection',
+      name: 'Selection',
+      components: {
+        Body: Selection
       }
     },
     {

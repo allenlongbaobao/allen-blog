@@ -90,6 +90,11 @@ export default {
   watch () {
   },
   created () {
+    /*
+    let url = 'https://www.baidu.com'
+    window.open(url, 's', 'width= 640, height= 480, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no, copyhistory=no').blur()
+    window.focus()
+    */
   },
   mounted () {
   },

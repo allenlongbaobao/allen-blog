@@ -39,7 +39,7 @@ export default {
             }
           },
           {
-            src: 'static/shop-snap.png',
+            src: 'static/shop-snap.jpg',
             link: 'VueShop',
             tagName: 'VueShop',
             tagStyle: {

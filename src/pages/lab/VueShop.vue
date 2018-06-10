@@ -1,7 +1,7 @@
 <template>
 	<div class="vue-shop">
     <div class="image">
-      <img src="../../../static/shop-snap.png">
+      <img src="../../../static/shop-snap.jpg">
     </div>
 		<div class="introduce">
 			<div class="left-part">
