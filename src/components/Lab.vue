@@ -55,6 +55,15 @@ export default {
               color: 'white',
               fontSize: '20px'
             }
+          },
+          {
+            src: 'static/selection.jpg',
+            link: 'Selection',
+            tagName: 'Selection',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
           }
         ],
         interval: 1000,

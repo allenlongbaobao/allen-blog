@@ -40,7 +40,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   /* Basic reset */
   *,
   *:before,

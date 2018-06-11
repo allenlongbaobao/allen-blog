@@ -85,18 +85,22 @@
         // Ignore right clicks
         if (event.button === 2) return
 
-        // If existed selected items
-        if (this.selectedItems.length) {
-          if (event.target.classList.contains('active')) {
-            this.selectedItems.length = 0
+        // If ctrl or command key down
+        if (event.ctrlKey || event.metaKey) {
+          !this.selectedItems.includes(event.target) ? this.selectedItems.push(event.target) : this.selectedItems.splice(this.selectedItems.indexOf(event.target), 1)
+        } else {
+          // If existed selected items
+          if (this.selectedItems.length) {
+            if (event.target.classList.contains('active')) {
+              this.selectedItems.length = 0
+            } else {
+              this.selectedItems.length = 0
+              this.selectedItems.push(event.target)
+            }
           } else {
-            this.selectedItems.length = 0
             this.selectedItems.push(event.target)
           }
-        } else {
-          this.selectedItems.push(event.target)
         }
-
         // Register begin point
         this.mouseDown = true
         this.startPoint = {
