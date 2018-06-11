@@ -1,48 +1,89 @@
 <template>
   <div class="lab-container">
-    <div class="single-lab" v-show="labShow" v-for="lab in labs" v-on:click="showLab(lab.link)">
-      <p class="lab-name">{{lab.name}}</p>
-      <img :src="lab.img" :alt="lab.name">
-      <p class="lab--introduce">{{lab.introduce}}</p>
-    </div>
-    <router-view></router-view>
+    <slider v-bind="setting" @view="showLab"></slider>
   </div>
 </template>
 
 <script>
+import slider from '@/pages/common/slider.vue'
+//  import slider from 'vue-image-scroll'
 export default {
+
   data: function () {
     return {
-      labShow: true,
-      labs: [
-        {
-          name: 'ReaderAssist',
-          link: 'ReaderAssist',
-          img: '/static/readerAssist.png',
-          introduce: 'a tool for reader add marks and words in web'
+      setting: {
+        styleObject: {
+          width: '750',
+          height: '450',
+          borderRadius: '20px'
         },
-        {
-          name: 'RangeClear',
-          link: 'RangeClear',
-          img: '/static/rangeClear.png',
-          introduce: 'a game showed in best brain'
+        image: [
+        /*
+          {
+            src: 'static/readerAssist.png',
+            link: 'ReaderAssist',
+            tagName: 'a tool for reader add marks and words in web',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          },
+        */
+          {
+            src: 'static/rangeClear.png',
+            link: 'RangeClear',
+            tagName: 'RangeClear',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          },
+          {
+            src: 'static/shop-snap.jpg',
+            link: 'VueShop',
+            tagName: 'VueShop',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          },
+          {
+            src: 'static/Valentine.jpg',
+            link: 'Valentine',
+            tagName: 'Valentine',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          },
+          {
+            src: 'static/selection.jpg',
+            link: 'Selection',
+            tagName: 'Selection',
+            tagStyle: {
+              color: 'white',
+              fontSize: '20px'
+            }
+          }
+        ],
+        interval: 1000,
+        imgStyle: {
+          borderRadius: '20px'
         },
-        {
-          name: '情人节',
-          link: 'Valentine',
-          img: '/static/youandme.jpg',
-          introduce: "a Valentine's gift for my JX"
-        }
-      ]
+        autoRoll: false,
+        direction: 'right'
+      }
     }
   },
   created () {
   },
   update () {
   },
+  components: {
+    slider: slider
+  },
   methods: {
     showLab: function (e) {
-      this.labShow = false
       this.$router.push({name: e})
     }
   }
@@ -52,44 +93,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .lab-container {
-  clear: both;
-  height: auto;
-  padding-bottom: 30px;
   display: flex;
   justify-content: center;
-}
-
-.lab-container:after {
-  content: '';
-  display: block;
-  clear: both;
-  visibility: hidden;
-}
-
-.single-lab {
-  width: 300px;
-  height: 300px;
-  float: left;
-  margin-left: 20px;
-  margin-top: 30px;
-  top: 20px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.single-lab:hover {
-  border-radius:25px;
-  border: #aaa 1px dashed;  
-  box-shadow:inset 0 -5px 8px -7px rgba(81, 81,81,0.8);
-}
-
-.single-lab > img {
-  width: 160px;
-  height: 200px;
-}
-
-.lab--introduce {
-  top: 250px;
+  align-items: center;
+  height: 100%;
+  margin-top: 20px;
 }
 
 @media all and (max-width: 600px) {

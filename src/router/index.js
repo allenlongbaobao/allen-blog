@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const Head = () => import('@/components/Head')
-//  const Body = () => import('@/components/Body')
+const Body = () => import('@/components/Body')
 const Foot = () => import('@/components/Foot')
 const Article = () => import('@/components/Article')
 const Lab = () => import('@/components/Lab')
@@ -16,23 +16,24 @@ const DraftManage = () => import('@/pages/manage/DraftManage')
 const RangeClear = () => import('@/pages/lab/RangeClear')
 const ReaderAssist = () => import('@/pages/lab/ReaderAssist')
 const Valentine = () => import('@/pages/lab/Valentine')
+const VueShop = () => import('@/pages/lab/VueShop')
+const Selection = () => import('@/pages/lab/Selection')
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'mainPage',
       components: {
-        Head: Head,
-        Body: Article,
-        Foot: Foot
+        Body: Body
       }
     },
     {
-      path: '/article',
-      name: 'article',
+      path: '/blog',
+      name: 'blog',
       meta: {keepAlive: true},
       components: {
         Head: Head,
@@ -71,8 +72,22 @@ export default new Router({
       }
     },
     {
-      path: '/lab',
-      name: 'lab',
+      path: '/VueShop',
+      name: 'VueShop',
+      components: {
+        Body: VueShop
+      }
+    },
+    {
+      path: '/Selection',
+      name: 'Selection',
+      components: {
+        Body: Selection
+      }
+    },
+    {
+      path: '/project',
+      name: 'project',
       components: {
         Head: Head,
         Body: Lab,

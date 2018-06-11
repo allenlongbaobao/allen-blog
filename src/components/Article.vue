@@ -1,4 +1,4 @@
-<template v-if="$route.meta.keepAlive">
+<template>
   <div id="artcicle">
     <!--
     <div id="article_content" v-html="compiledMarkdown"></div>
@@ -34,8 +34,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Resource from 'vue-resource'
+import axios from 'axios'
 import marked from 'marked'
 import highlightjs from 'highlightjs'
 import treeList from './treeList'
@@ -45,7 +44,6 @@ import _ from 'lodash'
 import env from '../../config/dev.env.js'
 let IP = env.SERVER_IP
 
-Vue.use(Resource)
 marked.setOptions({
   renderer: new marked.Renderer(),
   highlight: function (code, lang, callback) {
@@ -77,14 +75,14 @@ export default {
   },
   methods: {
     getArticleList: function () {
-      this.$http.get(IP + '/api/getArticleList').then(response => {
+      axios.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
         this.articleList.unshift({_id: 'all', name: 'All'})
         console.log(this.articleList)
       })
     },
     getAllArticle: function () {
-      this.$http.get(IP + '/api/getAllArticle').then(response => {
+      axios.get(IP + '/api/getAllArticle').then(response => {
         this.notLoaded = false
         this.articles = _.remove(response.data.data, n => {
           return n.publish === true
@@ -97,7 +95,7 @@ export default {
       if (id === 'all') {
         this.getAllArticle()
       } else {
-        this.$http.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
+        axios.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
           this.articles = response.data.data
         })
       }
@@ -106,7 +104,7 @@ export default {
       this.getArticleAndShow(link)
     },
     getArticleAndShow: function (link) {
-      this.$http.get(IP + '/api/articles/' + link).then(response => {
+      axios.get(IP + '/api/articles/' + link).then(response => {
         let mdData = response.body.data
         let htmlData = marked(mdData)
         this.files = htmlData
@@ -117,7 +115,7 @@ export default {
     openCompleteArticle: function (article) {
     },
     addVisitedNum: function () {
-      this.$http.get(IP + '/api/addVisitedNum', {withCredentials: true}).then(response => {
+      axios.get(IP + '/api/addVisitedNum', {withCredentials: true}).then(response => {
       })
     }
   },

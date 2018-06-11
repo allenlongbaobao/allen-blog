@@ -33,7 +33,9 @@
 
 <script>
 import config from '../../../config/dev.env'
+import axios from 'axios'
 let IP = config.SERVER_IP
+
 export default {
   data () {
     return {
@@ -60,16 +62,15 @@ export default {
   },
   methods: {
     getArticleNum: function () {
-      this.$http.get(IP + '/api/getPublishArticleNum').then(response => {
+      axios.get(IP + '/api/getPublishArticleNum').then(response => {
         this.articleNum = response.data.data
       }).catch(err => {
         console.log('err:', err)
       })
     },
     getVisitedNum: function () {
-      this.$http.get(IP + '/api/getVisitedNum').then(response => {
-        console.log(response.body.data)
-        this.visitedNum = response.body.data
+      axios.get(IP + '/api/getVisitedNum').then(response => {
+        this.visitedNum = response.data.data
       })
     }
   }
