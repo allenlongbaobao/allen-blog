@@ -3,7 +3,7 @@
     <h1>{{articleInfo.articleName}}</h1>
     <span>{{publishAt}}</span>
     <mark-html class="partContent" :mhtml="compiledMarkdown"></mark-html>
-    <router-link :to="{name: 'showCompleteArticle', params:{id: articleInfo._id}}"><el-button type="primary" @click="openCompleteArticle">查看原文</el-button></router-link>
+    <router-link :to="{name: 'showCompleteArticle', params:{id: articleInfo._id}}"><el-button type="primary" >查看原文</el-button></router-link>
     <hr style="border:1px dashed #036" />
   </div>
 </template>
