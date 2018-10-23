@@ -83,10 +83,10 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     this.addVisitedNum()
-    this.fetchBlogs()
     this.fetchArticleList()
+    this.fetchBlogs()
     this.articles = this.$store.state.articles
   },
   computed: {

@@ -4,15 +4,12 @@ export default {
   fetchBlogs (context) {
     if (window.localStorage.articles) {
       context.state.articles = JSON.parse(window.localStorage.articles)
-      console.log(context.state.articles)
       context.commit('changeLoadedState')
     } else {
       api.getAllArticle().then(articles => {
         context.state.articles = articles
         window.localStorage.articles = JSON.stringify(articles)
         context.commit('changeLoadedState')
-      }).catch(err => {
-        console.log(err)
       })
     }
   },

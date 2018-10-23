@@ -2,14 +2,13 @@
   <div class="item">
     <h1>{{articleInfo.articleName}}</h1>
     <span>{{publishAt}}</span>
-    <mark-html class="partContent" :mhtml="compiledMarkdown"></mark-html>
     <router-link :to="{name: 'showCompleteArticle', params:{id: articleInfo._id}}"><el-button type="primary" >查看原文</el-button></router-link>
-    <hr style="border:1px dashed #036" />
+    <hr style="border:1px solid #036" />
   </div>
 </template>
 
 <script>
-import Marked from 'marked'
+//  import Marked from 'marked'
 import markHtml from '../common/MarkHtml'
 
 export default {
@@ -26,7 +25,8 @@ export default {
   },
   computed: {
     compiledMarkdown: function () {
-      return Marked(this.articleInfo.articleContent)
+      // return Marked(this.articleInfo.articleContent)
+      return 'aaa'
     }
   },
   mounted () {
