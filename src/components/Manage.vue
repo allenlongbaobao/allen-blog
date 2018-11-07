@@ -34,6 +34,7 @@
 
 <script>
 import env from '../../config/dev.env.js'
+import axios from 'axios'
 let IP = env.SERVER_IP
 
 export default {
@@ -47,6 +48,7 @@ export default {
   },
   created () {
     this.manage().then((user) => {
+      console.log('user', user)
       this.masterShow = false
       this.bodyShow = true
       this.user = user
@@ -57,7 +59,7 @@ export default {
   },
   methods: {
     manage: function () {
-      return this.$http.post(
+      return axios.post(
         IP + '/api/signIn',
         {},
         {
@@ -67,8 +69,10 @@ export default {
           }
         }
       ).then(response => {
-        return response.body.data
+        console.log('response', response)
+        return response.data.data
       }).catch(err => {
+        console.log('err', err)
         throw new Error(err.body.data)
       })
     },
@@ -77,7 +81,7 @@ export default {
       this.$router.push({name: 'article'})
     },
     signOut: function () {
-      this.$http.post(IP + '/api/signOut', {}, {withCredentials: true}).then(response => {
+      axios.post(IP + '/api/signOut', {}, {withCredentials: true}).then(response => {
         this.$router.push({name: 'article'})
       })
     }

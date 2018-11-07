@@ -33,6 +33,7 @@
 <script>
 import _ from 'lodash'
 import env from '../../../config/dev.env.js'
+import axios from 'axios'
 let IP = env.SERVER_IP
 
 export default {
@@ -46,7 +47,7 @@ export default {
     }
   },
   created () {
-    this.$http.get(IP + '/api/getArticleList').then(response => {
+    axios.get(IP + '/api/getArticleList').then(response => {
       this.tableData = response.data.data
       console.log('tableData', this.tableData)
     }).catch(err => {
@@ -60,7 +61,7 @@ export default {
       if (e.articleNum > 0) {
         alert('该文章集内还有文章')
       } else {
-        this.$http.post(IP + '/api/removeArticleList', {_id: e._id}).then(response => {
+        axios.post(IP + '/api/removeArticleList', {_id: e._id}).then(response => {
           this.tableData = this.tableData.filter(t => {
             return t._id !== response.body.data._id
           })
@@ -76,7 +77,7 @@ export default {
 
       if (!ifExitedName && this.form.name !== '') {
         this.dialogFormVisible = false
-        this.$http.post(IP + '/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
+        axios.post(IP + '/api/addArticleList', {name: this.form.name, articleNum: 0}).then(response => {
           this.tableData.push(response.data.data)
         }, response => {
         })

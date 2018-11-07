@@ -97,6 +97,7 @@ span {
   padding-top: 30px;
   width: 120px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .github__userinfo>a{

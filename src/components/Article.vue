@@ -83,10 +83,10 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
     this.addVisitedNum()
     this.fetchArticleList()
-    this.fetchBlogs()
+    await this.fetchBlogs()
     this.articles = this.$store.state.articles
   },
   computed: {
@@ -159,7 +159,7 @@ code {
   padding: 10px 5px 10px 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 #article_content ul {
