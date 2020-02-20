@@ -53,45 +53,45 @@ export default {
     this.getMusic()
     this.initBackground()
     this.draw(this.particles)
-    this.context = '亲爱的，我来晚了'
+    this.context = 'Text'
     this.showPicture().then(resolve => {
       this.context = "HAPPY Valentine's day"
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = 'To:JX晶晶，情人节快乐！'
+      this.context = 'text'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '是不是以为我不理你，哈哈'
+      this.context = 'xxxxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '昨天一天都在做这个'
+      this.context = 'text'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '纯手工撸的，弱弱的哈哈'
+      this.context = 'xxxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '不知道你看到会不会笑一笑呢'
+      this.context = 'xxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '抱歉不能陪在你身边'
+      this.context = 'xxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '但是请你相信，我一直很爱你！'
+      this.context = 'xxxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '爱你的，瑜'
+      this.context = 'xxx'
       this.clearAnimation()
       return this.showPicture()
     }).then(resolve => {
-      this.context = '永远开心，比心~~'
+      this.context = 'xxxx'
       this.clearAnimation()
       this.showPicture()
     })

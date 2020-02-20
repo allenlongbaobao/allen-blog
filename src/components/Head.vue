@@ -23,11 +23,11 @@ export default {
         {
           link: '/project',
           content: 'Project'
-        },
-        {
-          link: '/manage',
-          content: 'Manage'
         }
+        // {
+        //   link: '/manage',
+        //   content: 'Manage'
+        // }
       ]
     }
   },
