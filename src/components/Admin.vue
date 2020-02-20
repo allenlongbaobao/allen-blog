@@ -3,10 +3,10 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
-          <!--
+        <!--
           <el-button type="button" @click="toggleSignIn">登陆</el-button>
           <el-button type="button" @click="toggleSignUp">注册</el-button>
-          -->
+        !-->
         </div>
         <div class="modal-body">
           <transition name="fade">
@@ -47,6 +47,7 @@
 
 <script>
 import env from '../../config/dev.env.js'
+import axios from 'axios'
 let IP = env.SERVER_IP
 
 export default {
@@ -141,7 +142,7 @@ export default {
         email: this.signUpForm.email,
         createAt: new Date()
       }
-      return this.$http.post(IP + '/api/signUp', data, {
+      return axios.post(IP + '/api/signUp', data, {
         withCredentials: true
       }).then(response => {
         return response.data
@@ -154,7 +155,7 @@ export default {
         username: this.signInForm.username,
         password: this.signInForm.pass
       }
-      return this.$http.post(IP + '/api/signIn', data, {
+      return axios.post(IP + '/api/signIn', data, {
         withCredentials: true
       }).then(response => {
         return response.data

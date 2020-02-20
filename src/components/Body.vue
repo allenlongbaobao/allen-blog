@@ -63,9 +63,9 @@ export default {
     }
   ],
   skills: {
-    'JavaScript': 'Vue, Vuex, Vue Router, ES 6',
+    'JavaScript': 'Angular 7, React, TypeScript, Vue, Vuex, Vue Router, ES 6',
     'Automation & Bunding': 'Webpack, Gulp',
-    'Server': 'Linux, Unix, Shell',
+    'Server': 'Linux, Unix, Shell, Node.js, Go',
     'Database': 'MongoDB, Redis, Mysql',
     'Mobile': 'wx 小程序',
     'Version Control': 'Git, Npm'

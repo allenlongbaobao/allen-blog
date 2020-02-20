@@ -23,6 +23,7 @@
 import editor from './editor'
 import _ from 'lodash'
 import env from '../../../config/dev.env.js'
+import axios from 'axios'
 let IP = env.SERVER_IP
 
 export default {
@@ -65,7 +66,7 @@ export default {
       从服务器获取文章集列表
     */
     getArticleList: function () {
-      this.$http.get(IP + '/api/getArticleList').then(response => {
+      axios.get(IP + '/api/getArticleList').then(response => {
         this.articleList = response.data.data
       })
     },
@@ -73,7 +74,7 @@ export default {
       获取所有文章信息
     */
     getAllArticle: function () {
-      this.$http.get(IP + '/api/getAllArticle').then(response => {
+      axios.get(IP + '/api/getAllArticle').then(response => {
         this.tableData = _.remove(response.data.data, n => {
           return n.publish === false
         })
@@ -94,7 +95,7 @@ export default {
       this.editorShow = true
     },
     removeArticle: function (e) {
-      this.$http.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
+      axios.post(IP + '/api/removeArticle', {_id: e._id}).then(response => {
       }).catch(err => {
         console.log(err)
       }).then(this.getAllArticle)
@@ -103,7 +104,7 @@ export default {
       console.log('it will save')
     },
     publish: function (article) {
-      this.$http.post(IP + '/api/addOrModifyArticle', article).then(response => {
+      axios.post(IP + '/api/addOrModifyArticle', article).then(response => {
         this.editorShow = false
       }, response => {
         console.log(response)

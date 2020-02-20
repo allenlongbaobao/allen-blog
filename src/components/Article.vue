@@ -3,7 +3,6 @@
     <!--
     <div id="article_content" v-html="compiledMarkdown"></div>
     -->
-
     <div class="list-container">
       <ul>
         <li class="article__articlelist" v-for="item in articleList">
@@ -13,7 +12,7 @@
     </div>
     <el-container>
       <el-main id="article_content">
-        <div class="beforeLoaded" v-show="notLoaded">
+        <div class="beforeLoaded" v-show="!Loaded">
           <div class="ball-pulse-sync">
             <div></div>
             <div></div>
@@ -22,7 +21,7 @@
         </div>
         <ul>
           <li v-for="item in articles">
-            <article-item :articleInfo="item" @openCompleteArticle="openCompleteArticle"></article-item>
+            <article-item :articleInfo="item"></article-item>
           </li>
         </ul>
       </el-main>
@@ -34,15 +33,11 @@
 </template>
 
 <script>
-import axios from 'axios'
 import marked from 'marked'
+import {mapActions, mapGetters} from 'vuex'
 import highlightjs from 'highlightjs'
-import treeList from './treeList'
 import articleItem from '../pages/article/articleItem'
 import articleSide from '../pages/article/articleSide'
-import _ from 'lodash'
-import env from '../../config/dev.env.js'
-let IP = env.SERVER_IP
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -62,79 +57,46 @@ export default {
   data () {
     return {
       files: '',
-      menu: [],
-      articles: [],
-      articleList: [],
-      notLoaded: true
+      articles: []
     }
   },
   components: {
-    treeList,
     articleItem,
     articleSide
   },
   methods: {
-    getArticleList: function () {
-      axios.get(IP + '/api/getArticleList').then(response => {
-        this.articleList = response.data.data
-        this.articleList.unshift({_id: 'all', name: 'All'})
-        console.log(this.articleList)
-      })
-    },
-    getAllArticle: function () {
-      axios.get(IP + '/api/getAllArticle').then(response => {
-        this.notLoaded = false
-        this.articles = _.remove(response.data.data, n => {
-          return n.publish === true
-        })
-      }).catch(err => {
-        console.log('getAllArticle err:', err)
-      })
-    },
+    ...mapActions({
+      fetchBlogs: 'fetchBlogs',
+      fetchArticleList: 'fetchArticleList',
+      addVisitedNum: 'addVisitedNum'
+    }),
+    ...mapGetters({
+      getArticleContent: 'getArticleContent'
+    }),
     showArticleInList: function (id) {
       if (id === 'all') {
-        this.getAllArticle()
+        this.articles = this.$store.state.articles
       } else {
-        axios.post(IP + '/api/getPublishArticleInOneListById', {id: id}).then(response => {
-          this.articles = response.data.data
+        this.articles = this.$store.state.articles.filter(article => {
+          return article.articleList.Lid === id
         })
       }
-    },
-    toggleArticle: function (link) {
-      this.getArticleAndShow(link)
-    },
-    getArticleAndShow: function (link) {
-      axios.get(IP + '/api/articles/' + link).then(response => {
-        let mdData = response.body.data
-        let htmlData = marked(mdData)
-        this.files = htmlData
-      }, response => {
-        console.log(response)
-      })
-    },
-    openCompleteArticle: function (article) {
-    },
-    addVisitedNum: function () {
-      axios.get(IP + '/api/addVisitedNum', {withCredentials: true}).then(response => {
-      })
     }
   },
-  created () {
-    console.log(this.articles[0])
-    console.log(this.articleList[0])
-    if (this.articles[0] === undefined || this.articleList[0] === undefined) {
-      console.log('页面未加载成功')
-    } else {
-      console.log('页面加载完毕')
-    }
+  async mounted () {
     this.addVisitedNum()
-    this.getAllArticle()
-    this.getArticleList()
+    this.fetchArticleList()
+    await this.fetchBlogs()
+    this.articles = this.$store.state.articles
   },
   computed: {
     compiledMarkdown: function () {
       return this.files
-    }
+    },
+    ...mapGetters({
+      articleList: 'getArticleList',
+      Loaded: 'getLoadedState'
+    })
   }
 }
 </script>
@@ -197,7 +159,7 @@ code {
   padding: 10px 5px 10px 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 #article_content ul {
